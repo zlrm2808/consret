@@ -3,7 +3,7 @@
 /* BASIC */
 
 html {
-  background-color: #56baed;
+  background-color: #C2C2C2;
 }
 
 body {
@@ -12,7 +12,7 @@ body {
 }
 
 a {
-  color: #92badd;
+  color: #4747f3;
   display:inline-block;
   text-decoration: none;
   font-weight: 400;
@@ -78,15 +78,19 @@ h2.active {
   border-bottom: 2px solid #5fbae9;
 }
 
+span {
+  font-size: 11px;
+  text-align: center;
+}
 
 
 /* FORM TYPOGRAPHY*/
 
 input[type=button], input[type=submit], input[type=reset]  {
-  background-color: #56baed;
+  background-color: #001931;
   border: none;
   color: white;
-  padding: 15px 80px;
+  padding: 15px 30px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -264,4 +268,65 @@ input[type=text]:placeholder {
 
 * {
   box-sizing: border-box;
+}
+
+.contenedor-top {
+  display: flex;
+  width: 100%;
+}
+
+.logo-vog {
+  width: 33.3%;
+  height: 100px;
+  text-align: left;
+  color: #84776A;
+}
+
+.logo-vog h5 {
+  margin-top: 5px;
+  margin-left: 25px;
+}
+
+.logo-empresa {
+  width: 33.3%;
+  height: 100px;
+  text-align: center;
+}
+
+.login {
+  width: 33.3%;
+  height: 100px;
+  text-align: right;
+  margin-top: 20px;
+  padding-right: 10px;
+}
+
+.contenedor-mid {
+  display: flex;
+  width: 100%;
+  height: 300px;
+}
+
+.izquierdo {
+  width: 20%;
+}
+
+.descripcion {
+  width: 60%;
+  padding: 40px;
+}
+
+.descripcion p {
+  margin-top: 80px;
+  color: #84776A;
+}
+
+.derecho {
+  width: 20%;
+}
+
+.contenedor-bot {
+  display: flex;
+  width: 100%;
+  height: 300px;
 }

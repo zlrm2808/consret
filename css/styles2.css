@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+/* BASIC */
+
+html {
+    background-color: #C2C2C2;
+}
+
+.contenedor-top {
+    display: flex;
+    width: 100%;
+}
+
+.logo-vog {
+    width: 33.3%;
+    height: 100px;
+    text-align: left;
+    color:#84776A;
+}
+
+.logo-vog h5 {
+    margin-top: 5px;
+    margin-left: 25px;
+}
+
+.logo-empresa {
+    width: 33.3%;
+    height: 100px;
+    text-align: center;
+}
+
+.login {
+    width: 33.3%;
+    height: 100px;
+    text-align: right;
+    margin-top: 20px;
+    padding-right: 10px;
+}
+
+.contenedor-mid {
+    display: flex;
+    width: 100%;
+    height: 300px;
+}
+
+.izquierdo {
+    width: 20%;
+}
+
+.descripcion {
+    width: 60%;
+    padding: 40px;
+}
+
+.descripcion p {
+    margin-top: 80px;
+    color: #84776A;
+}
+
+.derecho {
+    width: 20%;
+}
+
+.contenedor-bot {
+    display: flex;
+    width: 100%;
+    height: 300px;
+}
