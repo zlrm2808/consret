@@ -18,13 +18,12 @@
         $conn = sqlsrv_connect($serverName, $connectionInfo);
 
         if ($conn) {
-            echo "Conexión establecida.<br />";
         } else {
             echo "Conexión no se pudo establecer.<br />";
             die(print_r(sqlsrv_errors(), true));
         }
 
-        // Con esta Consulta sao el encabezado de las retenciones
+        // Con esta Consulta saco el encabezado de las retenciones
 
         $sql = ("SELECT TOP 1
                         IMP_nc_open_nreten as '0',
@@ -52,23 +51,71 @@
             die(print_r(sqlsrv_errors(), true));
         }
 
+        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+            $ncomp = $row["0"];
+            $fecha = $row["1"];
+            $rzsoc = $row["2"];
+            $rif = $row["3"];
+            $perdf = $row["4"];
+            $dir1 = $row["5.1"];
+            $dir2 = $row["5.2"];
+            $dir3 = $row["5.3"];
+            $nempr = $row["6"];
+            $rempr = $row["7"];
+        }
+
+        // Con esta Consulta ubico las filas de todas las retenciones
+
+        $sql = ("SELECT IMP_nc_open_nreten as 'col-1',
+                        CONVERT(VARCHAR, IMP_nc_open_fecdoc, 103) AS 'col-2',
+                        CONVERT(VARCHAR, IMP_nc_open_feccon, 103) AS 'col-3',
+                        ABS(IMP_porcrete_alicgene) AS 'col-4',
+                        '' AS 'col-5',
+                        IIF(IMP_nc_open_numntd = '' AND IMP_nc_open_numntc = '', 'IVA','') AS 'col-6'
+                FROM IMPP2001
+                WHERE open_p = 'J000123713'
+                AND (IMP_nc_open_numntd = '' AND IMP_nc_open_numntc = '')
+                AND CONVERT(VARCHAR, IMP_nc_open_feccon, 23) >= '2022-08-08'
+                UNION
+                SELECT  IMP_nc_open3_ncompr AS 'col-1',
+                        CONVERT(VARCHAR, IMP_nc_open3_fecdoc, 103) AS 'col-2',
+                        CONVERT(VARCHAR, IMP_nc_open3_feccon, 103) AS 'col-3',
+                        IMP_nc_open3_porimp AS 'col-4',
+                        IMP_nc_open3_detimp AS 'col-5',
+                        IIF(IMP_nc_open3_detimp != '', 'ISLR','') AS 'col-6'
+                FROM IMPP3000
+                WHERE open3_p = 'J000123713'
+                AND CONVERT(VARCHAR, IMP_nc_open3_feccon, 23) >= '2022-08-08'
+                ORDER BY 'COL-3', 'COL-1';"
+        );
+        $stmt = sqlsrv_query($conn, $sql);
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+
         $table = '
-                <table border=0>
+                <table border=1>
                     <tr>
-                        <th><h2>Numero de Comprobante</h2></th>
-                        <th><h2>Numero de Factura</h2></th>
-                        <th><h2>Fecha de Documento</h2></th>
-                        <th><h2>Fecha de Emisión</h2></th>
+                        <th>Nro de Documento</th>
+                        <th>Fecha de Documento</th>
+                        <th>Fecha de Registro</th>
+                        <th>% de Retencion</th>
+                        <th>Tipo</th>
                     </tr>
                 ';
 
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $table .= '
                 <tr>
-                    <td>' . $row["1"] . '</td>                    
-                    <td>' . $row["IMP_nc_open_numfac"] . '</td>
-                    <td>' . $row["Fecha_Documen"] . '</td>
-                    <td>' . $row["Fecha_Emision"] . '</td>
+                    <td>' . $row["col-1"] . '</td>                    
+                    <td>' . $row["col-2"] . '</td>
+                    <td>' . $row["col-3"] . '</td>
+                    <td>' . $row["col-4"] . '</td>
+                    <td>' . $row["col-6"] . '</td>
                 </tr>';
         }
         $table .= '</table>';
