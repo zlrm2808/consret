@@ -125,35 +125,37 @@
                                             </th>
                                         </tr>
                                     </thead>
+                                    <tbody>
                 ';
+
+    $numrow = 1;                
 
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $table .= '
-                    <tbody>
                         <tr class="row100">
                             <td class="column100 column1" data-column="column1">
-                                ' . $row["col-1"] . '
+                                ' . $row['col-1'] . '
                             </td>
                             <td class="column100 column2" data-column="column2">
-                                ' . $row["col-2"] . '
+                                ' . $row['col-2'] . '
                             </td>
                             <td class="column100 column3" data-column="column3">
-                                ' . $row["col-3"] . '
+                                ' . $row['col-3'] . '
                             </td>
                             <td class="column100 column4" data-column="column4">
-                                ' . $row["col-4"] . '
+                                ' . $row['col-4'] . '
                             </td>
                             <td class="column100 column5" data-column="column5">
-                                ' . $row["col-6"] . '
+                                ' . $row['col-6'] . '
                             </td>
                             <td class="column100 column6" data-column="column6">
-                                --
+                                ' . $numrow . '
                             </td>
                         </tr>
-                    </tbody>
                     ';
+                    $numrow ++;
     }
-    $table .= '
+    $table .= '         </tbody>
                         </table>
                     </div>
                 </div>
