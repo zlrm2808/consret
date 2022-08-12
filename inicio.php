@@ -5,34 +5,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./librerias/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="./css/animate.css" />
-    <link rel="stylesheet" type="text/css" href="./css/select2.min.css" />
-    <link rel="stylesheet" type="text/css" href="./css/perfect-scrollbar.css" />
     <link rel="stylesheet" type="text/css" href="./css/util.css" />
     <link rel="stylesheet" type="text/css" href="./css/main.css" />
     <title>Consultar Retenciones</title>
 </head>
 
 <body>
-    <div id="tablaDatatable">
-        <?php
-        date_default_timezone_set('America/Caracas');
-        $serverName = "PROGRAMADOR-02";
-        $connectionInfo = array("Database" => "F5618");
-        $conn = sqlsrv_connect($serverName, $connectionInfo);
+    <?php
+    date_default_timezone_set('America/Caracas');
+    $serverName = "PROGRAMADOR-02";
+    $connectionInfo = array("Database" => "F5618");
+    $conn = sqlsrv_connect($serverName, $connectionInfo);
 
-        if ($conn) {
-        } else {
-            echo "Conexión no se pudo establecer.<br />";
-            die(print_r(sqlsrv_errors(), true));
-        }
+    if ($conn) {
+    } else {
+        echo "Conexión no se pudo establecer.<br />";
+        die(print_r(sqlsrv_errors(), true));
+    }
 
-        // Con esta Consulta saco el encabezado de las retencionesbtanto de IVA como de ISLR
+    // Con esta Consulta saco el encabezado de las retencionesbtanto de IVA como de ISLR
 
-        $sql = ("SELECT TOP 1
+    $sql = ("SELECT TOP 1
                         IMP_nc_open_nreten as '0',
                         CONVERT(VARCHAR, IMP_nc_open_feccon, 103) AS '1',
                         CMPNYNAM AS '2',
@@ -48,32 +42,32 @@
                 WHERE open_p = 'J000123713'
                 AND CONVERT(VARCHAR, IMP_nc_open_feccon, 23) >= '2022-01-01';
                 "
-        );
-        $stmt = sqlsrv_query($conn, $sql);
-        if ($stmt === false) {
-            die(print_r(sqlsrv_errors(), true));
-        }
+    );
+    $stmt = sqlsrv_query($conn, $sql);
+    if ($stmt === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
 
-        if ($stmt === false) {
-            die(print_r(sqlsrv_errors(), true));
-        }
+    if ($stmt === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
 
-        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-            $ncomp = $row["0"];
-            $fecha = $row["1"];
-            $rzsoc = $row["2"];
-            $rif = $row["3"];
-            $perdf = $row["4"];
-            $dir1 = $row["5.1"];
-            $dir2 = $row["5.2"];
-            $dir3 = $row["5.3"];
-            $nempr = $row["6"];
-            $rempr = $row["7"];
-        }
+    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        $ncomp = $row["0"];
+        $fecha = $row["1"];
+        $rzsoc = $row["2"];
+        $rif = $row["3"];
+        $perdf = $row["4"];
+        $dir1 = $row["5.1"];
+        $dir2 = $row["5.2"];
+        $dir3 = $row["5.3"];
+        $nempr = $row["6"];
+        $rempr = $row["7"];
+    }
 
-        // Con esta Consulta ubico las filas de todas las retenciones
+    // Con esta Consulta ubico las filas de todas las retenciones
 
-        $sql = ("SELECT IMP_nc_open_nreten as 'col-1',
+    $sql = ("SELECT IMP_nc_open_nreten as 'col-1',
                         CONVERT(VARCHAR, IMP_nc_open_fecdoc, 103) AS 'col-2',
                         CONVERT(VARCHAR, IMP_nc_open_feccon, 103) AS 'col-3',
                         ABS(IMP_porcrete_alicgene) AS 'col-4',
@@ -94,18 +88,17 @@
                 WHERE open3_p = 'J000123713'
                 AND CONVERT(VARCHAR, IMP_nc_open3_feccon, 23) >= '2022-08-08'
                 ORDER BY 'COL-3', 'COL-1';"
-        );
-        $stmt = sqlsrv_query($conn, $sql);
-        if ($stmt === false) {
-            die(print_r(sqlsrv_errors(), true));
-        }
+    );
+    $stmt = sqlsrv_query($conn, $sql);
+    if ($stmt === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
 
-        if ($stmt === false) {
-            die(print_r(sqlsrv_errors(), true));
-        }
+    if ($stmt === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
 
-        $table = '
-                <div class="limiter">
+    $table = '<div class="limiter">
                     <div class="container-table100">
                         <div class="wrap-table100">
                             <div class="table100 ver2 m-b-110">
@@ -134,60 +127,45 @@
                                     </thead>
                 ';
 
-        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-            $table .= '
-                    <tbody>
-                            <tr class="row100">
-                                <td class="column100 column1" data-column="column1">
-                                    ' . $row["col-1"] . '
-                                </td>
-                                <td class="column100 column2" data-column="column2">
-                                    ' . $row["col-2"] . '
-                                </td>
-                                <td class="column100 column3" data-column="column3">
-                                    ' . $row["col-3"] . '
-                                </td>
-                                <td class="column100 column4" data-column="column4">
-                                    ' . $row["col-4"] . '
-                                </td>
-                                <td class="column100 column5" data-column="column5">
-                                    ' . $row["col-6"] . '
-                                </td>
-                                <td class="column100 column6" data-column="column6">
-                                    --
-                                </td>
-                            </tr>
-                        </tbody>
-                    ';
-        }
+    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $table .= '
+                    <tbody>
+                        <tr class="row100">
+                            <td class="column100 column1" data-column="column1">
+                                ' . $row["col-1"] . '
+                            </td>
+                            <td class="column100 column2" data-column="column2">
+                                ' . $row["col-2"] . '
+                            </td>
+                            <td class="column100 column3" data-column="column3">
+                                ' . $row["col-3"] . '
+                            </td>
+                            <td class="column100 column4" data-column="column4">
+                                ' . $row["col-4"] . '
+                            </td>
+                            <td class="column100 column5" data-column="column5">
+                                ' . $row["col-6"] . '
+                            </td>
+                            <td class="column100 column6" data-column="column6">
+                                --
+                            </td>
+                        </tr>
+                    </tbody>
+                    ';
+    }
+    $table .= '
                         </table>
                     </div>
                 </div>
             </div>
         </div>';
-        echo $table;
-        sqlsrv_free_stmt($stmt);
-        sqlsrv_close($conn);
-        ?>
-    </div>
+    echo $table;
 
-    <script src="./js/jquery-3.2.1.min.js"></script>
-    <script src="./js/popper.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/select2.min.js"></script>
-    <script src="./js/main.js"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+    sqlsrv_free_stmt($stmt);
+    sqlsrv_close($conn);
+    ?>
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag("js", new Date());
-
-        gtag("config", "UA-23581568-13");
-    </script>
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon='{"rayId":"739a7b471c336dbf","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2022.6.0","si":100}' crossorigin="anonymous"></script>
+    <script src="./js/jquery-3.2.1.min.js"></script>';
+    <script src="./js/main.js"></script>';
 </body>
 </html>
