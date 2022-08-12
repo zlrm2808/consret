@@ -6,6 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./librerias/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/animate.css" />
+    <link rel="stylesheet" type="text/css" href="./css/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="./css/perfect-scrollbar.css" />
+    <link rel="stylesheet" type="text/css" href="./css/util.css" />
+    <link rel="stylesheet" type="text/css" href="./css/main.css" />
     <title>Consultar Retenciones</title>
 </head>
 
@@ -98,32 +105,89 @@
         }
 
         $table = '
-                <table border=1>
-                    <tr>
-                        <th>Nro de Documento</th>
-                        <th>Fecha de Documento</th>
-                        <th>Fecha de Registro</th>
-                        <th>% de Retencion</th>
-                        <th>Tipo</th>
-                    </tr>
+                <div class="limiter">
+                    <div class="container-table100">
+                        <div class="wrap-table100">
+                            <div class="table100 ver2 m-b-110">
+                                <table data-vertable="ver2">
+                                    <thead>
+                                        <tr class="row100 head">
+                                            <th class="column100 column1" data-column="column1">
+                                                Nro. de Documento
+                                            </th>
+                                            <th class="column100 column2" data-column="column2">
+                                                Fecha de Documento
+                                            </th>
+                                            <th class="column100 column3" data-column="column3">
+                                                Fecha de Registro
+                                            </th>
+                                            <th class="column100 column4" data-column="column4">
+                                                % de Retención
+                                            </th>
+                                            <th class="column100 column5" data-column="column5">
+                                                Tipo
+                                            </th>
+                                            <th class="column100 column6" data-column="column6">
+                                                Imprimir
+                                            </th>
+                                        </tr>
+                                    </thead>
                 ';
 
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $table .= '
-                <tr>
-                    <td>' . $row["col-1"] . '</td>                    
-                    <td>' . $row["col-2"] . '</td>
-                    <td>' . $row["col-3"] . '</td>
-                    <td>' . $row["col-4"] . '</td>
-                    <td>' . $row["col-6"] . '</td>
-                </tr>';
+                    <tbody>
+                            <tr class="row100">
+                                <td class="column100 column1" data-column="column1">
+                                    ' . $row["col-1"] . '
+                                </td>
+                                <td class="column100 column2" data-column="column2">
+                                    ' . $row["col-2"] . '
+                                </td>
+                                <td class="column100 column3" data-column="column3">
+                                    ' . $row["col-3"] . '
+                                </td>
+                                <td class="column100 column4" data-column="column4">
+                                    ' . $row["col-4"] . '
+                                </td>
+                                <td class="column100 column5" data-column="column5">
+                                    ' . $row["col-6"] . '
+                                </td>
+                                <td class="column100 column6" data-column="column6">
+                                    --
+                                </td>
+                            </tr>
+                        </tbody>
+                    ';
         }
-        $table .= '</table>';
+        $table .= '
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>';
         echo $table;
         sqlsrv_free_stmt($stmt);
         sqlsrv_close($conn);
         ?>
     </div>
-</body>
 
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/popper.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/select2.min.js"></script>
+    <script src="./js/main.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+
+        gtag("config", "UA-23581568-13");
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon='{"rayId":"739a7b471c336dbf","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2022.6.0","si":100}' crossorigin="anonymous"></script>
+</body>
 </html>
