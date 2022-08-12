@@ -23,7 +23,7 @@
             die(print_r(sqlsrv_errors(), true));
         }
 
-        // Con esta Consulta saco el encabezado de las retenciones
+        // Con esta Consulta saco el encabezado de las retencionesbtanto de IVA como de ISLR
 
         $sql = ("SELECT TOP 1
                         IMP_nc_open_nreten as '0',
