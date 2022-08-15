@@ -52,7 +52,7 @@
         </div>
         <div class="documento">
             <h3>Documento:</h3>
-            <input type="text" name="documento" id="documento"> <br>
+            <input type="text" name="documento" id="documento">
             <input type="submit" value="Buscar">
         </div>
     </div>
