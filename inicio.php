@@ -13,17 +13,7 @@
 
 <body>
     <?php
-    date_default_timezone_set('America/Caracas');
-    $serverName = "PROGRAMADOR-02";
-    $connectionInfo = array("Database" => "F5618");
-    $conn = sqlsrv_connect($serverName, $connectionInfo);
-
-    if ($conn) {
-    } else {
-        echo "Conexión no se pudo establecer.<br />";
-        die(print_r(sqlsrv_errors(), true));
-    }
-
+    include_once("conexion.php");
     // Con esta Consulta saco el encabezado de las retencionesbtanto de IVA como de ISLR
 
     $sql = ("SELECT TOP 1
