@@ -42,6 +42,7 @@
             echo
             "<input type='date' name='fecha' id='fecha' value='" . $hoy . "'>";
             ?>
+            <br>
         </div>
         <div class="fecha-hasta">
             <h3>Hasta:</h3>
@@ -53,12 +54,17 @@
         <div class="documento">
             <h3>Documento:</h3>
             <input type="text" name="documento" id="documento">
+        </div>
+        <div class="botones">
             <input type="submit" value="Buscar">
+            <input type="reset" value="Borrar">
         </div>
     </div>
     <div class="contenedor-bot">
-        <div class="leyenda">
-        </div>
+        <label class="cbArc">ARC
+            <input type="checkbox" id="arc" name="arc">
+            <span class="checkmark"></span>
+        </label>
     </div>
 
 </body>

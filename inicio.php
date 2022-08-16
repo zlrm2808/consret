@@ -95,6 +95,9 @@
                                 <table data-vertable="ver2">
                                     <thead>
                                         <tr class="row100 head">
+                                            <th class="column100 column0" data-column="column0">
+                                                #
+                                            </th>
                                             <th class="column100 column1" data-column="column1">
                                                 Nro. de Documento
                                             </th>
@@ -118,11 +121,14 @@
                                     <tbody>
                 ';
 
-    $numrow = 1;                
+    $numrow = 1;
 
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $table .= '
                         <tr class="row100">
+                            <td class="column100 column0" data-column="column0">
+                                ' . $numrow . '
+                            </td>
                             <td class="column100 column1" data-column="column1">
                                 ' . $row['col-1'] . '
                             </td>
@@ -139,11 +145,11 @@
                                 ' . $row['col-6'] . '
                             </td>
                             <td class="column100 column6" data-column="column6">
-                                ' . $numrow . '
+                                
                             </td>
                         </tr>
                     ';
-                    $numrow ++;
+        $numrow++;
     }
     $table .= '         </tbody>
                         </table>
@@ -160,4 +166,5 @@
     <script src="./js/jquery-3.2.1.min.js"></script>';
     <script src="./js/main.js"></script>';
 </body>
+
 </html>
