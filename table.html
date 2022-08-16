@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="./css/util.css" />
-    <link rel="stylesheet" type="text/css" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/tabla.css">
 </head>
 
 <body>
@@ -17,105 +15,51 @@
                     <table data-vertable="ver2">
                         <thead>
                             <tr class="row100 head">
-                                <th class="column100 column1" data-column="column1">
-                                    Nro. de Documento
+                                <th class="column100 column0" id="column0" data-column="column0">
+                                    # 
                                 </th>
-                                <th class="column100 column2" data-column="column2">
+                                <th class="column100 column1" id="column1" data-column="column1">
+                                    Nro. 
+                                </th>
+                                <th class="column100 column2" id="column2" data-column="column2">
                                     Fecha de Documento
                                 </th>
-                                <th class="column100 column3" data-column="column3">
+                                <th class="column100 column3" id="column3" data-column="column3">
                                     Fecha de Registro
                                 </th>
-                                <th class="column100 column4" data-column="column4">
+                                <th class="column100 column4" id="column4" data-column="column4">
                                     % de Retención
                                 </th>
-                                <th class="column100 column5" data-column="column5">
+                                <th class="column100 column5" id="column5" data-column="column5">
                                     Tipo
                                 </th>
-                                <th class="column100 column6" data-column="column6">
+                                <th class="column100 column6" id="column6" data-column="column6">
                                     Imprimir
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="row100">
-                                <td class="column100 column1" data-column="column1">
-                                    Zeus
+                                <td class="column100 column1"  id="column0" data-column="column0">
+                                    ' . $numrow . '
                                 </td>
-                                <td class="column100 column2" data-column="column2">
-                                    Luis
+                                <td class="column100 column1" id="column1" data-column="column1">
+                                    ' . $row['col-1'] . '
                                 </td>
-                                <td class="column100 column3" data-column="column3">
-                                    Rodriguez
+                                <td class="column100 column2" id="column2" data-column="column2">
+                                    ' . $row['col-2'] . '
                                 </td>
-                                <td class="column100 column4" data-column="column4">
-                                    Montilla
+                                <td class="column100 column3" id="column3" data-column="column3">
+                                    ' . $row['col-3'] . '
                                 </td>
-                                <td class="column100 column5" data-column="column5">
-                                    16338224
+                                <td class="column100 column4" id="column4" data-column="column4">
+                                    ' . $row['col-4'] . '
                                 </td>
-                                <td class="column100 column6" data-column="column6">
-                                    04144770442
+                                <td class="column100 column5" id="column5"data-column="column5">
+                                    ' . $row['col-6'] . '
                                 </td>
-                            </tr>
-                            <tr class="row100">
-                                <td class="column100 column1" data-column="column1">
-                                    Candy
-                                </td>
-                                <td class="column100 column2" data-column="column2">
-                                    Limelly
-                                </td>
-                                <td class="column100 column3" data-column="column3">
-                                    Rondon
-                                </td>
-                                <td class="column100 column4" data-column="column4">
-                                    Zambrano
-                                </td>
-                                <td class="column100 column5" data-column="column5">
-                                    17043342
-                                </td>
-                                <td class="column100 column6" data-column="column6">
-                                    04128999541
-                                </td>
-                            </tr>
-                            <tr class="row100">
-                                <td class="column100 column1" data-column="column1">
-                                    Zeus
-                                </td>
-                                <td class="column100 column2" data-column="column2">
-                                    Luis
-                                </td>
-                                <td class="column100 column3" data-column="column3">
-                                    Rodriguez
-                                </td>
-                                <td class="column100 column4" data-column="column4">
-                                    Montilla
-                                </td>
-                                <td class="column100 column5" data-column="column5">
-                                    16338224
-                                </td>
-                                <td class="column100 column6" data-column="column6">
-                                    04144770442
-                                </td>
-                            </tr>
-                            <tr class="row100">
-                                <td class="column100 column1" data-column="column1">
-                                    Candy
-                                </td>
-                                <td class="column100 column2" data-column="column2">
-                                    Limelly
-                                </td>
-                                <td class="column100 column3" data-column="column3">
-                                    Rondon
-                                </td>
-                                <td class="column100 column4" data-column="column4">
-                                    Zambrano
-                                </td>
-                                <td class="column100 column5" data-column="column5">
-                                    17043342
-                                </td>
-                                <td class="column100 column6" data-column="column6">
-                                    04128999541
+                                <td class="column100 column6" id="column5" data-column="column6">
+                                    
                                 </td>
                             </tr>
                         </tbody>
