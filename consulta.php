@@ -114,10 +114,10 @@
 
             // Con esta Consulta ubico las filas de todas las retenciones
 
-            $sql = ("SELECT IMP_nc_open_nreten as 'col-1',
+            $sql = ("SELECT IMP_nc_open_numfac as 'col-1',
                         CONVERT(VARCHAR, IMP_nc_open_fecdoc, 103) AS 'col-2',
                         CONVERT(VARCHAR, IMP_nc_open_feccon, 103) AS 'col-3',
-                        ABS(IMP_porcrete_alicgene) AS 'col-4',
+                        STR(ABS(IMP_porcrete_alicgene),9,2) AS 'col-4',
                         '' AS 'col-5',
                         IIF(IMP_nc_open_numntd = '' AND IMP_nc_open_numntc = '', 'IVA','') AS 'col-6'
                 FROM IMPP2001
@@ -125,10 +125,10 @@
                 AND (IMP_nc_open_numntd = '' AND IMP_nc_open_numntc = '')
                 AND CONVERT(VARCHAR, IMP_nc_open_feccon, 23) >= '2022-08-08'
                 UNION
-                SELECT  IMP_nc_open3_ncompr AS 'col-1',
+                SELECT  IMP_nc_open3_numfac AS 'col-1',
                         CONVERT(VARCHAR, IMP_nc_open3_fecdoc, 103) AS 'col-2',
                         CONVERT(VARCHAR, IMP_nc_open3_feccon, 103) AS 'col-3',
-                        IMP_nc_open3_porimp AS 'col-4',
+                        STR(IMP_nc_open3_porimp,9,2) AS 'col-4',
                         IMP_nc_open3_detimp AS 'col-5',
                         IIF(IMP_nc_open3_detimp != '', 'ISLR','') AS 'col-6'
                 FROM IMPP3000
