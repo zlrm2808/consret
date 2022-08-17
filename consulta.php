@@ -41,7 +41,7 @@
             <h3>Desde:</h3>
             <?php
             echo
-            "<input type='date' name='fecha' id='fecha' value='" . $hoy . "'>";
+            "<input type='date' name='fecha' id='fechaIni' value='" . $hoy . "'>";
             ?>
             <br>
         </div>
@@ -49,7 +49,7 @@
             <h3>Hasta:</h3>
             <?php
             echo
-            "<input type='date' name='fecha' id='fecha' value='" . $hoy . "'>";
+            "<input type='date' name='fecha' id='fechaFin' value='" . $hoy . "'>";
             ?>
         </div>
         <div class="documento">
@@ -57,8 +57,15 @@
             <input type="text" name="documento" id="documento">
         </div>
         <div class="botones">
-            <input type="submit" value="Buscar">
+            <input type="button" id="buscar" onclick="getValueInput()" value="Buscar">
+            <script>
+                const getValueInput = () => {
+                    let inputValue = document.getElementById("fechaIni").value;
+                    document.getElementById("valueInput").innerHTML = inputValue;
+                };
+            </script>
             <input type="reset" value="Borrar">
+            <p id="valueInput"></p>
         </div>
     </div>
     <div class="contenedor-bot">
