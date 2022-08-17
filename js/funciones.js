@@ -1,4 +1,6 @@
 function getValueInput() {
     fechaini = $("#fechaIni").val();
-    $("#valueInput").text(fechaini);
+    fechaFin = $("#fechaFin").val();
+
+    //$("#valueInput").text(fechaFin);   
 }
