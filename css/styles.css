@@ -28,7 +28,30 @@ h2 {
   color: #cccccc;
 }
 
+h3 {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-left: 15px;
+}
 
+select {
+  font-size: 14px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-left: 15px;
+  background-color: #f6f6f6;
+  border: 2px solid #3A8DD0;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
 
 /* STRUCTURE */
 
@@ -301,6 +324,13 @@ input[type=text]:placeholder, input[type=password]::placeholder {
   padding-right: 10px;
 }
 
+.logo-derecha {
+  width: 33.3%;
+  height: 100px;
+  text-align: right;
+  padding-right: 10px;
+}
+
 .contenedor-mid {
   display: flex;
   width: 100%;
@@ -329,4 +359,30 @@ input[type=text]:placeholder, input[type=password]::placeholder {
   display: flex;
   width: 100%;
   height: 300px;
+}
+.contenedor-mid-sel {
+  display: flex;
+  width: 100%;
+  height: 100px;
+  margin-top: 150px;
+}
+
+.contenedor-mid-sel .izquierdo {
+  width: 10%;
+}
+
+.contenedor-mid-sel .izquierdo-comp {
+  padding-top: 50px;
+  width: 30%;
+  height: 100px;
+}
+
+.contenedor-mid-sel .derecho-comp {
+  padding-top: 50px;
+  width: 50%;
+  text-align: right;
+}
+
+.contenedor-mid-sel .derecho {
+  width: 10%;
 }
