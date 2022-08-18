@@ -53,6 +53,10 @@ select {
   border-radius: 5px;
 }
 
+select option{
+  border: 10px solid #3A8DD0;
+}
+
 /* STRUCTURE */
 
 .wrapper {
