@@ -10,9 +10,47 @@
 </head>
 
 <?php
+
 include_once("conexion.php");
+
 $usuario = $_POST["Usuario"];
 $password = $_POST["Contraseña"];
+
+$sql = ("SELECT Usuario,
+                    Pass
+            FROM USRCONSRET
+            WHERE Usuario = '" . $usuario . "' ;
+            "
+);
+
+$stmt = sqlsrv_query($conn, $sql);
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
+} else {
+    $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    if (($row['Usuario'] == $usuario) && ($row['Pass'] == $password)) {
+    } else {
+        sqlsrv_free_stmt($stmt);
+        sqlsrv_close($conn);
+        echo '<script>alert("Usuario o Password incorercto")</script>';
+        echo '<script>window.location.replace("login.html")</script>';
+    }
+}
+
+$sql = ("SELECT nomp_prov,
+                    nomb_emp,
+                    dbname
+            FROM EMPCONSRET
+            WHERE RIF = '" . $usuario . "'");
+
+$stmt = sqlsrv_query($conn, $sql);
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
+} else {
+    $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    $Prov = $row['nomp_prov'];
+}
+sqlsrv_free_stmt($stmt);
 ?>
 
 <body>
@@ -34,30 +72,32 @@ $password = $_POST["Contraseña"];
 
             </div>
             <div class="izquierdo-comp">
-                <span>
-                    Proveedor:<h3>POLITEX DE MARACAY C.A.</h3>
-                </span>
+                <?php
+                echo
+                '<span>
+                    Proveedor:<h3>' . $Prov . '</h3>
+                </span>'
+                ?>
 
             </div>
             <div class="derecho-comp">
-                <span>Empresa:
-                    <select>
-                        <option value="">Fospuca Ambiente, C.A.</option>
-                        <option value="">Fospuca Baruta, C.A.</option>
-                        <option value="">Fospuca Chacao, C.A.</option>
-                        <option value="">Fospuca EL Tigre, S.C.S</option>
-                        <option value="">Fospuca Internacional, C.A.</option>
-                        <option value="">Fospuca Jimenez, C.A.</option>
-                        <option value="">Fospuca S. Barcelona, C.A.</option>
-                        <option value="">Fospuca San Diego, C.A.</option>
-                        <option value="">Fospuca Servicios de Ciudad, C.A</option>
-                        <option value="">Fospuca Sotillo, C.A.</option>
-                        <option value="">Inversiones Fospuca Baruta, C.A.</option>
-                        <option value="">Inversiones Fospuca El Hatillo C.A.</option>
-                        <option value="">Inversiones Fospuca Iribarren, C.A.</option>
-                        <option value="">Inversiones Fospuca Los Salias, C.A.</option>
-                    </select>
-                </span>
+                <form action="./consulta.php" method="post">
+                    <span>Empresa:
+                        <?php
+                        echo '
+                        <select name="BaseDatos" id="">';
+                        $stmt = sqlsrv_query($conn, $sql);
+                        if ($stmt === false) {
+                            die(print_r(sqlsrv_errors(), true));
+                        } else {
+                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                echo '<option name="BaseDatos" id="BaseDatos" value="' . $row["dbname"] . '">' . $row["nomb_emp"] . '</option>';
+                            }
+                        }
+                        '</select>';
+                        ?>
+                    </span>
+                </form>
                 <br>
                 <input type="submit" value="Acpetar">
             </div>
@@ -65,5 +105,7 @@ $password = $_POST["Contraseña"];
         </div>
     </form>
 </body>
+
+
 
 </html>

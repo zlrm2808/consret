@@ -1,7 +1,7 @@
 <?php
     date_default_timezone_set('America/Caracas');
     $serverName = "PROGRAMADOR-02";
-    $connectionInfo = array("Database" => "F5618");
+    $connectionInfo = array("Database" => "DYNAMICS");
     $conn = sqlsrv_connect($serverName, $connectionInfo);
 
     if ($conn) {

@@ -14,6 +14,7 @@
 
 <body>
     <?php
+    $dbname = $_REQUEST["BaseDatos"];
     $hoy = date("Y-m-d");
     ?>
     <div class="contenedor-top">
