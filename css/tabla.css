@@ -35,6 +35,12 @@ table #column5 {
 }
 
 table #column6 {
+    width: 5%;
+    text-align: center;
+}
+
+table #column7 {
+    width: 5%;
     text-align: center;
 }
 

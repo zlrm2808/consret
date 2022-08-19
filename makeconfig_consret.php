@@ -10,6 +10,30 @@
 <body>
     <?PHP
 
+    $file = fopen("config.cone", "w");
+    fwrite($file, "PROGRAMADOR-02" . PHP_EOL);
+    fwrite($file, "DYNAMICS");
+    fclose($file);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+
     $archivo = false;
 
     if ($archivo === true) {

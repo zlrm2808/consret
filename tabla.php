@@ -11,6 +11,10 @@
 
 <body>
     <?php
+    $fechaini = $_POST["fechaini"];
+    $fechafin = $_POST["fechafin"];
+    $rifProv = $_POST["rif"];
+
     include_once("conexion.php");
     // Con esta Consulta saco el encabezado de las retencionesbtanto de IVA como de ISLR
 
@@ -39,6 +43,9 @@
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
     }
+    
+    $html = '<a href="#">HTML</a>';
+    $pdf = '<a href="#">PDF</a>';
 
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $ncomp = $row["0"];
@@ -62,9 +69,10 @@
                         '' AS 'col-5',
                         IIF(IMP_nc_open_numntd = '' AND IMP_nc_open_numntc = '', 'IVA','') AS 'col-6'
                 FROM IMPP2001
-                WHERE open_p = 'J000123713'
+                WHERE open_p = '".$rifProv."'
                 AND (IMP_nc_open_numntd = '' AND IMP_nc_open_numntc = '')
-                AND CONVERT(VARCHAR, IMP_nc_open_feccon, 23) >= '2022-08-08'
+                AND CONVERT(VARCHAR, IMP_nc_open_feccon, 23) >= '".$fechaini."'
+                AND CONVERT(VARCHAR, IMP_nc_open_feccon, 23) <= '" . $fechafin . "'
                 UNION
                 SELECT  IMP_nc_open3_numfac AS 'col-1',
                         CONVERT(VARCHAR, IMP_nc_open3_fecdoc, 103) AS 'col-2',
@@ -73,8 +81,9 @@
                         IMP_nc_open3_detimp AS 'col-5',
                         IIF(IMP_nc_open3_detimp != '', 'ISLR','') AS 'col-6'
                 FROM IMPP3000
-                WHERE open3_p = 'J000123713'
-                AND CONVERT(VARCHAR, IMP_nc_open3_feccon, 23) >= '2022-08-08'
+                WHERE open3_p = '" . $rifProv ."'
+                AND CONVERT(VARCHAR, IMP_nc_open3_feccon, 23) >= '" . $fechaini ."'
+                AND CONVERT(VARCHAR, IMP_nc_open3_feccon, 23) <= '" . $fechafin . "'
                 ORDER BY 'COL-3', 'COL-1';"
     );
     $stmt = sqlsrv_query($conn, $sql);
@@ -111,7 +120,7 @@
                                             <th class="column100 column5" id="column5"  data-column="column5">
                                                 Tipo
                                             </th>
-                                            <th class="column100 column6" id="column6"  data-column="column6">
+                                            <th colspan="2" class="column100 column6" id="column6"  data-column="column6">
                                                 Imprimir
                                             </th>
                                         </tr>
@@ -143,7 +152,10 @@
                                     ' . $row['col-6'] . '
                                 </td>
                                 <td class="column100 column6" id="column5" data-column="column6">
-                                    
+                                    '. $html . '
+                                </td>
+                                <td class="column100 column7" id="column5" data-column="column6">
+                                    ' . $pdf . '
                                 </td>
                         </tr>
                     ';

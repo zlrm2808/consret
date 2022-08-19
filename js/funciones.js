@@ -1,6 +1,7 @@
 function getValueInput() {
     fechaini = $("#fechaIni").val();
     fechafin = $("#fechaFin").val();
+    rif = $("#rif").val();
 
     //$('#valueInput').text(fechaini);
 
@@ -8,6 +9,8 @@ function getValueInput() {
         "tabla.php",
         {
             fechaini: fechaini,
+            fechafin: fechafin,
+            rif: rif,
         },
         function (data, status) {
             $("#tabla").show();
@@ -19,3 +22,4 @@ function getValueInput() {
 function limpiartabla() {
     $("#tabla").hide();
 }
+

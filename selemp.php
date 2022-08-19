@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="./css/styles.css">
     <title>Seleccionar Empresa</title>
 </head>
@@ -32,10 +33,11 @@ if ($stmt === false) {
     } else {
         sqlsrv_free_stmt($stmt);
         sqlsrv_close($conn);
-        echo '<script>alert("Usuario o Password incorercto")</script>';
-        echo '<script>window.location.replace("login.html")</script>';
+        echo '<script>alert("Datos Incorrectos","Usuario o Password incorercto","error");
+                    window.location.replace("login.html")</script>';
     }
 }
+
 
 $sql = ("SELECT nomp_prov,
                     nomb_emp,
@@ -54,7 +56,7 @@ sqlsrv_free_stmt($stmt);
 ?>
 
 <body>
-    <form action="./consulta.php">
+    <form action="./consulta.php" method="post">
         <div class="contenedor-top">
             <div class="logo-vog">
                 <img src="./images/VOG-horiz-blue.png" height="70px">
@@ -81,31 +83,31 @@ sqlsrv_free_stmt($stmt);
 
             </div>
             <div class="derecho-comp">
-                <form action="./consulta.php" method="post">
-                    <span>Empresa:
-                        <?php
-                        echo '
-                        <select name="BaseDatos" id="">';
-                        $stmt = sqlsrv_query($conn, $sql);
-                        if ($stmt === false) {
-                            die(print_r(sqlsrv_errors(), true));
-                        } else {
-                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                                echo '<option name="BaseDatos" id="BaseDatos" value="' . $row["dbname"] . '">' . $row["nomb_emp"] . '</option>';
-                            }
+                <span>Empresa:
+                    <?php
+                    echo '
+                            <select name="BaseDatos" id="">';
+                    $stmt = sqlsrv_query($conn, $sql);
+                    if ($stmt === false) {
+                        die(print_r(sqlsrv_errors(), true));
+                    } else {
+                        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                            echo '<option value ="' . $row["dbname"] . ',' . $row["nomb_emp"] . '">' . $row["nomb_emp"] . '</option>';
                         }
-                        '</select>';
-                        ?>
-                    </span>
-                </form>
+                    }
+                    '</select>';
+                    ?>
+                </span>
                 <br>
+                <input type="hidden" name="prov" value="<?php echo $Prov; ?>">
+                <input type="hidden" name="emp" value="<?php echo $emp; ?>">
+                <input type="hidden" name="rif" value="<?php echo $usuario; ?>">
                 <input type="submit" value="Acpetar">
             </div>
             <div class="derecho"></div>
         </div>
     </form>
 </body>
-
 
 
 </html>
