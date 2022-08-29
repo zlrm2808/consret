@@ -14,7 +14,6 @@
         fwrite($file, "DYNAMICS");
         fclose($file);
     ?>
-
     <div class="wrapper fadeInDown">
         <div class="empresa">
             <h1>FOSPUCA</h1>
@@ -23,7 +22,6 @@
             <!-- Tabs Titles -->
             <h2 class="active"><a href="#">Iniciar Sesion</a></h2>
             <h2 class="inactive underlineHover"><a href="./register.html">Registrarse</a></h2>
-    
             <!-- Icon -->
             <div class="fadeIn first">
                 <img src="./images/VOG-horiz-blue.png" height="40px"> <br>
@@ -42,7 +40,6 @@
                 <img src="./images/MS Dynamics.jpg" height="45px"> <br>
                 <!-- <a class="underlineHover" href="#">Olvido su Contraseña?</a> -->
             </div>
-     
         </div>
     </div>
 </body>

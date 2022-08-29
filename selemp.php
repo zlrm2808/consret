@@ -18,7 +18,7 @@ $usuario = $_POST["Usuario"];
 $password = $_POST["Contraseña"];
 
 $sql = ("SELECT Usuario,
-                    Pass
+                Pass
             FROM USRCONSRET
             WHERE Usuario = '" . $usuario . "' ;
             "
@@ -38,7 +38,6 @@ if ($stmt === false) {
     }
 }
 
-
 $sql = ("SELECT nomp_prov,
                 nomb_emp,
                 dbname
@@ -54,7 +53,6 @@ if ($stmt === false) {
 }
 sqlsrv_free_stmt($stmt);
 ?>
-
 <body>
     <form action="./consulta.php" method="post">
         <div class="contenedor-top">
@@ -63,7 +61,6 @@ sqlsrv_free_stmt($stmt);
                 <h5>Compribantes de Retención Online</h5>
             </div>
             <div class="logo-empresa">
-
             </div>
             <div class="logo-derecha">
                 <img src="./images/fospuca-logo.png" height="100px">
@@ -71,7 +68,6 @@ sqlsrv_free_stmt($stmt);
         </div>
         <div class="contenedor-mid-sel">
             <div class="izquierdo">
-
             </div>
             <div class="izquierdo-comp">
                 <?php
@@ -80,7 +76,6 @@ sqlsrv_free_stmt($stmt);
                     Proveedor:<h3>' . $Prov . '</h3>
                 </span>'
                 ?>
-
             </div>
             <div class="derecho-comp">
                 <span>Empresa:
