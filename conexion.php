@@ -1,4 +1,5 @@
 <?php
+
     $file = @fopen('config.cone', "r");
     if ($file) {
         while (!feof($file)) {
@@ -19,4 +20,5 @@
         echo "Conexión no se pudo establecer.<br />";
         die(print_r(sqlsrv_errors(), true));
     }
+
 ?>
