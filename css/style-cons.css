@@ -363,7 +363,7 @@ input[type="date"] {
 
 .empresa {
     width: 50%;
-    padding-top: 40px;
+    padding-top: 50px;
     text-align: center;
 }
 
@@ -392,6 +392,7 @@ input[type="date"] {
 }
 
 .botones {
+    margin-top: -15px;
     margin-left: 50px;
     width: 30%;
 }

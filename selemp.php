@@ -40,10 +40,10 @@ if ($stmt === false) {
 
 
 $sql = ("SELECT nomp_prov,
-                    nomb_emp,
-                    dbname
-            FROM EMPCONSRET
-            WHERE RIF = '" . $usuario . "'");
+                nomb_emp,
+                dbname
+        FROM EMPCONSRET
+        WHERE RIF = '" . $usuario . "'");
 
 $stmt = sqlsrv_query($conn, $sql);
 if ($stmt === false) {
@@ -86,7 +86,7 @@ sqlsrv_free_stmt($stmt);
                 <span>Empresa:
                     <?php
                     echo '
-                            <select name="BaseDatos" id="">';
+                    <select name="BaseDatos" id="">';
                     $stmt = sqlsrv_query($conn, $sql);
                     if ($stmt === false) {
                         die(print_r(sqlsrv_errors(), true));

@@ -61,6 +61,7 @@
     <div class="contenedor-mid2">
         <div class="fecha-desde">
             <h3>Desde:</h3>
+            <br>
             <?php
             echo
             "<input type='date' name='fecha' id='fechaIni' value='" . $hoy . "'>";
@@ -69,6 +70,7 @@
         </div>
         <div class="fecha-hasta">
             <h3>Hasta:</h3>
+            <br>
             <?php
             echo
             "<input type='date' name='fecha' id='fechaFin' value='" . $hoy . "'>";
@@ -76,6 +78,7 @@
         </div>
         <div class="documento">
             <h3>Documento:</h3>
+            <br>
             <input type="text" name="documento" id="documento">
         </div>
         <input type="hidden" name="rif" id="rif" value="<?php echo $rif ?>">
