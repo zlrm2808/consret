@@ -17,6 +17,28 @@ include_once("conexion.php");
 $usuario = $_POST["Usuario"];
 $password = $_POST["Contraseña"];
 
+$sql = ("DELETE FROM DYNAMICS.DBO.EMPCONSRET WHERE RIF = '".$usuario."';
+        DECLARE @rn INT = 1, @dbname varchar(MAX) = '';
+        WHILE @dbname IS NOT NULL
+        BEGIN
+            SET @dbname = (SELECT INTERID FROM (SELECT INTERID, ROW_NUMBER() OVER (ORDER BY INTERID) rn
+                FROM DYNAMICS..SY01500 WHERE INTERID NOT IN('PRUEB', 'TWO', 'DESAR', 'TEST','T0001','T0002')) t WHERE rn = @rn);
+            IF @dbname <> '' AND @dbname IS NOT NULL
+                EXECUTE ('use ['+@dbname+'];
+                    INSERT INTO DYNAMICS.dbo.EMPCONSRET 
+                    VALUES(	''".$usuario. "'',
+                            (SELECT PV_MI_nompro FROM IMPP0161 WHERE PV_MI_idprov = ''" . $usuario . "''),
+                            DB_NAME(), 
+                            (SELECT CMPNYNAM FROM DYNAMICS.dbo.SY01500 WHERE INTERID = DB_NAME()))
+                ');
+            SET @rn = @rn + 1;
+        END;");
+
+$stmt = sqlsrv_query($conn, $sql);
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
+} 
+
 $sql = ("SELECT Usuario,
                 Pass
             FROM USRCONSRET
