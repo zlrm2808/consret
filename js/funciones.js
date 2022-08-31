@@ -23,3 +23,9 @@ function limpiartabla() {
     $("#tabla").hide();
 }
 
+$(document).on("click", "#imprime", function () {
+    var id = $(this).val();
+    var doc = $("#doc" + id).text();
+    var tipo = $("#tipo" + id).text();
+    alert(doc+tipo);
+});

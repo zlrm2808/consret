@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/tabla.css">
+    <script src="./js/funciones.js"></script>
     <title>Consultar Retenciones</title>
 </head>
 
@@ -43,7 +44,7 @@
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
     }
-    
+
     $html = '<a href="#">HTML</a>';
     $pdf = '<a href="#">PDF</a>';
 
@@ -69,9 +70,9 @@
                         '' AS 'col-5',
                         IIF(IMP_nc_open_numntd = '' AND IMP_nc_open_numntc = '', 'IVA','') AS 'col-6'
                 FROM IMPP2001
-                WHERE open_p = '".$rifProv."'
+                WHERE open_p = '" . $rifProv . "'
                 AND (IMP_nc_open_numntd = '' AND IMP_nc_open_numntc = '')
-                AND CONVERT(VARCHAR, IMP_nc_open_feccon, 23) >= '".$fechaini."'
+                AND CONVERT(VARCHAR, IMP_nc_open_feccon, 23) >= '" . $fechaini . "'
                 AND CONVERT(VARCHAR, IMP_nc_open_feccon, 23) <= '" . $fechafin . "'
                 UNION
                 SELECT  IMP_nc_open3_numfac AS 'col-1',
@@ -81,8 +82,8 @@
                         IMP_nc_open3_detimp AS 'col-5',
                         IIF(IMP_nc_open3_detimp != '', 'ISLR','') AS 'col-6'
                 FROM IMPP3000
-                WHERE open3_p = '" . $rifProv ."'
-                AND CONVERT(VARCHAR, IMP_nc_open3_feccon, 23) >= '" . $fechaini ."'
+                WHERE open3_p = '" . $rifProv . "'
+                AND CONVERT(VARCHAR, IMP_nc_open3_feccon, 23) >= '" . $fechaini . "'
                 AND CONVERT(VARCHAR, IMP_nc_open3_feccon, 23) <= '" . $fechafin . "'
                 ORDER BY 'COL-1', 'COL-3';"
     );
@@ -133,11 +134,11 @@
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $table .= '
                         <tr class="row100">
-                            <td class="column100 column1"  id="column0" data-column="column0">
+                            <td class="column100 column0"  id="column0" data-column="column0">
                                     ' . $numrow . '
                                 </td>
                                 <td class="column100 column1" id="column1" data-column="column1">
-                                    ' . $row['col-1'] . '
+                                    ' . $row['col-1'] . '<span hidden id="doc' . $numrow . '">' . $row['col-1'] . '</span>
                                 </td>
                                 <td class="column100 column2" id="column2" data-column="column2">
                                     ' . $row['col-2'] . '
@@ -149,10 +150,10 @@
                                     ' . $row['col-4'] . '
                                 </td>
                                 <td class="column100 column5" id="column5"data-column="column5">
-                                    ' . $row['col-6'] . '
+                                    ' . $row['col-6'] .  '<span hidden id="tipo' . $numrow . '">' . $row['col-6'] . '</span>
                                 </td>
                                 <td class="column100 column6" id="column5" data-column="column6">
-                                    '. $html . '
+                                    <button type="button" id="imprime" value="' . $numrow . '">HTML</button>
                                 </td>
                                 <td class="column100 column7" id="column5" data-column="column6">
                                     ' . $pdf . '
