@@ -43,7 +43,7 @@
 
         </div>
         <div class="logo-empresa">
-            <right><img src="./images/fospuca-logo.png" height="100px"></right>
+            <right><img src="./images/logo-emp.png" height="100px"></right>
         </div>
     </div>
     <div class="contenedor-mid1">
