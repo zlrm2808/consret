@@ -20,6 +20,9 @@ $password = $_POST["Contraseña"];
 $password2 = $_POST["Contraseña2"];
 $conteo = 0;
 
+// Consulta para buscar en las diferentes bases de datos del sistema 
+// y comprobar si el proveedor existe en alguna de ellas
+
 $sql = ("DECLARE @rn INT = 1, @dbname varchar(MAX) = '', @conteo int = 0, @query VARCHAR(MAX);
         WHILE @dbname IS NOT NULL
         BEGIN
@@ -36,23 +39,29 @@ $sql = ("DECLARE @rn INT = 1, @dbname varchar(MAX) = '', @conteo int = 0, @query
             SET @rn = @rn + 1;
         END");
 
+// Verifico si efectivamente el proveedor existe en alguna BD
+
 $stmt = sqlsrv_query($conn, $sql);
 $affectedRows = array();
 do {
     if(sqlsrv_rows_affected($stmt)!=0){
         $conteo += 1;
-
     }
 } while (sqlsrv_next_result($stmt));
 
 if ($conteo == 0) {
     echo '<script>alert("RIF no se encuentra en nuestra Base de Datos","error");
                     window.location.replace("register.html")</script>';
+
+// Verifico que la contraseña intrudicida para el registro sea igual em ambos campos 
+
 }else { if ($password != $password2) {
         echo '<script>alert("Las contraseñas no coinciden","error");
                     window.location.replace("register.html")</script>';
     }
 };
+
+// Verifico que el RIF no este refistrado en la aplicacion 
 
 $sql = ("SELECT * FROM DYNAMICS.dbo.USRCONSRET 
         WHERE Usuario = '" . $usuario . "'" );
@@ -63,6 +72,8 @@ if($rows_affected != 0){
     echo '<script>alert("RIF ya se encuentra registrado en nuestra Base de Datos","error");
                     window.location.replace("register.html")</script>';
 }
+
+// Valido el Registro del usuario
 
 $sql = ("INSERT INTO DYNAMICS.dbo.USRCONSRET
         VALUES('".$usuario."','".$password."')");
