@@ -84,7 +84,7 @@
                 WHERE open3_p = '" . $rifProv ."'
                 AND CONVERT(VARCHAR, IMP_nc_open3_feccon, 23) >= '" . $fechaini ."'
                 AND CONVERT(VARCHAR, IMP_nc_open3_feccon, 23) <= '" . $fechafin . "'
-                ORDER BY 'COL-3', 'COL-1';"
+                ORDER BY 'COL-1', 'COL-3';"
     );
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {

@@ -56,7 +56,7 @@ if ($stmt === false) {
         sqlsrv_free_stmt($stmt);
         sqlsrv_close($conn);
         echo '<script>alert("Datos Incorrectos","Usuario o Password incorercto","error");
-                    window.location.replace("login.html")</script>';
+                    window.location.replace("login.php")</script>';
     }
 }
 
