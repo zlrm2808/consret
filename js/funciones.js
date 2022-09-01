@@ -42,11 +42,56 @@ $(document).ready(function () {
     });
 });
 
+
+$(document).ready(function () {
+    $("#HTML").click(function () {
+        var id = $(this).val();
+        var doc = $("#doc" + id).text();
+        var tipo = $("#tipo" + id).text();
+        var rif = $("#rif").text();
+
+        var parametros = {
+            doc: doc,
+            tipo: tipo,
+            rif: rif,
+        };
+
+        var myRedirect = function (redirectUrl, arg1, arg2, arg3) {
+            var form = $(
+                '<form action="' +redirectUrl +'" method="post" target="_blank">' +
+                '<input type="text" id="doc" name="doc" value="' +doc +'"></input>' +
+                '<input type="text" id="tipo" name="tipo" value="' + tipo + '"></input>' +
+                '<input type="text" id="rif" name="rif" value="' + rif + '"></input>' +
+                "</form>"
+            );
+            $("body").append(form);
+            $(form).submit();
+        };
+
+        // });
+        $.ajax({
+            data: parametros, //datos que se envian a traves de ajax
+            url: "./retencion.php", //archivo que recibe la peticion
+            type: "post", //método de envio
+            cache: false,
+            async: true,
+
+            success: function (response) {
+                myRedirect("./retencion.php", doc, tipo, rif);
+            },
+        });
+
+
+    });
+});
+
+
 /*
 $(document).on("click", "#HTML", function () {
     var id = $(this).val();
     var doc = $("#doc" + id).text();
     var tipo = $("#tipo" + id).text();
+    var rif = $("#rif").text();
 
 
     var parametros = {
@@ -66,5 +111,6 @@ $(document).on("click", "#HTML", function () {
         success: function (response) {
             location.href = "./retencion.php?doc=" + doc + "&tipo=" + tipo + "&rif=" + rif;
         },
-    });
-    */
+    })
+});
+*/

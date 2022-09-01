@@ -16,7 +16,9 @@ $tipo = $_POST["tipo"];
 $rif = $_POST["rif"];
 
 echo $doc;
+echo "<br>";
 echo $tipo;
+echo "<br>";
 echo $rif;
 die;
 

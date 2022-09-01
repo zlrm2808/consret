@@ -61,6 +61,7 @@
     }
 
     $table = '<div class="limiter">
+    <span hidden id="rif" value="'. $rifPr.'">' . $rifProv . '</span>
                     <div>
                         <div>
                             <div>
