@@ -1,0 +1,123 @@
+body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #000000;
+    background-color: #ffffff;
+    margin: 0px;
+    padding: 0px;
+}
+
+.paginaVertical {
+    width: 230mm;
+    height: 279.4mm;
+    margin: 2cm
+}
+
+.paginaHorizontal {
+    width: 279.4mm;
+    height: 189mm;
+    margin: 1cm
+}
+
+p {
+    text-indent: 10px;
+    font-family: verdana;
+    font-size: 10pt;
+    margin-bottom: 10px;
+}
+
+h4 {
+    color: #000000;
+    font-family: verdana;
+    font-size: 14pt;
+    margin-bottom: 1px;
+}
+
+table {
+    font-family: verdana;
+    font-size: 8pt;
+}
+
+div {
+    color: #000000;
+    font-family: verdana;
+    font-size: 8pt;
+    font-weight: bold;
+}
+
+.cabecera {
+    height: 40px;
+    font-weight: normal;
+}
+
+.cabecera2 {
+    height: 20px;
+    font-weight: normal;
+}
+
+/*.error {
+        background: url(../img/error.gif) 10px no-repeat;
+        font-size: 9pt;
+        padding-left: 40px;
+        padding-right: 30px;
+        height: auto;
+        padding-top: 9px;
+        padding-bottom: 9px;
+        color: red;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        background-color: #F5DCDC;
+        display: inline-block; 
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        border: 1px solid red;
+        margin-top: 3px;
+        text-align: center;
+        width: 80%;
+        margin-left: 5%;
+        margin-bottom: 10px;
+    }
+
+    .alerta {
+        background: url(../img/alerta.png) 10px no-repeat;
+        font-size: 9pt;
+        padding-left: 60px;
+        padding-right: 30px;
+        height: auto;
+        padding-top: 9px;
+        padding-bottom: 9px;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        background-color: #FCF6B9;
+        display: inline-block; 
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        border: 1px solid maroon;
+        color: maroon;
+        margin-top: 3px;
+        width: 80%;
+        margin-left: 5%;
+        margin-bottom: 10px;
+    }
+
+    .info {
+        background: url(../img/info.png) 10px no-repeat;
+        font-size: 9pt;
+        padding-left: 60px;
+        padding-right: 30px;
+        height: auto;
+        padding-top: 9px;
+        padding-bottom: 9px;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        background-color: #FCF6B9;
+        display: inline-block; 
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        border: 1px solid #00254A;
+        color: #00254A;
+        margin-top: 3px;
+        width: 80%;
+        margin-left: 5%;
+        margin-bottom: 10px;
+    }*/

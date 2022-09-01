@@ -6,9 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style-cons.css">
-    <link rel="stylesheet" href="./css/tabla.css">
-    <script src="js/funciones.js"></script>
-    <script src="js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="./css/jquery-ui.css">
+    <link rel="stylesheet" href="./css/dataTables.jqueryui.min.css">
+    <script src="./js/funciones.js"></script>
+    <script src="./js/jquery-3.5.1.js"></script>
+    <script src="./js/jquery.dataTables.min.js"></script>
+    <script src="./js/dataTables.jqueryui.min.js"></script>
     <title>Consultar Retenciones</title>
 </head>
 
@@ -79,7 +82,7 @@
         <div class="documento">
             <h3>Documento:</h3>
             <br>
-            <input type="text" name="documento" id="documento">
+            <input type="text" name="documento" id="nrodoc">
         </div>
         <input type="hidden" name="rif" id="rif" value="<?php echo $rif ?>">
         <div class="botones">
@@ -102,19 +105,3 @@
 </body>
 
 </html>
-
-<!--
-<script>
-
-        $("#tabla").on("click", "tbody tr", function(event) {
-            var Id = this.cells[0].InnerHTML;
-            var Nombre = this.cells[1].InnerHTML;
-            alert(Id+Nombre);
-        })
-
-</script>
-    -->
-
-<script>
-    
-</script>
