@@ -61,7 +61,7 @@
     }
 
     $table = '<div class="limiter">
-    <span hidden id="rif" value="'. $rifPr.'">' . $rifProv . '</span>
+    <span hidden id="rif" value="'. $rifProv.'">' . $rifProv . '</span>
                     <div>
                         <div>
                             <div>
@@ -95,7 +95,6 @@
                 ';
 
     $numrow = 1;
-
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $table .= '
                         <tr>
@@ -121,10 +120,6 @@
                                 <center>
                                 <input type="image" id="HTML" src="./images/html.png" height="25" width="25" title="Imprimir Comprobante HTML" value="' . $numrow . '">
                                 <input type="image" id="PDF" src="./images/pdf.jpg" height="25" width="25" title="Imprimir Comprobante PDF" value="' . $numrow . '">
-                                <!--
-                                <button type="button" >HTML</button>
-                                <button type="button" id="PDF" value="' . $numrow . '">PDF</button>
-                                -->
                                 </center>
                             </td>
                     </tr>

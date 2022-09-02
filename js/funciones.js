@@ -44,11 +44,11 @@ $(document).ready(function () {
 
 
 $(document).ready(function () {
-    $("#HTML").click(function () {
+    $(document).on("click", "#HTML", function () {
         var id = $(this).val();
         var doc = $("#doc" + id).text();
         var tipo = $("#tipo" + id).text();
-        var rif = $("#rif").text();
+        //var rif = $("#rif").text();
 
         var parametros = {
             doc: doc,
@@ -58,59 +58,50 @@ $(document).ready(function () {
 
         var myRedirect = function (redirectUrl, arg1, arg2, arg3) {
             var form = $(
-                '<form action="' +redirectUrl +'" method="post" target="_blank">' +
-                '<input type="text" id="doc" name="doc" value="' +doc +'"></input>' +
-                '<input type="text" id="tipo" name="tipo" value="' + tipo + '"></input>' +
-                '<input type="text" id="rif" name="rif" value="' + rif + '"></input>' +
+                '<form action="' +
+                redirectUrl +
+                '" method="post" target="_blank">' +
+                '<input type="text" id="doc" name="doc" value="' +
+                doc +
+                '"></input>' +
+                '<input type="text" id="tipo" name="tipo" value="' +
+                tipo +
+                '"></input>' +
+                '<input type="text" id="rif" name="rif" value="' +
+                rif +
+                '"></input>' +
                 "</form>"
             );
             $("body").append(form);
+            $(form).hide();
             $(form).submit();
         };
 
-        // });
-        $.ajax({
-            data: parametros, //datos que se envian a traves de ajax
-            url: "./retencion.php", //archivo que recibe la peticion
-            type: "post", //método de envio
-            cache: false,
-            async: true,
-
-            success: function (response) {
-                myRedirect("./retencion.php", doc, tipo, rif);
-            },
-        });
-
-
+        switch (tipo) {
+            case "IVA":
+                $.ajax({
+                data: parametros, //datos que se envian a traves de ajax
+                url: "./retiva.php", //archivo que recibe la peticion
+                type: "post", //método de envio
+                cache: false,
+                async: true,
+                success: function (response) {
+                    myRedirect("./retiva.php", doc, tipo, rif);
+                },
+            });
+            break;
+            case "ISLR":
+                $.ajax({
+                data: parametros, //datos que se envian a traves de ajax
+                url: "./retislr.php", //archivo que recibe la peticion
+                type: "post", //método de envio
+                cache: false,
+                async: true,
+                success: function (response) {
+                    myRedirect("./retislr.php", doc, tipo, rif);
+                },
+            });
+            break;
+        };
     });
 });
-
-
-/*
-$(document).on("click", "#HTML", function () {
-    var id = $(this).val();
-    var doc = $("#doc" + id).text();
-    var tipo = $("#tipo" + id).text();
-    var rif = $("#rif").text();
-
-
-    var parametros = {
-        doc: doc,
-        tipo: tipo,
-        rif: rif,
-    };
-
-    // });
-    $.ajax({
-        data: parametros, //datos que se envian a traves de ajax
-        url: "./retencion.php", //archivo que recibe la peticion
-        type: "post", //método de envio
-        cache: false,
-        async: true,
-
-        success: function (response) {
-            location.href = "./retencion.php?doc=" + doc + "&tipo=" + tipo + "&rif=" + rif;
-        },
-    })
-});
-*/
