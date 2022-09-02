@@ -130,14 +130,14 @@
             </tr>
             <tr>
                 <td>
-                    <div>NOMBRE O RAZÓN SOCIAL DEL AGENTE DE RETENCIÓN</div>
+                    <div>NOMBRE DEL AGENTE DE RETENCIÓN</div>
                     <div Class="hr">
                         <hr />
                     </div>
                 </td>
                 <td>&nbsp;</td>
                 <td colspan='2'>
-                    <div>REGISTRO DE INFORMACIÓN FISCAL DEL AGENTE</div>
+                    <div>RIF DEL AGENTE DE RETENCIÓN</div>
                     <div class="hr">
                         <hr />
                     </div>
