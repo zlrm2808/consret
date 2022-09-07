@@ -73,8 +73,6 @@
         $nempr = $row["6"];
     }
     ?>
-
-
     <div id="" Class="paginaHorizontal">
         <table border='0' style="width:100%; height:60px;">
             <tr>

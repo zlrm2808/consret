@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,18 +8,89 @@
     <link rel="stylesheet" href="./css/retenciones.css">
     <title>Documento de ISLR</title>
 </head>
+
 <body>
+    <?php
+    $hoy = date("d/m/Y");
+    $doc = $_POST["doc"];
+    $tipo = $_POST["tipo"];
+    $rif = $_POST["rif"];
+
+
+    include_once("conexion.php");
+
+    // Con esta Consulta saco el encabezado de las retencionesb tanto de IVA como de ISLR
+
+    $sql = ("SELECT TOP 1
+    IMP_nc_open3_ncompr as '0',
+    CONVERT(VARCHAR, IMP_nc_open3_feccon, 103) AS '1',
+    UPPER(CMPNYNAM) AS '2',
+    TAXREGTN AS '3',
+    CONCAT('AÑO ',RIGHT(TRIM(IMP_nc_open3_period),4),' / MES ',
+	CASE
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=1 THEN 'ENE'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=2 THEN 'FEB'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=3 THEN 'MAR'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=4 THEN 'ABR'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=5 THEN 'MAY'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=6 THEN 'JUN'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=7 THEN 'JUL'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=8 THEN 'AGO'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=9 THEN 'SEP'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=10 THEN 'OCT'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=11 THEN 'NOV'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=12 THEN 'DIC'
+	END) AS '4',
+    UPPER(TRIM(ADDRESS1)) AS '5.1',
+    UPPER(TRIM(ADDRESS2)) AS '5.2',
+    UPPER(CONCAT(TRIM(ADDRESS3),', ',TRIM(CITY),', ',TRIM(STATE))) AS '5.3',
+    UPPER(IMP_nc_open3_nompro) AS '6',
+    open3_p as '7',
+	PV_MI_direc1 as '8.1',
+	PV_MI_direc2 as '8.2',
+	PV_MI_direc3 as '8.3'
+    FROM IMPP3000
+    INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
+	INNER JOIN IMPP0161 on PV_MI_idprov = open3_p 
+    WHERE open3_p = '" . $rif . "'
+    AND IMP_nc_open3_numfac = '" . $doc . "'
+    "
+    );
+    $stmt = sqlsrv_query($conn, $sql);
+    if ($stmt === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
+
+    if ($stmt === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
+
+    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        $ncomp = $row["0"];
+        $fecha = $row["1"];
+        $rzsoc = $row["2"];
+        $rifEmp = $row["3"];
+        $perdf = $row["4"];
+        $dir1 = $row["5.1"];
+        $dir2 = $row["5.2"];
+        $dir3 = $row["5.3"];
+        $nempr = $row["6"];
+        $dirP1 = $row["8.1"];
+        $dirP2 = $row["8.2"];
+        $dirP3 = $row["8.3"];
+    }
+    ?>
     <div id="" class="paginaHorizontal">
         <table border='0' style="width:100%; height:60px;">
             <tr>
                 <td width='200'>
-                    <img src="/img/empresas/polytex/comp_img.jpg" width="205" height="72" border="0" alt="">
+                    <img src="./images/logo-ret.jpg" width="205" height="72" border="0" alt="">
                 </td>
                 <td valign='top' align='center'>
                     <h4>&nbsp;COMPROBANTE DE RETENCIÓN DE ISLR</h4>
                 </td>
                 <td valign='top' align='right' width='100'>
-                    <a href="#" onclick="javascript:window.print()"><img src="/img/print.png" width="25" height="25"></a>
+                    <a href="#" onclick="javascript:window.print()"><img src="./images/print.png" width="25" height="25"></a>
                 </td>
             </tr>
         </table>
@@ -37,7 +109,7 @@
 
                 <td> &nbsp;</td>
                 <td align='center'>
-                    <div>FECHA DE EMISI&Oacute;N</div>
+                    <div>FECHA DE EMISIÓN</div>
                     <div class="hr">
                         <hr />
                     </div>
@@ -47,10 +119,10 @@
             <tr>
                 <td colspan='2'> &nbsp;</td>
 
-                <td align='center'> COM220002289 </td>
+                <td align='center'> <?php echo $ncomp ?> </td>
 
                 <td>&nbsp;</td>
-                <td align='center'> 08/06/2022 </td>
+                <td align='center'> <?php echo $fecha ?> </td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
@@ -66,21 +138,21 @@
             </tr>
             <tr>
                 <td>
-                    <div>NOMBRE O RAZ&Oacute;N SOCIAL DEL AGENTE DE RETENCI&Oacute;N</div>
+                    <div>NOMBRE DEL AGENTE DE RETENCIÓN</div>
                     <div class="hr">
                         <hr />
                     </div>
                 </td>
                 <td>&nbsp;</td>
                 <td colspan='2'>
-                    <div>REGISTRO DE INFORMACI&Oacute;N FISCAL DEL AGENTE</div>
+                    <div>RIF DEL AGENTE DE RETENCIÓN</div>
                     <div class="hr">
                         <hr />
                     </div>
                 </td>
                 <td>&nbsp;</td>
                 <td align='center'>
-                    <div>PER&Iacute;ODO</div>
+                    <div>PERÍODO FISCAL</div>
                     <div class="hr">
                         <hr />
                     </div>
@@ -88,11 +160,11 @@
                 <td colspan='3'>&nbsp;</td>
             </tr>
             <tr>
-                <td> POLYTEX DE MARACAY C. A.</td>
+                <td><?php echo $rzsoc ?></td>
                 <td>&nbsp;</td>
-                <td colspan='2'> J075558855</td>
+                <td colspan='2'><?php echo $rifEmp ?></td>
                 <td width='2%'>&nbsp;</td>
-                <td align='center'> 20220601-20220630</td>
+                <td align='center'><?php echo $perdf ?></td>
                 <td colspan='3'>&nbsp;</td>
             </tr>
             <tr>
@@ -100,7 +172,7 @@
             </tr>
             <tr>
                 <td colspan='4'>
-                    <div>DIRECCI&Oacute;N FISCAL DEL AGENTE DE RETENCI&Oacute;N</div>
+                    <div>DIRECCIÓN FISCAL DEL AGENTE DE RETENCIÓN</div>
                     <div class="hr">
                         <hr />
                     </div>
@@ -110,7 +182,7 @@
                 <td colspan='3'>&nbsp;</td>
             </tr>
             <tr>
-                <td colspan='4'> AV LAS INDUSTRIAS, ZONA G, LOCAL GALPONES 10, 11, 18 Y 19, URB INDUSTRIAL SOCO LA VICTORIA ARAGUA ZONA POSTAL 2121</td>
+                <td colspan='4'><?php echo $dir1 . ' ' . $dir2 . ' ' . $dir3 ?></td>
                 <td width='2%'>&nbsp;</td>
                 <td width='10%'>&nbsp;</td>
                 <td colspan='3'>&nbsp;</td>
@@ -120,14 +192,14 @@
             </tr>
             <tr>
                 <td>
-                    <div>NOMBRE O RAZ&Oacute;N SOCIAL DEL SUJETO RETENIDO</div>
+                    <div>NOMBRE O RAZÓN SOCIAL DEL SUJETO RETENIDO</div>
                     <div class="hr">
                         <hr />
                     </div>
                 </td>
                 <td>&nbsp;</td>
                 <td colspan='2'>
-                    <div>REGISTRO DE INFORMACI&Oacute;N FISCAL DEL SUJETO</div>
+                    <div>REGISTRO DE INFORMACIÓN FISCAL DEL SUJETO</div>
                     <div class="hr">
                         <hr />
                     </div>
@@ -137,9 +209,9 @@
                 <td colspan='3'>&nbsp;</td>
             </tr>
             <tr>
-                <td> VIRTUAL OFFICE GROUP, C.A.</td>
+                <td><?php echo $nempr ?></td>
                 <td>&nbsp;</td>
-                <td colspan='2'> J309672371</td>
+                <td colspan='2'><?php echo $rif ?></td>
                 <td width='2%'>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td colspan='3'>&nbsp;</td>
@@ -149,7 +221,7 @@
             </tr>
             <tr>
                 <td colspan='4'>
-                    <div>DIRECCI&Oacute;N FISCAL DEL SUJETO RETENIDO</div>
+                    <div>DIRECCIÓN FISCAL DEL SUJETO RETENIDO</div>
                     <div class="hr">
                         <hr />
                     </div>
@@ -159,7 +231,7 @@
                 <td colspan='3'>&nbsp;</td>
             </tr>
             <tr>
-                <td colspan='4'>AVDA.MARINO SUR CENTRO EMPRESARIAL</td>
+                <td colspan='4'><?php echo $dirP1 . ' ' . $dirP2 . ' ' . $dirP3 ?></td>
                 <td width='2%'>&nbsp;</td>
                 <td width='10%'>&nbsp;</td>
                 <td colspan='3'>&nbsp;</td>
@@ -167,53 +239,94 @@
             <tr>
         </table>
         <br /><br />
-        <table border='1' style='border-collapse: collapse' align='center' width='100%'>
+
+        <?php
+        $sql = ("SELECT CONVERT(VARCHAR, IMP_nc_open3_fecdoc, 103) AS 'COL-1',
+                        IMP_nc_open3_numfac AS 'COL-2',
+                        IMP_nc_open3_ncontro AS 'COL-3',
+                        IMP_nc_open3_detimp AS 'COL-4',
+                        IMP_nc_open3_basimp + (IMP_nc_open3_basimp * IMP_nc_open3_porimp)/100 AS 'COL-5',
+                        IMP_nc_open3_basimp AS 'COL-6',
+                        IMP_nc_open3_porimp AS 'COL-7',
+                        0 AS 'COL-8',
+                        (IMP_nc_open3_basimp * IMP_nc_open3_porimp)/100 AS 'COL-9'
+                FROM IMPP3000
+                WHERE open3_p = '" . $rif . "'
+                AND IMP_nc_open3_numfac = '" . $doc . "'");
+
+        $stmt = sqlsrv_query($conn, $sql);
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+
+        $tableIva =
+            "<table border='1' style='border-collapse: collapse' align='center' width='100%'>
             <tr height='25'>
                 <td align='center' bgcolor='#EAEAEA'><b>Fecha de la Factura</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>N&uacute;mero de Factura</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>N&uacute;mero de Control</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Descripci&oacute;n</b></td>
+                <td width='90' align='center' bgcolor='#EAEAEA'><b>Número de Factura</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Número de Control</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Descripción</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Monto Total (Bs.)</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Base Imponible de Retención (Bs.)</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>% Islr Ret.</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Sustraendo (Bs.)</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Importe Islr (Bs.)</b></td>
-            </tr>
+            </tr>";
 
+        $numrow = 1;
+        //Totales
+        $totmto = 0;
+        $totbimp = 0;
+        $totimp = 0;
+        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+            $tableIva .= "
             <tr>
-                <td align='center'> 06/06/2022 </td>
-                <td align='center'> 4434</td>
-                <td align='center'> 00-003570</td>
-                <td align='left'> CJD 2% 055</td>
-                <td align='right'>392,70&nbsp;</td>
-                <td align='right'>385,00&nbsp;</td>
-                <td align='right'>2,00&nbsp;</td>
-                <td align='right'>0,00&nbsp;</td>
-                <td align='right'>7,70&nbsp;</td>
-            </tr>
+                <td align='center'>" . $row['COL-1'] . "</td>
+                <td align='center'>" . $row['COL-2'] . "</td>
+                <td align='center'>" . $row['COL-3'] . "</td>
+                <td align='left'>" . $row['COL-4'] . "</td>
+                <td align='right'>" . number_format($row['COL-5'], 2, ',', '.') . "</td>
+                <td align='right'>" . number_format($row['COL-6'], 2, ',', '.') . "</td>
+                <td align='right'>" . number_format($row['COL-7'], 2, ',', '.') . "</td>
+                <td align='right'>" . number_format($row['COL-8'], 2, ',', '.') . "</td>
+                <td align='right'>" . number_format($row['COL-9'], 2, ',', '.') . "</td>
+            </tr>";
+            $numrow++;
+            $totmto += $row['COL-5'];
+            $totbimp += $row['COL-6'];
+            $totimp += $row['COL-9'];
+        }
+        $tableIva .= "
 
             <tr height='25'>
-                <td align='right' colspan='3'>&nbsp;</td>
-                <td align='right'>Totales (Bs.):&nbsp;</td>
-                <td align='right'>392,70&nbsp;</td>
-                <td align='right'>385,00&nbsp;</td>
+                <td align='right' colspan='3'></td>
+                <td align='right'>Totales (Bs.):</td>
+                <td align='right'>" . number_format($totmto, 2, ',', '.') . "</td>
+                <td align='right'>" . number_format($totbimp, 2, ',', '.') . "</td>
                 <td>&nbsp;</td>
                 <td align='right'>&nbsp;</td>
-                <td align='right'>7,70&nbsp;</td>
+                <td align='right'>" . number_format($totimp, 2, ',', '.') . "</td>
             </tr>
         </table>
+        ";
+        echo $tableIva;
+        ?>
 
         <table border='0' style='border-collapse: collapse' align=center width='100%'>
             <tr>
                 <td align='center'>
-                    <img src='/img/empresas/polytex/firm_img.jpg' width='200px' height='100px'>
+                    <img src='./images/FirmaySello.png' width='200px' height='100px'>
                 </td>
             </tr>
             <tr>
                 <td align='center'>_______________________________________________________</td>
             </tr>
             <tr>
-                <td align='center'>POLYTEX DE MARACAY C. A.<br />Fecha de Descarga: 02/09/2022</td>
+                <td align='center'><?php echo $rzsoc ?><br />Fecha de Descarga:<?php echo ' ' . $hoy ?></td>
             </tr>
         </table>
     </div>
