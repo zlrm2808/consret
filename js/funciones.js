@@ -70,6 +70,10 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $(document).on("click", "#HTML", function () {
+        var id = '';
+        var doc = '';
+        var tipo = '';
+        var fechaini = '';
         var id = $(this).val();
         var doc = $("#doc" + id).text();
         var tipo = $("#tipo" + id).text();
