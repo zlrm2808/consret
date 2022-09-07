@@ -19,7 +19,7 @@
 
     include_once("conexion.php");
 
-    // Con esta Consulta saco el encabezado de las retencionesb tanto de IVA como de ISLR
+    // Con esta Consulta saco el encabezado de las retenciones
 
     $sql = ("SELECT TOP 1
     IMP_nc_open_nreten as '0',

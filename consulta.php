@@ -93,7 +93,7 @@
     </div>
     <div class="contenedor-bot">
         <label class="cbArc">ARC
-            <input type="checkbox" id="arc" name="arc">
+            <input type="checkbox" id="arc" name="arc" onclick="check()">
             <span class="checkmark"></span>
         </label>
     </div>
