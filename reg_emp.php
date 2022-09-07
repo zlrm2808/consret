@@ -31,7 +31,7 @@ $sql = ("DECLARE @rn INT = 1, @dbname varchar(MAX) = '', @conteo int = 0, @query
             IF @dbname <> '' AND @dbname IS NOT NULL
 
             EXEC ('use ['+@dbname+'];
-                SELECT PV_MI_idprov
+                SELECT PV_MI_rif000
                 FROM IMPP0161
                 WHERE PV_MI_idprov = ''".$usuario. "''
                     ')

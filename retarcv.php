@@ -76,7 +76,7 @@
                     <img src="./images/logo-ret.jpg" width="205" height="72" border="0" alt="">
                 </td>
                 <td valign='top' align='center'>
-                    <h4>&nbsp;COMPROBANTE DE RETENCIÓN DE ACRV</h4>
+                    <h4>&nbsp;COMPROBANTE DE RETENCIÓN DE ARCV</h4>
                 </td>
                 <td valign='top' align='right' width='100'>
                     <a href="#" onclick="javascript:window.print()"><img src="./images/print.png" width="25" height="25"></a>
