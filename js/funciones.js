@@ -1,11 +1,11 @@
-chkselect = "NO";
+Tabla = "tabla.php";
 
 function check() {
     var isChecked = document.getElementById("arc").checked;
     if (isChecked) {
-        chkselect = "SI";
+        Tabla = "tablaarc.php";
     } else {
-        chkselect = "NO";
+        Tabla = "tabla.php";
     }
 }
 
@@ -15,14 +15,6 @@ function getValueInput() {
     rif = $("#rif").val();
     nrodoc = $("#nrodoc").val();
 
-    switch (chkselect) {
-        case "SI":
-            Tabla = "tablaarc.php";
-            break;
-        case "NO":
-            Tabla = "tabla.php";
-            break;
-    }
     $.post(
         Tabla,
         {
@@ -118,7 +110,6 @@ $(document).ready(function () {
                         myRedirect(reqUrl, parametros);
                         break;
                 }
-
             },
         });
     });
