@@ -70,14 +70,10 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $(document).on("click", "#HTML", function () {
-        var id = '';
-        var doc = '';
-        var tipo = '';
-        var fechaini = '';
         var id = $(this).val();
+        var fechaini = $("#fechaIni").val();
         var doc = $("#doc" + id).text();
         var tipo = $("#tipo" + id).text();
-        var fechaini = $("#fechaIni").val();
 
         var parametros = {
             doc: doc,
@@ -85,6 +81,18 @@ $(document).ready(function () {
             rif: rif,
             fechaini: fechaini,
         };
+
+        switch (tipo) {
+            case "IVA":
+                reqUrl = "./retiva.php";
+            break;
+            case "ISLR":
+                reqUrl = "./retislr.php";
+            break;
+            case "ARCV":
+                reqUrl = "./retarcv.php";
+            break;
+        }
 
         var myRedirect = function (redirectUrl, arg1, arg2, arg3, arg4) {
             var form = $(
@@ -102,43 +110,27 @@ $(document).ready(function () {
             $(form).submit();
         };
 
-        switch (tipo) {
-            case "IVA":
-                $.ajax({
-                    data: parametros, //datos que se envian a traves de ajax
-                    url: "./retiva.php", //archivo que recibe la peticion
-                    type: "post", //método de envio
-                    cache: false,
-                    async: true,
-                    success: function (response) {
-                        myRedirect("./retiva.php", doc, tipo, rif, fechaini);
-                    },
-                });
-                break;
-            case "ISLR":
-                $.ajax({
-                    data: parametros, //datos que se envian a traves de ajax
-                    url: "./retislr.php", //archivo que recibe la peticion
-                    type: "post", //método de envio
-                    cache: false,
-                    async: true,
-                    success: function (response) {
-                        myRedirect("./retislr.php", doc, tipo, rif, fechaini);
-                    },
-                });
-                break;
-            case "ARCV":
-                $.ajax({
-                    data: parametros, //datos que se envian a traves de ajax
-                    url: "./retarcv.php", //archivo que recibe la peticion
-                    type: "post", //método de envio
-                    cache: false,
-                    async: true,
-                    success: function (response) {
-                        myRedirect("./retarcv.php", doc, tipo, rif, fechaini);
-                    },
-                });
-                break;
-        }
+        $.ajax({
+            data: parametros, //datos que se envian a traves de ajax
+            url: reqUrl, //archivo que recibe la peticion
+            type: "post", //método de envio
+            cache: false,
+            async: true,
+
+            success: function (response) {
+                switch (tipo) {
+                    case "IVA":
+                        myRedirect(reqUrl, parametros);
+                    break;
+                    case "ISLR":
+                        myRedirect(reqUrl, parametros);
+                    break;
+                    case "ARCV":
+                        myRedirect(reqUrl, parametros);
+                    break;
+                }
+                
+            },
+        });
     });
 });
