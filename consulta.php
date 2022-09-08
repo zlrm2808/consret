@@ -99,7 +99,6 @@
     </div>
     <div class="contenedor-tabla">
         <div class="tablaCons" id="tabla">
-
         </div>
     </div>
 </body>

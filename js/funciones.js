@@ -1,4 +1,6 @@
 Tabla = "tabla.php";
+//var form = $('<form></form>');
+//$("body").append(form);
 
 function check() {
     var isChecked = document.getElementById("arc").checked;
@@ -49,68 +51,50 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    $(document).on("click", "#HTML", function () {
-        var id = $(this).val();
-        var fechaini = $("#fechaIni").val();
-        var doc = $("#doc" + id).text();
-        var tipo = $("#tipo" + id).text();
+$(document).on("click", "#HTML", function () {
+    var id = $(this).val();
+    var fechaini = $("#fechaIni").val();
+    var doc = $("#doc" + id).text();
+    var tipo = $("#tipo" + id).text();
 
-        var parametros = {
-            doc: doc,
-            tipo: tipo,
-            rif: rif,
-            fechaini: fechaini,
-        };
+    var myRedirect = function (redirectUrl) {
+        /*
+        form.setAttribute("method","post");
+        form.setAttribute("action", redirectUrl);
+        form.setAttribute("target", "_blank");
+        form.empty();
+        form.append('<input type="text" id="doc" name="doc" value="' + doc + '"></input>');
+        form.append('<input type="text" id="tipo" name="tipo" value="' + tipo + '"></input>');
+        form.append('<input type="text" id="rif" name="rif" value="' + rif + '"></input>');
+        form.append('<input type="text" id="fechaini" name="fechaini" value="' + fechaini + '"></input>');
+        form.submit();
+        */
 
-        switch (tipo) {
-            case "IVA":
-                reqUrl = "./retiva.php";
-                break;
-            case "ISLR":
-                reqUrl = "./retislr.php";
-                break;
-            case "ARCV":
-                reqUrl = "./retarcv.php";
-                break;
-        }
+        
+        var form = $(
+            '<form action="'+redirectUrl+'" method="post" target="_blank" id="formulario">' +
+            '<input type="text" id="doc" name="doc" value="' + doc + '"></input>' +
+            '<input type="text" id="tipo" name="tipo" value="' + tipo + '"></input>' +
+            '<input type="text" id="rif" name="rif" value="' + rif + '"></input>' +
+            '<input type="text" id="fechaini" name="fechaini" value="' + fechaini + '"></input>' +
+            "</form>"
+        );
+        $("body").append(form);
+        $(form).hide();
+        $(form).submit();
+        form.empty();
+    };
 
-        var myRedirect = function (redirectUrl, arg1, arg2, arg3, arg4) {
-            var form = $(
-                '<form action="' +
-                redirectUrl +
-                '" method="post" target="_blank">' +
-                '<input type="text" id="doc" name="doc" value="' + doc + '"></input>' +
-                '<input type="text" id="tipo" name="tipo" value="' + tipo + '"></input>' +
-                '<input type="text" id="rif" name="rif" value="' + rif + '"></input>' +
-                '<input type="text" id="fechaini" name="fechaini" value="' + fechaini + '"></input>' +
-                "</form>"
-            );
-            $("body").append(form);
-            $(form).hide();
-            $(form).submit();
-        };
-
-        $.ajax({
-            data: parametros, //datos que se envian a traves de ajax
-            url: reqUrl, //archivo que recibe la peticion
-            type: "post", //método de envio
-            cache: false,
-            async: true,
-
-            success: function (response) {
-                switch (tipo) {
-                    case "IVA":
-                        myRedirect(reqUrl, parametros);
-                        break;
-                    case "ISLR":
-                        myRedirect(reqUrl, parametros);
-                        break;
-                    case "ARCV":
-                        myRedirect(reqUrl, parametros);
-                        break;
-                }
-            },
-        });
-    });
+    switch (tipo) {
+        case "IVA":
+            reqUrl = "./retiva.php";
+            break;
+        case "ISLR":
+            reqUrl = "./retislr.php";
+            break;
+        case "ARCV":
+            reqUrl = "./retarcv.php";
+            break;
+    }
+    myRedirect(reqUrl);
 });
