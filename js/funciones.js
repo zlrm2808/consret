@@ -17,36 +17,25 @@ function getValueInput() {
 
     switch (chkselect) {
         case "SI":
-            $.post(
-                "tablaarc.php",
-                {
-                    fechaini: fechaini,
-                    fechafin: fechafin,
-                    rif: rif,
-                    nrodoc: nrodoc,
-                },
-                function (data, status) {
-                    $("#tabla").show();
-                    $("#tabla").html(data);
-                }
-            );
+            Tabla = "tablaarc.php";
             break;
         case "NO":
-            $.post(
-                "tabla.php",
-                {
-                    fechaini: fechaini,
-                    fechafin: fechafin,
-                    rif: rif,
-                    nrodoc: nrodoc,
-                },
-                function (data, status) {
-                    $("#tabla").show();
-                    $("#tabla").html(data);
-                }
-            );
+            Tabla = "tabla.php";
             break;
     }
+    $.post(
+        Tabla,
+        {
+            fechaini: fechaini,
+            fechafin: fechafin,
+            rif: rif,
+            nrodoc: nrodoc,
+        },
+        function (data, status) {
+            $("#tabla").show();
+            $("#tabla").html(data);
+        }
+    );
 };
 
 function limpiartabla() {
@@ -85,13 +74,13 @@ $(document).ready(function () {
         switch (tipo) {
             case "IVA":
                 reqUrl = "./retiva.php";
-            break;
+                break;
             case "ISLR":
                 reqUrl = "./retislr.php";
-            break;
+                break;
             case "ARCV":
                 reqUrl = "./retarcv.php";
-            break;
+                break;
         }
 
         var myRedirect = function (redirectUrl, arg1, arg2, arg3, arg4) {
@@ -121,15 +110,15 @@ $(document).ready(function () {
                 switch (tipo) {
                     case "IVA":
                         myRedirect(reqUrl, parametros);
-                    break;
+                        break;
                     case "ISLR":
                         myRedirect(reqUrl, parametros);
-                    break;
+                        break;
                     case "ARCV":
                         myRedirect(reqUrl, parametros);
-                    break;
+                        break;
                 }
-                
+
             },
         });
     });
