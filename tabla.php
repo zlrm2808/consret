@@ -60,7 +60,7 @@
         die(print_r(sqlsrv_errors(), true));
     }
 
-    $table = '<div class="limiter">
+    $table = '<div class="limiter" >
     <span hidden id="rif" value="'. $rifProv.'">' . $rifProv . '</span>
                     <div>
                         <div>

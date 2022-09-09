@@ -17,6 +17,27 @@
 
 <body>
     <?php
+
+    if (isset($_POST["redirectUrl"])) {
+        $redirectUrl = $_POST("redirectUrl");
+    } else {
+        $redirectUrl = '';
+    }
+    if (isset($_POST["id"])) {
+        $id = $_POST("id");
+    } else {
+        $id = '';
+    }
+    if (isset($_POST["doc"])) {
+        $doc = $_POST("doc");
+    } else {
+        $doc = '';
+    }
+    if (isset($_POST["tipo"])) {
+        $tipo = $_POST("tipo");
+    } else {
+        $itipo = '';
+    }
     $SERVIDOR = '';
 
     $file = @fopen('config.cone', "r");
@@ -101,6 +122,11 @@
         <div class="tablaCons" id="tabla">
         </div>
     </div>
+    <form action="./retiva.php" method="post" target="_blank" id="formulario" class="formulario">
+        <input type="text" id="fdoc" name="doc" value=""></input>
+        <input type="text" id="ftipo" name="tipo" value=""></input>
+        <input type="text" id="frif" name="rif" value=""></input>
+    </form>
 </body>
 
 </html>

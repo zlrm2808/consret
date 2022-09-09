@@ -16,6 +16,9 @@
     $tipo = $_POST["tipo"];
     $rif = $_POST["rif"];
 
+    echo $doc.' '.$tipo.' '.$rif;
+    die;
+
 
     include_once("conexion.php");
 
