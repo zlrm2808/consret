@@ -30,12 +30,19 @@ function getValueInput() {
     );
 }
 
-$(document).on("click", "#PDF", function () {
+/*$(document).on("click", "#PDF", function () {
     var id = $(this).val();
     var doc = $("#doc" + id).text();
     var tipo = $("#tipo" + id).text();
     alert(id + "   " + doc + tipo);
-});
+});*/
+
+function pdf(id) {
+    var doc = $("#doc" + id).text();
+    var tipo = $("#tipo" + id).text();
+    alert(id + "   " + doc + tipo);
+}
+
 
 $(document).ready(function () {
     $("#tabla1").DataTable({
@@ -45,8 +52,7 @@ $(document).ready(function () {
     });
 });
 
-$(document).on("click", "#HTML", function () {
-    var id = $(this).val();
+function html(id) {
     var fechaini = $("#fechaIni").val();
     var doc = $("#doc" + id).text();
     var tipo = $("#tipo" + id).text();
@@ -87,4 +93,4 @@ $(document).on("click", "#HTML", function () {
             break;
     }
     myRedirect(reqUrl);
-});
+};
