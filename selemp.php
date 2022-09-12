@@ -85,7 +85,7 @@ sqlsrv_free_stmt($stmt);
             <div class="logo-empresa">
             </div>
             <div class="logo-derecha">
-                <img src="./images/fospuca-logo.png" height="100px">
+                <img src="./images/logo-emp.png" height="100px">
             </div>
         </div>
         <div class="contenedor-mid-sel">

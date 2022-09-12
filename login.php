@@ -9,14 +9,24 @@
 </head>
 <body>
     <?PHP
+        $file = @fopen('config.ini', "r");
+        if ($file) {
+            while (!feof($file)) {
+                $lines[] = fgets($file, 4096);
+            }
+            fclose($file);
+        }
+        $SERVIDOR = ($lines[0]);
+        $EMPRESA =  ($lines[1]);
+
         $file = fopen("config.cone", "w");
-        fwrite($file, "PROGRAMADOR-02" . PHP_EOL);
+        fwrite($file, $SERVIDOR);
         fwrite($file, "DYNAMICS");
         fclose($file);
     ?>
     <div class="wrapper fadeInDown">
         <div class="empresa">
-            <h1>FOSPUCA</h1>
+            <h1><?php echo $EMPRESA ?></h1>
         </div>
         <div id="formContent">
             <!-- Tabs Titles -->

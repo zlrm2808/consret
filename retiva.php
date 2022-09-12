@@ -77,7 +77,7 @@
         <table border='0' style="width:100%; height:60px;">
             <tr>
                 <td width='200'>
-                    <img src="./images/logo-ret.jpg" width="205" height="72" border="0" alt="">
+                    <img src="./images/logo-ret.png" width="205" height="72" border="0" alt="">
                 </td>
                 <td valign='top' align='center'>
                     <h4>&nbsp;COMPROBANTE DE RETENCIÓN DE IVA</h4>

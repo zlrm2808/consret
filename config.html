@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Configuración</title>
+</head>
+
+<body>
+    <div class="wrapper fadeInDown">
+        <div class="empresa">
+            <h1>PAGINA DE CONFIGURACIÓN</h1>
+        </div>
+        <div id="formContent">
+
+            <div>
+                <!-- Register Form -->
+                <form action="./config_done.php" method="POST" enctype="multipart/form-data"/>
+                    <input type="text" id="server" class="fadeIn first" name="server" placeholder="Servidor GP">
+                    <input type="text" id="nomemp" class="fadeIn second" name="nomemp" placeholder="Nombre de Empresa a Mostrar"><br>
+                    <label for="logoemp" class="fadeIn third">Logo Empresa (ref: 3cm x 3cm)</label><br>
+                    <input accept="image/png,image/jpeg" name="logoemp" id="logoemp" type="file"/>
+                    <br><br>
+                    <label for="logoret" class="fadeIn third">Logo Retenciones (ref: 3cm x 6cm)</label><br>
+                    <input accept="image/png,image/jpeg" name="logoret" id="logoret" type="file"/>
+                    <br><br>
+                    <label for="firmaysello" class="fadeIn third">Firma y Sello Retenciones</label><br>
+                    <input accept="image/png,image/jpeg" name="firmaysello" id="firmaysello" type="file"/>
+                    <br><br>
+                    <input type="submit" class="fadeIn fourth" value="Guardar" name="subir">
+                </form>
+            </div>
+            <div id="formFooter">
+                <img src="./images/VOG-horiz-blue.png" height="45px"> <br>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
