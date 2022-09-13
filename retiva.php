@@ -16,7 +16,6 @@
     $tipo = $_POST["tipo"];
     $rif = $_POST["rif"];
 
-
     include_once("conexion.php");
 
     // Con esta Consulta saco el encabezado de las retenciones
@@ -80,7 +79,7 @@
                     <img src="./images/logo-ret.png" width="205" height="72" border="0" alt="">
                 </td>
                 <td valign='top' align='center'>
-                    <h4>&nbsp;COMPROBANTE DE RETENCIÓN DE IVA</h4>
+                    <h4>COMPROBANTE DE RETENCIÓN DE IVA</h4>
                 </td>
                 <td valign='top' align='right' width='100'>
                     <a href="#" onclick="javascript:window.print()"><img src="./images/print.png" width="25" height="25"></a>
@@ -322,12 +321,19 @@
                 <td align='right'>" . number_format($totbimp, 2, ',', '.') . "</td>
                 <td>&nbsp;</td>
                 <td align='right'>" . number_format($totimp, 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($totivaret, 2, ',', '.') ."</td>
+                <td align='right'>" . number_format($totivaret, 2, ',', '.') . "</td>
             </tr>
         </table>";
         echo $tableIva;
         ?>
         <table border='0' style='border-collapse: collapse' align=center width='100%'>
+            <tr>
+                <td width='20%'>&nbsp;</td>
+                <td width='20%'></td>
+                <td width='20%'>&nbsp;</td>
+                <td width='20%'>&nbsp;</td>
+                <td width='20%'>&nbsp;</td>
+            </tr>
             <tr>
                 <td width='20%'>&nbsp;</td>
                 <td width='20%' align='center'><img src='./images/FirmaySello.png' width='200px' height='100px'></td>

@@ -30,19 +30,48 @@ function getValueInput() {
     );
 }
 
-/*$(document).on("click", "#PDF", function () {
-    var id = $(this).val();
-    var doc = $("#doc" + id).text();
-    var tipo = $("#tipo" + id).text();
-    alert(id + "   " + doc + tipo);
-});*/
-
 function pdf(id) {
+    var fechaini = $("#fechaIni").val();
     var doc = $("#doc" + id).text();
     var tipo = $("#tipo" + id).text();
-    alert(id + "   " + doc + tipo);
-}
 
+    var myRedirect = function (redirectUrl) {
+        var form = $(
+            '<form action="' +
+            redirectUrl +
+            '" method="post" target="_blank" id="formulario">' +
+            '<input type="text" id="doc" name="doc" value="' +
+            doc +
+            '"></input>' +
+            '<input type="text" id="tipo" name="tipo" value="' +
+            tipo +
+            '"></input>' +
+            '<input type="text" id="rif" name="rif" value="' +
+            rif +
+            '"></input>' +
+            '<input type="text" id="fechaini" name="fechaini" value="' +
+            fechaini +
+            '"></input>' +
+            "</form>"
+        );
+        $("body").append(form);
+        $(form).hide();
+        $(form).submit();
+    };
+
+    switch (tipo) {
+        case "IVA":
+            reqUrl = "./retivapdf.php";
+            break;
+        case "ISLR":
+            reqUrl = "./retislrpdf.php";
+            break;
+        case "ARCV":
+            reqUrl = "./retarcvpdf.php";
+            break;
+    }
+    myRedirect(reqUrl);
+}
 
 $(document).ready(function () {
     $("#tabla1").DataTable({
@@ -93,4 +122,4 @@ function html(id) {
             break;
     }
     myRedirect(reqUrl);
-};
+}
