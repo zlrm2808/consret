@@ -61,7 +61,7 @@ function pdf(id) {
 
     switch (tipo) {
         case "IVA":
-            reqUrl = "./retivapdf.php";
+            reqUrl = "./pdf.php";
             break;
         case "ISLR":
             reqUrl = "./retislrpdf.php";
