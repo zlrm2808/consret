@@ -4,9 +4,12 @@ $hoy = date("d/m/Y");
 $doc = $_POST["doc"];
 $tipo = $_POST["tipo"];
 $rif = $_POST["rif"];
+$logoRet = "./images/logo-ret.png";
+$logoRet64 = "data:image/png;base64," . base64_encode(file_get_contents($logoRet));
+$FirmaySello = "./images/FirmaySello.png";
+$FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySello));
 
 include_once("conexion.php");
-
 
 $html = '
 <!DOCTYPE html>
@@ -20,7 +23,8 @@ $html = '
     <title>Documento de IVA</title>
 </head>
 
-<body>'.
+<body>';
+
     $sql = ('SELECT TOP 1
     IMP_nc_open_nreten as "0",
     CONVERT(VARCHAR, IMP_nc_open_feccon, 103) AS "1",
@@ -71,9 +75,19 @@ $html = '
         $dir3 = $row["5.3"];
         $nempr = $row["6"];
     }
-    $logoRet = "./images/logo-ret.png";
-    $logoRet64 = "data:image/png;base64," . base64_encode(file_get_contents($logoRet)).
+echo $sql;
+echo $ncomp;
+echo $fecha;
+echo $rzsoc;
+echo $rifEmp;
+echo $perdf;
+echo $dir1;
+echo $dir2;
+echo $dir3;
+echo $nempr;
+die;
 
+$html .=
     '<div id="" Class="paginaHorizontal">
         <table border="0" style="width:80%; height:30px; margin-top:-35px;">
             <tr>
@@ -222,8 +236,8 @@ $html = '
                 </td>
                 <td width="7%"></td>
             </tr>
-        </table>'.
-
+        </table>';
+        
         $sql = ('SELECT IMP_nc_open_numope AS "col-1",
                 CONVERT(VARCHAR, IMP_nc_open_fecdoc, 103) AS "col-2",
                 IMP_nc_open_numfac AS "col-3",
@@ -275,7 +289,7 @@ $html = '
                 <td width="3%" align="center" bgcolor="#EAEAEA"><b>% Alíc</b></td>
                 <td width="8%" align="center" bgcolor="#EAEAEA"><b>Imp IVA</b></td>
                 <td width="10%" align="center" bgcolor="#EAEAEA"><b>IVA Ret</b></td>
-            </tr>'.
+            </tr>';
 
         $numrow = 1;
         //Totales
@@ -301,7 +315,7 @@ $html = '
                 <td align="right">' . number_format($row['col-12'], 2, ",", ".") . '</td>
                 <td align="right">' . number_format($row["col-13"], 2, ",", ".") . '</td>
                 <td align="right">' . number_format($row["col-14"], 2, ",", ".") . '</td>
-            </tr>'.
+            </tr>';
             $numrow++;
             $totcciva += $row["col-9"];
             $totcsiva += $row["col-10"];
@@ -319,12 +333,11 @@ $html = '
                 <td align="right">' . number_format($totimp, 2, ",", ".") . '</td>
                 <td align="right">' . number_format($totivaret, 2, ",", ".") . '</td>
             </tr>
-        </table>'.
-        $tableIva;
-        $FirmaySello = "./images/FirmaySello.png";
-        $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySello)).
-        '
-        <table border="0" style="border-collapse: collapse" align=center width="100%" style="margin-top: 10px;">
+        </table>';
+        echo $tableIva;
+        
+        $html .=
+        '<table border="0" style="border-collapse: collapse" align=center width="100%" style="margin-top: 10px;">
             <tr>
                 <td width="20%"></td>
                 <td width="20%"></td>
@@ -355,11 +368,7 @@ $html = '
 echo $html;
 die;
 
-
 include_once "./vendor/autoload.php";
-
-
-
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -378,10 +387,4 @@ $pdf = $dompdf->output();
 $filename = "Ret IVA.pdf";
 file_put_contents($filename, $pdf);
 $dompdf->stream($filename);
-//$dompdf->stream();
-//$dompdf->output();
-//ob_clean();
-//$pdf->render();
-//$dompdf->stream("Ret IVA.pdf", ['Attachment' => 1]);
-//exit(0);
 ?>

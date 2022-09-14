@@ -1,16 +1,66 @@
-<!doctype html>
+<?php ob_start();
+require_once "./conexion.php";
 
-
-<html lang="es-ve">
+$hoy = date("d/m/Y");
+$doc = $_POST["doc"];
+$tipo = $_POST["tipo"];
+$rif = $_POST["rif"];
+$logoRet = "./images/logo-ret.png";
+$logoRet64 = "data:image/png;base64," . base64_encode(file_get_contents($logoRet));
+$FirmaySello = "./images/FirmaySello.png";
+$FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySello));
+?>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="Author" content="">
-    <meta name="Keywords" content="">
-    <meta name="Description" content="">
-    <link rel="stylesheet" href="./css/retenciones.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documento de ACRV</title>
 </head>
+
+<style>
+    @page {
+        margin-left: 0.5cm;
+        margin-right: 0.5cm;
+        margin-top: 1cm;
+        margin-bottom: 0.5cm;
+    }
+
+    body {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 10px;
+        color: #000000;
+        background-color: #ffffff;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    p {
+        text-indent: 10px;
+        font-family: verdana;
+        font-size: 10pt;
+        margin-bottom: 10px;
+    }
+
+    h4 {
+        color: #000000;
+        font-family: verdana;
+        font-size: 14pt;
+        margin-bottom: 1px;
+    }
+
+    table {
+        font-family: verdana;
+        font-size: 8pt;
+    }
+
+    div {
+        color: #000000;
+        font-family: verdana;
+        font-size: 8pt;
+        font-weight: bold;
+    }
+</style>
 
 <body>
     <?php
@@ -73,13 +123,10 @@
         <table border='0' style="width:100%; height:60px;">
             <tr>
                 <td width='200'>
-                    <img src="./images/logo-ret.png" width="205" height="72" border="0" alt="">
+                    <img src="<?php echo $logoRet64 ?>" width="205" height="72" border="0" alt="">
                 </td>
                 <td valign='top' align='center'>
-                    <h4>&nbsp;COMPROBANTE DE RETENCIÓN DE ARCV</h4>
-                </td>
-                <td valign='top' align='right' width='100'>
-                    <a href="#" onclick="javascript:window.print()"><img src="./images/print.png" width="25" height="25"></a>
+                    <h4>COMPROBANTE DE RETENCIÓN DE ARCV</h4>
                 </td>
             </tr>
         </table>
@@ -87,125 +134,125 @@
         <table border='0' style='border-collapse: collapse' width='100%'>
             <tr>
                 <td colspan='3' rowspan='2'>(Decreto 1.808 de retenciones de impuesto sobre la renta, Gaceta Oficial Nro. 36.203 del 12 de Mayo de 1.997)</td>
-                <td colspan='2'> &nbsp;</td>
+                <td colspan='2'> </td>
 
                 <td align='center'>
                     <div>AÑO IMPOSITIVO</div>
                     <hr>
                 </td>
 
-                <td> &nbsp;</td>
+                <td> </td>
                 <td align='center'>
                     <div>FECHA DE EMISIÓN</div>
                     <hr>
                 </td>
-                <td>&nbsp;</td>
+                <td></td>
             </tr>
             <tr>
-                <td colspan='2'> &nbsp;</td>
+                <td colspan='2'> </td>
 
                 <td align='center'> <?php echo $aimp ?> </td>
 
-                <td>&nbsp;</td>
+                <td></td>
                 <td align='center'><?php echo $femi ?></td>
-                <td>&nbsp;</td>
+                <td></td>
             </tr>
             <tr>
-                <td width='30%'>&nbsp;</td>
-                <td width='2%'>&nbsp;</td>
-                <td width='19%'>&nbsp;</td>
-                <td width='10%'>&nbsp;</td>
-                <td width='2%'>&nbsp;</td>
-                <td width='14%'>&nbsp;</td>
-                <td width='2%'>&nbsp;</td>
-                <td width='14%'>&nbsp;</td>
-                <td width='12%'>&nbsp;</td>
+                <td width='30%'></td>
+                <td width='2%'></td>
+                <td width='19%'></td>
+                <td width='10%'></td>
+                <td width='2%'></td>
+                <td width='14%'></td>
+                <td width='2%'></td>
+                <td width='14%'></td>
+                <td width='12%'></td>
             </tr>
             <tr>
                 <td>
                     <div>NOMBRE DEL AGENTE DE RETENCIÓN</div>
                     <hr>
                 </td>
-                <td>&nbsp;</td>
+                <td></td>
                 <td colspan='2'>
                     <div>RIF DEL AGENTE</div>
                     <hr>
                 </td>
-                <td>&nbsp;</td>
+                <td></td>
                 <td align='center'>
                     <div>PERÍODO</div>
                     <hr>
                 </td>
-                <td colspan='3'>&nbsp;</td>
+                <td colspan='3'></td>
             </tr>
             <tr>
                 <td><?php echo $rzsoc ?></td>
-                <td>&nbsp;</td>
+                <td></td>
                 <td colspan='2'><?php echo $rifEmp ?></td>
-                <td width='2%'>&nbsp;</td>
+                <td width='2%'></td>
                 <td align='center'><?php echo $perdf ?></td>
-                <td colspan='3'>&nbsp;</td>
+                <td colspan='3'></td>
             </tr>
             <tr>
-                <td colspan='9'>&nbsp;</td>
+                <td colspan='9'></td>
             </tr>
             <tr>
                 <td colspan='4'>
                     <div>DIRECCIÓN FISCAL DEL AGENTE DE RETENCIÓN</div>
                     <hr>
                 </td>
-                <td width='2%'>&nbsp;</td>
-                <td width='10%'>&nbsp;</td>
-                <td colspan='3'>&nbsp;</td>
+                <td width='2%'></td>
+                <td width='10%'></td>
+                <td colspan='3'></td>
             </tr>
             <tr>
                 <td colspan='4'><?php echo $dir1 . ' ' . $dir2 . ' ' . $dir3 ?></td>
-                <td width='2%'>&nbsp;</td>
-                <td width='10%'>&nbsp;</td>
-                <td colspan='3'>&nbsp;</td>
+                <td width='2%'></td>
+                <td width='10%'></td>
+                <td colspan='3'></td>
             </tr>
             <tr>
-                <td colspan='9'>&nbsp;</td>
+                <td colspan='9'></td>
             </tr>
             <tr>
                 <td>
                     <div>NOMBRE O RAZÓN SOCIAL DEL SUJETO RETENIDO</div>
                     <hr>
                 </td>
-                <td>&nbsp;</td>
+                <td></td>
                 <td colspan='2'>
                     <div>REGISTRO DE INFORMACIÓN FISCAL DEL SUJETO</div>
                     <hr>
                 </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td colspan='3'>&nbsp;</td>
+                <td></td>
+                <td></td>
+                <td colspan='3'></td>
             </tr>
             <tr>
                 <td><?php echo $nempr ?></td>
-                <td>&nbsp;</td>
+                <td></td>
                 <td colspan='2'><?php echo $rif ?></td>
-                <td width='2%'>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td colspan='3'>&nbsp;</td>
+                <td width='2%'></td>
+                <td></td>
+                <td colspan='3'></td>
             </tr>
             <tr>
-                <td colspan='9'>&nbsp;</td>
+                <td colspan='9'></td>
             </tr>
             <tr>
                 <td colspan='4'>
                     <div>DIRECCIÓN FISCAL DEL SUJETO RETENIDO</div>
                     <hr>
                 </td>
-                <td width='2%'>&nbsp;</td>
-                <td width='10%'>&nbsp;</td>
-                <td colspan='3'>&nbsp</td>
+                <td width='2%'></td>
+                <td width='10%'></td>
+                <td colspan='3'></td>
             </tr>
             <tr>
                 <td colspan='4'><?php echo $dirP1 . ' ' . $dirP2 . ' ' . $dirP3 ?></td>
-                <td width='2%'>&nbsp;</td>
-                <td width='10%'>&nbsp;</td>
-                <td colspan='3'>&nbsp;</td>
+                <td width='2%'></td>
+                <td width='10%'></td>
+                <td colspan='3'></td>
             </tr>
             <tr>
         </table>
@@ -278,9 +325,9 @@
         }
         $tableIva .= "
             <tr height='25'>
-                <td align='right' colspan='2'>Totales (Bs.):&nbsp;</td>
+                <td align='right' colspan='2'>Totales (Bs.):</td>
                 <td align='right'>" . number_format($totret, 2, ',', '.') . "</td>
-                <td>&nbsp;</td>
+                <td></td>
                 <td align='right'>" . number_format($totsus, 2, ',', '.') . "</td>
                 <td align='right'>" . number_format($totimp, 2, ',', '.') . "</td>
             </tr>
@@ -291,7 +338,7 @@
         <table border='0' style='border-collapse: collapse' align=center width='100%'>
             <tr>
                 <td align='center'>
-                    <img src='./images/FirmaySello.png' width='200px' height='100px'>
+                    <img src='<?php echo $FSello64 ?>' width='200px' height='100px'>
                 </td>
             </tr>
             <tr>
@@ -305,3 +352,23 @@
 </body>
 
 </html>
+<?php
+include_once "./vendor/autoload.php";
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+$dompdf = new Dompdf();
+$dompdf->setPaper('Letter', 'landscape');
+$options = $dompdf->getOptions();
+$dompdf->setOptions($options);
+$dompdf->loadhtml(ob_get_clean());
+$dompdf->render();
+header("Content-type: application/pdf");
+header("Content-Disposition: inline; filename=documento.pdf");
+$pdf = $dompdf->output();
+$filename = "RETARCV";
+file_put_contents($filename, $pdf);
+$dompdf->stream($rif. '_'.$filename.'_'.$doc);
+//echo $dompdf->output();
+?>

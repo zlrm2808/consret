@@ -101,8 +101,8 @@
                             </td>
                             <td>
                                 <center>
-                                <input type="image" id="HTML" src="./images/html.png" height="25" width="25" title="Imprimir Comprobante HTML" value="' . $numrow . '">
-                                <input type="image" id="PDF" src="./images/pdf.jpg" height="25" width="25" title="Imprimir Comprobante PDF" value="' . $numrow . '">
+                                <input type="image" id="HTML" src="./images/html.png" height="25" width="25" title="Imprimir Comprobante HTML" value="' . $numrow . '" onclick="html(' . $numrow . ');">
+                                <input type="image" id="PDF" src="./images/pdf.jpg" height="25" width="25" title="Imprimir Comprobante PDF" value="' . $numrow . '" onclick="pdf(' . $numrow . ');">
                                 </center>
                             </td>
                     </tr>

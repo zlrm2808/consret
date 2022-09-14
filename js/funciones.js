@@ -2,7 +2,6 @@ Tabla = "tabla.php";
 
 function check() {
     var isChecked = document.getElementById("arc").checked;
-    alert("tom:" + isChecked);
     if (isChecked) {
         Tabla = "tablaarc.php";
     } else {
@@ -37,21 +36,11 @@ function pdf(id) {
 
     var myRedirect = function (redirectUrl) {
         var form = $(
-            '<form action="' +
-            redirectUrl +
-            '" method="post" target="_blank" id="formulario">' +
-            '<input type="text" id="doc" name="doc" value="' +
-            doc +
-            '"></input>' +
-            '<input type="text" id="tipo" name="tipo" value="' +
-            tipo +
-            '"></input>' +
-            '<input type="text" id="rif" name="rif" value="' +
-            rif +
-            '"></input>' +
-            '<input type="text" id="fechaini" name="fechaini" value="' +
-            fechaini +
-            '"></input>' +
+            '<form action="'+redirectUrl+'" method="post" target="_blank" id="formulario">' +
+            '<input type="text" id="doc" name="doc" value="'+doc+'"></input>' +
+            '<input type="text" id="tipo" name="tipo" value="'+tipo+'"></input>' +
+            '<input type="text" id="rif" name="rif" value="'+rif+'"></input>' +
+            '<input type="text" id="fechaini" name="fechaini" value="'+fechaini+'"></input>' +
             "</form>"
         );
         $("body").append(form);
@@ -61,7 +50,7 @@ function pdf(id) {
 
     switch (tipo) {
         case "IVA":
-            reqUrl = "./pdf.php";
+            reqUrl = "./retivapdf.php";
             break;
         case "ISLR":
             reqUrl = "./retislrpdf.php";
@@ -88,21 +77,11 @@ function html(id) {
 
     var myRedirect = function (redirectUrl) {
         var form = $(
-            '<form action="' +
-            redirectUrl +
-            '" method="post" target="_blank" id="formulario">' +
-            '<input type="text" id="doc" name="doc" value="' +
-            doc +
-            '"></input>' +
-            '<input type="text" id="tipo" name="tipo" value="' +
-            tipo +
-            '"></input>' +
-            '<input type="text" id="rif" name="rif" value="' +
-            rif +
-            '"></input>' +
-            '<input type="text" id="fechaini" name="fechaini" value="' +
-            fechaini +
-            '"></input>' +
+            '<form action="'+redirectUrl+'" method="post" target="_blank" id="formulario">'+
+            '<input type="text" id="doc" name="doc" value="'+doc+'"></input>' +
+            '<input type="text" id="tipo" name="tipo" value="'+tipo+'"></input>' +
+            '<input type="text" id="rif" name="rif" value="'+rif+'"></input>' +
+            '<input type="text" id="fechaini" name="fechaini" value="'+fechaini+'"></input>' +
             "</form>"
         );
         $("body").append(form);
