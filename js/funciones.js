@@ -58,6 +58,9 @@ function pdf(id) {
         case "ARCV":
             reqUrl = "./retarcvpdf.php";
             break;
+        case "IRM":
+            reqUrl = "./retirmpdf.php";
+            break;
     }
     myRedirect(reqUrl);
 }
