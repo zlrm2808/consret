@@ -1,11 +1,13 @@
 <?php
 $SERVIDOR = $_POST["server"];
 $EMPRESA = $_POST["nomemp"];
+$URL = $_POST["webp"];
 //Si se quiere subir una imagen
 if (isset($_POST['subir'])) {
     $file = fopen("config.ini", "w");
     fwrite($file, $SERVIDOR . PHP_EOL);
-    fwrite($file, $EMPRESA);
+    fwrite($file, $EMPRESA . PHP_EOL);
+    fwrite($file, $URL);
     fclose($file);
 
     //Recogemos el archivo enviado por el formulario

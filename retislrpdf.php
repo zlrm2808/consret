@@ -321,7 +321,6 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 <td align='center' bgcolor='#EAEAEA'><b>Monto Total (Bs.)</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Base Imponible de Retención (Bs.)</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>% Islr Ret.</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Sustraendo (Bs.)</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Importe Islr (Bs.)</b></td>
             </tr>";
 
@@ -331,7 +330,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         $totbimp = 0;
         $totimp = 0;
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-            $tableIva .= "
+            $tableIva .=            "
             <tr>
                 <td align='center'>" . $row['COL-1'] . "</td>
                 <td align='center'>" . $row['COL-2'] . "</td>
@@ -341,14 +340,14 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 <td align='right'>" . number_format($row['COL-6'], 2, ',', '.') . "</td>
                 <td align='right'>" . number_format($row['COL-7'], 2, ',', '.') . "</td>
                 <td align='right'>" . number_format($row['COL-8'], 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($row['COL-9'], 2, ',', '.') . "</td>
             </tr>";
             $numrow++;
             $totmto += $row['COL-5'];
             $totbimp += $row['COL-6'];
-            $totimp += $row['COL-9'];
+            $totimp += $row['COL-8'];
         }
-        $tableIva .= "
+        $tableIva .=
+        "
 
             <tr height='25'>
                 <td align='right' colspan='3'></td>
@@ -356,7 +355,6 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 <td align='right'>" . number_format($totmto, 2, ',', '.') . "</td>
                 <td align='right'>" . number_format($totbimp, 2, ',', '.') . "</td>
                 <td></td>
-                <td align='right'></td>
                 <td align='right'>" . number_format($totimp, 2, ',', '.') . "</td>
             </tr>
         </table>";

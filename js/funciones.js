@@ -9,6 +9,10 @@ function check() {
     }
 }
 
+function limpiartabla() {
+    $("#tabla").hide();
+}
+
 function getValueInput() {
     fechaini = $("#fechaIni").val();
     fechafin = $("#fechaFin").val();
@@ -25,6 +29,7 @@ function getValueInput() {
         },
         function (data) {
             $("#tabla").html(data);
+            $("#tabla").show();
         }
     );
 }
