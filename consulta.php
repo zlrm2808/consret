@@ -17,7 +17,15 @@
 
 <body>
     <?php
-    
+    $file = @fopen('config.ini', "r");
+        if ($file) {
+            while (!feof($file)) {
+                $lines[] = fgets($file, 4096);
+            }
+            fclose($file);
+        }
+        $urlemp = ($lines[2]);
+
     $SERVIDOR = '';
 
     $file = @fopen('config.cone', "r");
@@ -28,6 +36,7 @@
         fclose($file);
     }
     $SERVIDOR = ($lines[0]);
+
     list($dbname, $emp) = explode(',', $_POST['BaseDatos']);
     $rif = $_POST["rif"];
     $prov = $_POST["prov"];
@@ -47,7 +56,7 @@
 
         </div>
         <div class="logo-empresa">
-            <right><img src="./images/logo-emp.png" height="100px"></right>
+            <right><a href="http://<?php echo $urlemp ?>" target="blank"><img src="./images/logo-emp.png" height="100px"></a></right>
         </div>
     </div>
     <div class="contenedor-mid1">

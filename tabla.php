@@ -60,6 +60,19 @@
                 WHERE IMP_gene_idprov = '" . $rifProv . "'
                 AND CONVERT(VARCHAR,IMP_gene_feccon,23) >= '" . $fechaini . "' 
                 AND CONVERT(VARCHAR,IMP_gene_feccon,23) <= '" . $fechafin . "'
+                AND IMP_gene_numdoc LIKE '%" . $nrodoc ."%'
+                GROUP BY IMP_gene_numdoc,IMP_gene_fecdoc,IMP_gene_feccon
+                UNION
+                SELECT  IMP_gene_numdoc AS 'col-1',
+                        CONVERT(VARCHAR,IMP_gene_fecdoc,103) AS 'col-2',
+                        CONVERT(VARCHAR,IMP_gene_feccon,103) AS 'col-3',
+                        STR(SUM(IMP_gene_porimp),9,2) AS 'col-4',
+                        MAX(IMP_gene_detimp) AS 'col-5',
+                        'RETAG' AS 'col-6'
+                FROM IMPP4000
+                WHERE IMP_gene_idprov = '" . $rifProv . "'
+                AND CONVERT(VARCHAR,IMP_gene_feccon,23) >= '" . $fechaini . "' 
+                AND CONVERT(VARCHAR,IMP_gene_feccon,23) <= '" . $fechafin . "'
                 AND IMP_gene_numdoc LIKE '%" . $nrodoc . "%'
                 GROUP BY IMP_gene_numdoc,IMP_gene_fecdoc,IMP_gene_feccon
                 ORDER BY 'col-1', 'col-3', 'col-6'");

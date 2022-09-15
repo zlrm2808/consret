@@ -66,6 +66,9 @@ function pdf(id) {
         case "IRM":
             reqUrl = "./retirmpdf.php";
             break;
+        case "RETAG":
+            reqUrl = "./retagpdf.php";
+            break;
     }
     myRedirect(reqUrl);
 }
@@ -109,6 +112,9 @@ function html(id) {
             break;
         case "IRM":
             reqUrl = "./retirm.php";
+            break;
+        case "RETAG":
+            reqUrl = "./retag.php";
             break;
     }
     myRedirect(reqUrl);

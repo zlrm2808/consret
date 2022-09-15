@@ -14,7 +14,7 @@ body {
 }
 
 .paginaHorizontal {
-    width: 279.4mm;
+    width: 230mm;
     height: 189mm;
     margin: 1cm
 }
@@ -31,6 +31,14 @@ h4 {
     font-family: verdana;
     font-size: 14pt;
     margin-bottom: 1px;
+}
+
+h5 {
+    color: #000000;
+    font-family: Verdana;
+    font-size: 10pt;
+    text-decoration: underline;
+    margin-bottom: 10px;
 }
 
 table {
@@ -53,4 +61,8 @@ div {
 .cabecera2 {
     height: 20px;
     font-weight: normal;
+}
+
+th {
+    background-color: #EAEAEA;
 }
