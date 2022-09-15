@@ -76,7 +76,7 @@
                     <img src="./images/logo-ret.png" width="205" height="72" border="0" alt="">
                 </td>
                 <td valign='top' align='center'>
-                    <h4>&nbsp;COMPROBANTE DE RETENCIÓN DE ARCV</h4>
+                    <h4>COMPROBANTE DE RETENCIÓN DE ARCV</h4>
                 </td>
                 <td valign='top' align='right' width='100'>
                     <a href="#" onclick="javascript:window.print()"><img src="./images/print.png" width="25" height="25"></a>
@@ -87,125 +87,125 @@
         <table border='0' style='border-collapse: collapse' width='100%'>
             <tr>
                 <td colspan='3' rowspan='2'>(Decreto 1.808 de retenciones de impuesto sobre la renta, Gaceta Oficial Nro. 36.203 del 12 de Mayo de 1.997)</td>
-                <td colspan='2'> &nbsp;</td>
+                <td colspan='2'> </td>
 
                 <td align='center'>
                     <div>AÑO IMPOSITIVO</div>
                     <hr>
                 </td>
 
-                <td> &nbsp;</td>
+                <td> </td>
                 <td align='center'>
                     <div>FECHA DE EMISIÓN</div>
                     <hr>
                 </td>
-                <td>&nbsp;</td>
+                <td></td>
             </tr>
             <tr>
-                <td colspan='2'> &nbsp;</td>
+                <td colspan='2'> </td>
 
                 <td align='center'> <?php echo $aimp ?> </td>
 
-                <td>&nbsp;</td>
+                <td></td>
                 <td align='center'><?php echo $femi ?></td>
-                <td>&nbsp;</td>
+                <td></td>
             </tr>
             <tr>
-                <td width='30%'>&nbsp;</td>
-                <td width='2%'>&nbsp;</td>
-                <td width='19%'>&nbsp;</td>
-                <td width='10%'>&nbsp;</td>
-                <td width='2%'>&nbsp;</td>
-                <td width='14%'>&nbsp;</td>
-                <td width='2%'>&nbsp;</td>
-                <td width='14%'>&nbsp;</td>
-                <td width='12%'>&nbsp;</td>
+                <td width='30%'></td>
+                <td width='2%'></td>
+                <td width='19%'></td>
+                <td width='10%'></td>
+                <td width='2%'></td>
+                <td width='14%'></td>
+                <td width='2%'></td>
+                <td width='14%'></td>
+                <td width='12%'></td>
             </tr>
             <tr>
                 <td>
                     <div>NOMBRE DEL AGENTE DE RETENCIÓN</div>
                     <hr>
                 </td>
-                <td>&nbsp;</td>
+                <td></td>
                 <td colspan='2'>
                     <div>RIF DEL AGENTE</div>
                     <hr>
                 </td>
-                <td>&nbsp;</td>
+                <td></td>
                 <td align='center'>
                     <div>PERÍODO</div>
                     <hr>
                 </td>
-                <td colspan='3'>&nbsp;</td>
+                <td colspan='3'></td>
             </tr>
             <tr>
                 <td><?php echo $rzsoc ?></td>
-                <td>&nbsp;</td>
+                <td></td>
                 <td colspan='2'><?php echo $rifEmp ?></td>
-                <td width='2%'>&nbsp;</td>
+                <td width='2%'></td>
                 <td align='center'><?php echo $perdf ?></td>
-                <td colspan='3'>&nbsp;</td>
+                <td colspan='3'></td>
             </tr>
             <tr>
-                <td colspan='9'>&nbsp;</td>
+                <td colspan='9'></td>
             </tr>
             <tr>
                 <td colspan='4'>
                     <div>DIRECCIÓN FISCAL DEL AGENTE DE RETENCIÓN</div>
                     <hr>
                 </td>
-                <td width='2%'>&nbsp;</td>
-                <td width='10%'>&nbsp;</td>
-                <td colspan='3'>&nbsp;</td>
+                <td width='2%'></td>
+                <td width='10%'></td>
+                <td colspan='3'></td>
             </tr>
             <tr>
                 <td colspan='4'><?php echo $dir1 . ' ' . $dir2 . ' ' . $dir3 ?></td>
-                <td width='2%'>&nbsp;</td>
-                <td width='10%'>&nbsp;</td>
-                <td colspan='3'>&nbsp;</td>
+                <td width='2%'></td>
+                <td width='10%'></td>
+                <td colspan='3'></td>
             </tr>
             <tr>
-                <td colspan='9'>&nbsp;</td>
+                <td colspan='9'></td>
             </tr>
             <tr>
                 <td>
                     <div>NOMBRE O RAZÓN SOCIAL DEL SUJETO RETENIDO</div>
                     <hr>
                 </td>
-                <td>&nbsp;</td>
+                <td></td>
                 <td colspan='2'>
                     <div>REGISTRO DE INFORMACIÓN FISCAL DEL SUJETO</div>
                     <hr>
                 </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td colspan='3'>&nbsp;</td>
+                <td></td>
+                <td></td>
+                <td colspan='3'></td>
             </tr>
             <tr>
                 <td><?php echo $nempr ?></td>
-                <td>&nbsp;</td>
+                <td></td>
                 <td colspan='2'><?php echo $rif ?></td>
-                <td width='2%'>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td colspan='3'>&nbsp;</td>
+                <td width='2%'></td>
+                <td></td>
+                <td colspan='3'></td>
             </tr>
             <tr>
-                <td colspan='9'>&nbsp;</td>
+                <td colspan='9'></td>
             </tr>
             <tr>
                 <td colspan='4'>
                     <div>DIRECCIÓN FISCAL DEL SUJETO RETENIDO</div>
                     <hr>
                 </td>
-                <td width='2%'>&nbsp;</td>
-                <td width='10%'>&nbsp;</td>
+                <td width='2%'></td>
+                <td width='10%'></td>
                 <td colspan='3'>&nbsp</td>
             </tr>
             <tr>
                 <td colspan='4'><?php echo $dirP1 . ' ' . $dirP2 . ' ' . $dirP3 ?></td>
-                <td width='2%'>&nbsp;</td>
-                <td width='10%'>&nbsp;</td>
-                <td colspan='3'>&nbsp;</td>
+                <td width='2%'></td>
+                <td width='10%'></td>
+                <td colspan='3'></td>
             </tr>
             <tr>
         </table>
@@ -278,9 +278,9 @@
         }
         $tableIva .= "
             <tr height='25'>
-                <td align='right' colspan='2'>Totales (Bs.):&nbsp;</td>
+                <td align='right' colspan='2'>Totales (Bs.):</td>
                 <td align='right'>" . number_format($totret, 2, ',', '.') . "</td>
-                <td>&nbsp;</td>
+                <td></td>
                 <td align='right'>" . number_format($totsus, 2, ',', '.') . "</td>
                 <td align='right'>" . number_format($totimp, 2, ',', '.') . "</td>
             </tr>

@@ -22,38 +22,38 @@
     // Con esta Consulta saco el encabezado de las retenciones
 
     $sql = ("SELECT TOP 1
-    IMP_nc_open3_ncompr as '0',
-    CONVERT(VARCHAR, IMP_nc_open3_feccon, 103) AS '1',
+    IMP_gene_ncompr as '0',
+    CONVERT(VARCHAR, IMP_gene_feccon, 103) AS '1',
     UPPER(CMPNYNAM) AS '2',
     TAXREGTN AS '3',
-    CONCAT('AÑO ',RIGHT(TRIM(IMP_nc_open3_period),4),' / MES ',
+    CONCAT('AÑO ',LEFT(CONVERT(VARCHAR,IMP_gene_fecdoc,23),4),' / MES ',
 	CASE
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=1 THEN 'ENE'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=2 THEN 'FEB'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=3 THEN 'MAR'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=4 THEN 'ABR'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=5 THEN 'MAY'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=6 THEN 'JUN'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=7 THEN 'JUL'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=8 THEN 'AGO'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=9 THEN 'SEP'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=10 THEN 'OCT'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=11 THEN 'NOV'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=12 THEN 'DIC'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=1 THEN 'ENE'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=2 THEN 'FEB'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=3 THEN 'MAR'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=4 THEN 'ABR'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=5 THEN 'MAY'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=6 THEN 'JUN'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=7 THEN 'JUL'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=8 THEN 'AGO'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=9 THEN 'SEP'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=10 THEN 'OCT'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),5,2)=11 THEN 'NOV'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),5,2)=12 THEN 'DIC'
 	END) AS '4',
     UPPER(TRIM(ADDRESS1)) AS '5.1',
     UPPER(TRIM(ADDRESS2)) AS '5.2',
     UPPER(CONCAT(TRIM(ADDRESS3),', ',TRIM(CITY),', ',TRIM(STATE))) AS '5.3',
-    UPPER(IMP_nc_open3_nompro) AS '6',
-    open3_p as '7',
+    UPPER(IMP_gene_nompro) AS '6',
+    IMP_gene_rif000 as '7',
 	PV_MI_direc1 as '8.1',
 	PV_MI_direc2 as '8.2',
 	PV_MI_direc3 as '8.3'
-    FROM IMPP3000
+    FROM IMPP4000
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
-	INNER JOIN IMPP0161 on PV_MI_idprov = open3_p 
-    WHERE open3_p = '" . $rif . "'
-    AND IMP_nc_open3_numfac = '" . $doc . "'");
+	INNER JOIN IMPP0161 on PV_MI_idprov = IMP_gene_rif000
+    WHERE IMP_gene_rif000 =  '" . $rif . "'
+    AND IMP_gene_numdoc = '" . $doc . "'");
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
@@ -85,7 +85,7 @@
                     <img src="./images/logo-ret.png" width="205" height="72" border="0" alt="">
                 </td>
                 <td valign='top' align='center'>
-                    <h4>COMPROBANTE DE RETENCIÓN DE ISLR</h4>
+                    <h4>COMPROBANTE DE RETENCIÓN DE IMPUESTO MUNICIPAL</h4>
                 </td>
                 <td valign='top' align='right' width='100'>
                     <a href="#" onclick="javascript:window.print()"><img src="./images/print.png" width="25" height="25"></a>
@@ -122,6 +122,13 @@
                 <td></td>
                 <td align='center'> <?php echo $fecha ?> </td>
                 <td></td>
+            </tr>
+            <tr>
+                <td colspan='2'>&nbsp;</td>
+                <td align='center'>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td align='center'>&nbsp;</td>
+                <td>&nbsp;</td>
             </tr>
             <tr>
                 <td width='30%'></td>
@@ -166,6 +173,14 @@
                 <td colspan='3'></td>
             </tr>
             <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td colspan='2'>&nbsp;</td>
+                <td width='2%'>&nbsp;</td>
+                <td align='center'>&nbsp;</td>
+                <td colspan='3'>&nbsp;</td>
+            </tr>
+            <tr>
                 <td colspan='9'></td>
             </tr>
             <tr>
@@ -187,6 +202,12 @@
             </tr>
             <tr>
                 <td colspan='9'></td>
+            </tr>
+            <tr>
+                <td colspan='4'>&nbsp;</td>
+                <td width='2%'>&nbsp;</td>
+                <td width='10%'>&nbsp;</td>
+                <td colspan='3'>&nbsp;</td>
             </tr>
             <tr>
                 <td>
@@ -217,39 +238,31 @@
             <tr>
                 <td colspan='9'></td>
             </tr>
-            <tr>
-                <td colspan='4'>
-                    <div>DIRECCIÓN FISCAL DEL SUJETO RETENIDO</div>
-                    <div class="hr">
-                        <hr />
-                    </div>
-                </td>
-                <td width='2%'></td>
-                <td width='10%'></td>
-                <td colspan='3'></td>
-            </tr>
-            <tr>
-                <td colspan='4'><?php echo $dirP1 . ' ' . $dirP2 . ' ' . $dirP3 ?></td>
-                <td width='2%'></td>
-                <td width='10%'></td>
-                <td colspan='3'></td>
-            </tr>
-            <tr>
         </table>
         <br /><br />
 
         <?php
-        $sql = ("SELECT CONVERT(VARCHAR, IMP_nc_open3_fecdoc, 103) AS 'COL-1',
-                        IMP_nc_open3_numfac AS 'COL-2',
-                        IMP_nc_open3_ncontro AS 'COL-3',
-                        IMP_nc_open3_detimp AS 'COL-4',
-                        IMP_nc_open3_basimp + (IMP_nc_open3_basimp * IMP_nc_open3_porimp)/100 AS 'COL-5',
-                        IMP_nc_open3_basimp AS 'COL-6',
-                        IMP_nc_open3_porimp AS 'COL-7',
-                        (IMP_nc_open3_basimp * IMP_nc_open3_porimp)/100 AS 'COL-8'
-                FROM IMPP3000
-                WHERE open3_p = '" . $rif . "'
-                AND IMP_nc_open3_numfac = '" . $doc . "'");
+        $sql = ("SELECT IMP_gene_nopera AS 'COL-1',
+						CONVERT(VARCHAR, IMP_gene_fecdoc, 103) AS 'COL-2',
+                        IMP_gene_numdoc AS 'COL-3',
+                        IMP_gene_ncontr AS 'COL-4',
+						IMP_gene_numntd AS 'COL-5',
+						IMP_gene_numntc AS 'COL-6',
+                        CASE
+                            WHEN IMP_gene_tiptra = 1 THEN '01-Registro'
+                            WHEN IMP_gene_tiptra = 2 THEN '02-Complemento'
+                            WHEN IMP_gene_tiptra = 3 THEN '03-Anulacion'
+                            ELSE '04-Ajuste'
+                        END AS 'COL-7',
+						IMP_gene_numfaf AS 'COL-8',
+						IMP_gene_montabon AS 'COL-9',
+						IMP_gene_basimp AS 'COL-10',
+						IMP_gene_porimp AS 'COL-11',
+						IMP_gene_monimp AS 'COL-12',
+						IMP_gene_detimp AS 'COL-13'
+                FROM IMPP4000
+                WHERE IMP_gene_rif000 = '" . $rif . "'
+                AND IMP_gene_numdoc = '" . $doc . "'");
 
         $stmt = sqlsrv_query($conn, $sql);
         if ($stmt === false) {
@@ -263,47 +276,55 @@
         $tableIva =
             "<table border='1' style='border-collapse: collapse' align='center' width='100%'>
             <tr height='25'>
-                <td align='center' bgcolor='#EAEAEA'><b>Fecha de la Factura</b></td>
-                <td width='90' align='center' bgcolor='#EAEAEA'><b>Número de Factura</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Número de Control</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Descripción</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Monto Total (Bs.)</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Base Imponible de Retención (Bs.)</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>% Islr Ret.</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Importe Islr (Bs.)</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Nº Oper</b></td>            
+                <td align='center' bgcolor='#EAEAEA'><b>Fecha Documento</b></td>
+                <td width='90' align='center' bgcolor='#EAEAEA'><b>Nº Factura</b></td>
+                <td width='7%' align='center' bgcolor='#EAEAEA'><b>Nº Control</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Nº Nota Débito</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Nº Nota Crédito</b></td>
+                <td width='11%' align='center' bgcolor='#EAEAEA'><b>Tipo TRX</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Nº Fac Afectada</b></td>
+                <td width='12%' align='center' bgcolor='#EAEAEA'><b>Monto Pagado o Abonado en Cuenta</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Base de Retención</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>% Ret</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Total Retenido</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>ID Detalle Retención</b></td>
             </tr>";
 
         $numrow = 1;
         //Totales
-        $totmto = 0;
-        $totbimp = 0;
-        $totimp = 0;
+        $totret = 0;
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $tableIva .= "
             <tr>
                 <td align='center'>" . $row['COL-1'] . "</td>
                 <td align='center'>" . $row['COL-2'] . "</td>
                 <td align='center'>" . $row['COL-3'] . "</td>
-                <td align='left'>" . $row['COL-4'] . "</td>
-                <td align='right'>" . number_format($row['COL-5'], 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($row['COL-6'], 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($row['COL-7'], 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($row['COL-8'], 2, ',', '.') . "</td>
+                <td align='center'>" . $row['COL-4'] . "</td>
+                <td align='center'>" . $row['COL-5'] . "</td>
+                <td align='center'>" . $row['COL-6'] . "</td>
+                <td align='center'>" . $row['COL-7'] . "</td>
+                <td align='center'>" . $row['COL-8'] . "</td>
+                <td align='right'>" . number_format($row['COL-9'], 2, ',', '.') . "</td>
+                <td align='right'>" . number_format($row['COL-10'], 2, ',', '.') . "</td>
+                <td align='right'>" . number_format($row['COL-11'], 2, ',', '.') . "</td>
+                <td align='right'>" . number_format($row['COL-12'], 2, ',', '.') . "</td>
+                <td align='center'>" . $row['COL-13'] . "</td>
             </tr>";
             $numrow++;
-            $totmto += $row['COL-5'];
-            $totbimp += $row['COL-6'];
-            $totimp += $row['COL-8'];
+            $totret += $row['COL-12'];
         }
         $tableIva .= "
 
             <tr height='25'>
-                <td align='right' colspan='3'></td>
-                <td align='right'>Totales (Bs.):</td>
-                <td align='right'>" . number_format($totmto, 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($totbimp, 2, ',', '.') . "</td>
+                <td align='right' colspan='6'>Totales (Bs.):</td>
+                <td align='right'></td>
+                <td align='right'></td>
+                <td align='right'></td>
                 <td></td>
-                <td align='right'>" . number_format($totimp, 2, ',', '.') . "</td>
+                <td align='right'></td>
+                <td align='right'>" . number_format($totret, 2, ',', '.') . "</td>
+                <td align='right'></td>
             </tr>
         </table>";
         echo $tableIva;
@@ -317,9 +338,11 @@
             </tr>
             <tr>
                 <td align='center'>_______________________________________________________</td>
+                <td align='center'>_______________________________________________________</td>
             </tr>
             <tr>
-                <td align='center'><?php echo $rzsoc ?><br />Fecha de Descarga:<?php echo ' ' . $hoy ?></td>
+                <td align='center'><?php echo $rzsoc .'' ?>(SELLO Y FIRMA)</td>
+                <td align='center'>RECIBIDO CONFORME POR</td>
             </tr>
         </table>
     </div>

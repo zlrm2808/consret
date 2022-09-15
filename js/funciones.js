@@ -99,6 +99,9 @@ function html(id) {
         case "ARCV":
             reqUrl = "./retarcv.php";
             break;
+        case "IRM":
+            reqUrl = "./retirm.php";
+            break;
     }
     myRedirect(reqUrl);
 }
