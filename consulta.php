@@ -24,7 +24,9 @@
             }
             fclose($file);
         }
-        $urlemp = ($lines[2]);
+        $USERBD = ($lines[2]);
+        $PASSBD = ($lines[3]);
+        $urlemp = ($lines[5]);
 
     $SERVIDOR = '';
 
@@ -42,8 +44,10 @@
     $prov = $_POST["prov"];
     $hoy = date("Y-m-d");
     $file = fopen("config.cone", "w");
-    fwrite($file, $SERVIDOR);
-    fwrite($file, $dbname);
+    fwrite($file, TRIM($SERVIDOR) . PHP_EOL);
+    fwrite($file, TRIM($dbname).PHP_EOL);
+    fwrite($file, TRIM($USERBD).PHP_EOL);
+    fwrite($file, TRIM($PASSBD));
     fclose($file);
     ?>
 

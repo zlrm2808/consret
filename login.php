@@ -18,11 +18,16 @@
         }
         $SERVIDOR = ($lines[0]);
         $EMPRESA =  ($lines[1]);
+        $USERBD = ($lines[2]);
+        $PASSBD = ($lines[3]);
 
         $file = fopen("config.cone", "w");
-        fwrite($file, $SERVIDOR);
-        fwrite($file, "DYNAMICS");
+        fwrite($file, TRIM($SERVIDOR) . PHP_EOL);
+        fwrite($file, "DYNAMICS" . PHP_EOL);
+        fwrite($file, TRIM($USERBD) . PHP_EOL);
+        fwrite($file, TRIM($PASSBD));
         fclose($file);
+
     ?>
     <div class="wrapper fadeInDown">
         <div class="empresa">

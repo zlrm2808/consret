@@ -17,7 +17,7 @@ include_once("conexionIni.php");
 $usuario = $_POST["Usuario"];
 $password = $_POST["Contraseña"];
 
-$sql = ("DELETE FROM DYNAMICS.DBO.EMPCONSRET WHERE RIF = '".$usuario."';
+$sql = ("DELETE FROM DYNAMICS.DBO.EMPCONSRET WHERE RIF = '" . $usuario . "';
         DECLARE @rn INT = 1, @dbname varchar(MAX) = '';
         WHILE @dbname IS NOT NULL
         BEGIN
@@ -26,7 +26,7 @@ $sql = ("DELETE FROM DYNAMICS.DBO.EMPCONSRET WHERE RIF = '".$usuario."';
             IF @dbname <> '' AND @dbname IS NOT NULL
                 EXECUTE ('use ['+@dbname+'];
                     INSERT INTO DYNAMICS.dbo.EMPCONSRET 
-                    VALUES(	''".$usuario. "'',
+                    VALUES(	''" . $usuario . "'',
                             (SELECT PV_MI_nompro FROM IMPP0161 WHERE PV_MI_idprov = ''" . $usuario . "''),
                             DB_NAME(), 
                             (SELECT CMPNYNAM FROM DYNAMICS.dbo.SY01500 WHERE INTERID = DB_NAME()))
@@ -37,7 +37,7 @@ $sql = ("DELETE FROM DYNAMICS.DBO.EMPCONSRET WHERE RIF = '".$usuario."';
 $stmt = sqlsrv_query($conn, $sql);
 if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));
-} 
+}
 
 $sql = ("SELECT Usuario,
                 Pass
@@ -75,6 +75,7 @@ if ($stmt === false) {
 }
 sqlsrv_free_stmt($stmt);
 ?>
+
 <body>
     <form action="./consulta.php" method="post">
         <div class="contenedor-top">
