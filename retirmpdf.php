@@ -413,7 +413,5 @@ header("Content-type: application/pdf");
 header("Content-Disposition: inline; filename=documento.pdf");
 $pdf = $dompdf->output();
 $filename = "RETIRM";
-//file_put_contents($filename, $pdf);
 $dompdf->stream($rif . '_' . $filename . '_' . $doc);
-//echo $dompdf->output();
 ?>
