@@ -108,11 +108,6 @@
                     <td style="width:500px; font-weight: normal"><?php echo $nempr ?></td>
                 </tr>
                 <tr>
-                    <td style="width:500px; ">&nbsp;</td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;">&nbsp;</td>
-                </tr>
-                <tr>
                     <td style="width:500px;"><b>Nº de Licencia de Actividades Económicas:</b></td>
                     <td style="width:100px;">&nbsp;</td>
                     <td style="width:500px;"><b>Nº de Licencia del Sujeto Retenido:</b></td>
@@ -123,11 +118,6 @@
                     <td style="width:500px; font-weight: normal">9876543210987</td>
                 </tr>
                 <tr>
-                    <td style="width:500px; ">&nbsp;</td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;">&nbsp;</td>
-                </tr>
-                <tr>
                     <td style="width:500px;"><b>Nº de Registro de Información Fiscal:</b></td>
                     <td style="width:100px;">&nbsp;</td>
                     <td style="width:500px;"><b>Nº de Registro de Información Fiscal:</b></td>
@@ -136,11 +126,6 @@
                     <td style="width:500px; font-weight: normal;"><?php echo $rifEmp ?></td>
                     <td style="width:100px;">&nbsp;</td>
                     <td style="width:500px; font-weight: normal"><?php echo $rif ?></td>
-                </tr>
-                <tr>
-                    <td style="width:500px; ">&nbsp;</td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;">&nbsp;</td>
                 </tr>
                 <tr>
                     <td style="width:500px;"><b>Dirección Fiscal:</b></td>
@@ -182,11 +167,6 @@
                     <td style="width:500px; font-weight: normal"><?php echo $ncomp ?></td>
                 </tr>
                 <tr>
-                    <td style="width:500px; ">&nbsp;</td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;">&nbsp;</td>
-                </tr>
-                <tr>
                     <td style="width:500px;">Fecha de Emisión:</td>
                     <td style="width:100px;">&nbsp;</td>
                     <td style="width:500px;">Nº de la Operación de la Contabilidad de la Empresa</td>
@@ -202,6 +182,30 @@
                     <td style="width:500px;">&nbsp;</td>
                 </tr>
             </tbody>
+            <?php
+            $sql = ("SELECT CONVERT(VARCHAR, IMP_gene_fecdoc, 103) AS 'COL-1',
+                            IMP_gene_numdoc AS 'COL-2',
+                            IMP_gene_ncontr AS 'COL-3',
+                            IMP_gene_numntd AS 'COL-4',
+                            IMP_gene_numntc AS 'COL-5',
+                            IMP_gene_numfaf AS 'COL-6',
+                            IMP_gene_acteco AS 'COL-7',
+                            IMP_gene_basimp AS 'COL-8',
+                            '' AS 'COL-9',
+                            IMP_gene_monimp AS 'COL-10'
+                    FROM IMPP4000
+                    WHERE IMP_gene_rif000 = '" . $rif . "'
+                    AND IMP_gene_numdoc = '" . $doc . "'");
+
+            $stmt = sqlsrv_query($conn, $sql);
+            if ($stmt === false) {
+                die(print_r(sqlsrv_errors(), true));
+            }
+
+            if ($stmt === false) {
+                die(print_r(sqlsrv_errors(), true));
+            }
+            ?>
             <tfoot>
                 <table border="1">
                     <thead>
@@ -211,35 +215,54 @@
                         <th>Nº de ND</th>
                         <th>Nº de NC</th>
                         <th>Nº de Doc. Afectado</th>
-                        <th>Activvidad Económica Realizada</th>
+                        <th>Actividad Económica Realizada</th>
                         <th>Base Imponible</th>
                         <th>Alicuota Aplicada</th>
                         <th>Impuesto Municipal Ret</th>
                     </thead>
                     <tbody>
+                        <?php
+                        $numrow = 1;
+                        //Totales
+                        $totret = 0;
+                        $tableIva = '';
+                        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                            $tableIva .= '
                         <tr>
-                            <td style="font-weight: normal;">12-09-2022</td>
-                            <td style="font-weight: normal;">0707</td>
-                            <td style="font-weight: normal;">00-0000707</td>
-                            <td style="font-weight: normal;"></td>
-                            <td style="font-weight: normal;"></td>
-                            <td style="font-weight: normal;"></td>
-                            <td style="font-weight: normal;">ASEO</td>
-                            <td style="font-weight: normal;">17.966,67</td>
-                            <td style="font-weight: normal;"></td>
-                            <td style="font-weight: normal; text-align: right;">179.67</td>
-                        </tr>
+                            <td style="font-weight: normal;">' . $row['COL-1'] . '</td>
+                            <td style="font-weight: normal;">' . $row['COL-2'] . '</td>
+                            <td style="font-weight: normal;">' . $row['COL-3'] . '</td>
+                            <td style="font-weight: normal;">' . $row['COL-4'] . '</td>
+                            <td style="font-weight: normal;">' . $row['COL-5'] . '</td>
+                            <td style="font-weight: normal;">' . $row['COL-6'] . '</td>
+                            <td style="font-weight: normal;">' . $row['COL-7'] . '</td>
+                            <td style="font-weight: normal; text-align: right;">' . number_format($row['COL-8'], 2, ',', '.') . '</td>
+                            <td style="font-weight: normal; text-align: right;">' . $row['COL-9'] . '</td>
+                            <td style="font-weight: normal; text-align: right;">' . number_format($row['COL-10'], 2, ',', '.') . '</td>
+                        </tr>';
+                            $numrow++;
+                            $totret += $row['COL-10'];
+                        }
+                        echo $tableIva;
+                        ?>
                     </tbody>
                     <tfoot>
                         <tr>
                             <td style="text-align: right;" colspan="9">Total Impuesto Municipal Retenido</td>
-                            <td style="text-align: right;">Bs 179,67</td>
+                            <td style="text-align: right;"><?php echo number_format($totret, 2, ',', '.') ?></td>
                         </tr>
                     </tfoot>
                 </table>
             </tfoot>
         </table>
-        <table style="margin-top: 50px;">
+        <table>
+            <tr>
+                <td width='20%'></td>
+                <td width='20%' align='center'><img src='./images/FirmaySello.png' width='200px' height='100px'></td>
+                <td width='20%'></td>
+                <td width='20%'></td>
+                <td width='20%'></td>
+            </tr>
             <tr>
                 <td width='20%'></td>
                 <td width='20%' align='center'>______________________________________<br />AGENTE DE RETENCIÓN (SELLO Y FIRMA)<br /></td>
@@ -257,5 +280,4 @@
         </table>
     </div>
 </body>
-
 </html>
