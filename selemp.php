@@ -12,7 +12,7 @@
 
 <?php
 
-include_once("conexion.php");
+include_once("conexionIni.php");
 
 $usuario = $_POST["Usuario"];
 $password = $_POST["Contraseña"];

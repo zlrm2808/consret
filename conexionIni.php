@@ -1,6 +1,6 @@
 <?php
 
-    $file = @fopen('config.cone', "r");
+    $file = @fopen('config.ini', "r");
     if ($file) {
         while (!feof($file)) {
             $lines[] = fgets($file, 4096);
@@ -22,5 +22,3 @@
         echo "Conexión no se pudo establecer.<br />";
         die(print_r(sqlsrv_errors(), true));
     }
-
-?>
