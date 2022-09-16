@@ -120,6 +120,7 @@ sqlsrv_free_stmt($stmt);
                 <input type="hidden" name="prov" value="<?php echo $Prov; ?>">
                 <input type="hidden" name="emp" value="<?php echo $emp; ?>">
                 <input type="hidden" name="rif" value="<?php echo $usuario; ?>">
+                <input type="hidden" name="password" value="<?php echo $password; ?>">
                 <input type="submit" value="Acpetar">
             </div>
             <div class="derecho"></div>

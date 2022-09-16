@@ -18,15 +18,15 @@
 <body>
     <?php
     $file = @fopen('config.ini', "r");
-        if ($file) {
-            while (!feof($file)) {
-                $lines[] = fgets($file, 4096);
-            }
-            fclose($file);
+    if ($file) {
+        while (!feof($file)) {
+            $lines[] = fgets($file, 4096);
         }
-        $USERBD = ($lines[2]);
-        $PASSBD = ($lines[3]);
-        $urlemp = ($lines[5]);
+        fclose($file);
+    }
+    $USERBD = ($lines[2]);
+    $PASSBD = ($lines[3]);
+    $urlemp = ($lines[5]);
 
     $SERVIDOR = '';
 
@@ -41,12 +41,13 @@
 
     list($dbname, $emp) = explode(',', $_POST['BaseDatos']);
     $rif = $_POST["rif"];
+    $password = $_POST["password"];
     $prov = $_POST["prov"];
     $hoy = date("Y-m-d");
     $file = fopen("config.cone", "w");
     fwrite($file, TRIM($SERVIDOR) . PHP_EOL);
-    fwrite($file, TRIM($dbname).PHP_EOL);
-    fwrite($file, TRIM($USERBD).PHP_EOL);
+    fwrite($file, TRIM($dbname) . PHP_EOL);
+    fwrite($file, TRIM($USERBD) . PHP_EOL);
     fwrite($file, TRIM($PASSBD));
     fclose($file);
     ?>
@@ -57,7 +58,12 @@
             <span>Comprobantes de Retención Online </span>
         </div>
         <div class="centro-top">
-
+            <form action="./selemp.php" method="post">
+                <input type="submit" title="Seleccionar Empresa" value="" style="width:25px; height:25px; background-image: url('./images/empresa.png'); background-repeat: no-repeat; background-size: 25px 25px; background-color: white; cursor:pointer;">
+                <a href="./Login.php"><img src="./images/salir.png" height="25px" title="Salir"></a>
+                <input type="hidden" name="Usuario" value="<?php echo $rif  ?>">
+                <input type="hidden" name="Contraseña" value="<?php echo $password ?>">
+            </form>
         </div>
         <div class="logo-empresa">
             <right><a href="http://<?php echo $urlemp ?>" target="blank"><img src="./images/logo-emp.png" height="100px"></a></right>
