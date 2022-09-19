@@ -25,14 +25,14 @@
 
     // Con esta Consulta ubico las filas de todas las retenciones
 
-    $sql = ("SELECT RIGHT(TRIM(IMP_nc_open3_period),4) AS 'COL-1',
-                    CONCAT('31-12-',RIGHT(TRIM(IMP_nc_open3_period),4)) AS 'COL-2',
+    $sql = ("SELECT RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4) AS 'COL-1',
+                    CONCAT('31-12-',RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4)) AS 'COL-2',
                     UPPER(CMPNYNAM) AS 'COL-3',
                     'ARCV' AS 'COL-4'
             FROM IMPP3000
             INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
             WHERE open3_p = 'J309672371'
-            GROUP BY RIGHT(TRIM(IMP_nc_open3_period),4),CONCAT('31-12-',RIGHT(TRIM(IMP_nc_open3_period),4)),UPPER(CMPNYNAM)"
+            GROUP BY RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4),CONCAT('31-12-',RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4)),UPPER(CMPNYNAM)"
     );
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {

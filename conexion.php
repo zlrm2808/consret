@@ -14,7 +14,11 @@
     $password = trim($lines[3]);
 
     date_default_timezone_set('America/Caracas');
-    $connectionInfo = array("Database" => $dbname,"UID" => $userName, "PWD" => $password);
+    $connectionInfo = array("Database" => $dbname,
+                            "UID" => $userName,
+                            "PWD" => $password,
+                            "Encrypt" => true,
+                            "TrustServerCertificate" => True);
     $conn = sqlsrv_connect($serverName, $connectionInfo);
 
     if ($conn) {

@@ -17,7 +17,7 @@
             fclose($file);
         }
         $SERVIDOR = ($lines[0]);
-        $EMPRESA =  ($lines[1]);
+        $EMPRESA =  ($lines[4]);
         $USERBD = ($lines[2]);
         $PASSBD = ($lines[3]);
 

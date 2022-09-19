@@ -11,6 +11,14 @@
 </head>
 
 <?php
+$file = @fopen('config.ini', "r");
+    if ($file) {
+        while (!feof($file)) {
+            $lines[] = fgets($file, 4096);
+        }
+        fclose($file);
+    }
+    $urlemp = ($lines[5]);
 
 include_once("conexionIni.php");
 
@@ -86,7 +94,7 @@ sqlsrv_free_stmt($stmt);
             <div class="logo-empresa">
             </div>
             <div class="logo-derecha">
-                <img src="./images/logo-emp.png" height="100px">
+                <right><a href="http://<?php echo $urlemp ?>" target="blank"><img src="./images/logo-emp.png" height="100px"></a></right>
             </div>
         </div>
         <div class="contenedor-mid-sel">

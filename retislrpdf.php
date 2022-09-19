@@ -79,7 +79,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
     CONVERT(VARCHAR, IMP_nc_open3_feccon, 103) AS '1',
     UPPER(CMPNYNAM) AS '2',
     TAXREGTN AS '3',
-    CONCAT('AÑO ',RIGHT(TRIM(IMP_nc_open3_period),4),' / MES ',
+    CONCAT('AÑO ',RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4),' / MES ',
 	CASE
 		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=1 THEN 'ENE'
 		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=2 THEN 'FEB'
@@ -94,9 +94,9 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
 		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=11 THEN 'NOV'
 		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=12 THEN 'DIC'
 	END) AS '4',
-    UPPER(TRIM(ADDRESS1)) AS '5.1',
-    UPPER(TRIM(ADDRESS2)) AS '5.2',
-    UPPER(CONCAT(TRIM(ADDRESS3),', ',TRIM(CITY),', ',TRIM(STATE))) AS '5.3',
+    UPPER(LTRIM(RTRIM(ADDRESS1))) AS '5.1',
+    UPPER(LTRIM(RTRIM(ADDRESS2))) AS '5.2',
+    UPPER(CONCAT(LTRIM(RTRIM(ADDRESS3)),', ',LTRIM(RTRIM(CITY)),', ',LTRIM(RTRIM(STATE)))) AS '5.3',
     UPPER(IMP_nc_open3_nompro) AS '6',
     open3_p as '7',
 	PV_MI_direc1 as '8.1',

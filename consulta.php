@@ -59,8 +59,8 @@
         </div>
         <div class="centro-top">
             <form action="./selemp.php" method="post">
-                <input type="submit" title="Seleccionar Empresa" value="" style="width:25px; height:25px; background-image: url('./images/empresa.png'); background-repeat: no-repeat; background-size: 25px 25px; background-color: white; cursor:pointer;">
-                <a href="./Login.php"><img src="./images/salir.png" height="25px" title="Salir"></a>
+                <input type="submit" title="Seleccionar Empresa" value="" style="width:50px; height:50px; background-image: url('./images/empresa.png'); background-repeat: no-repeat; background-size: 50px 50px; background-color: white; cursor:pointer;">
+                <a href="./Login.php"><img src="./images/salir.png" height="50px" title="Salir"></a>
                 <input type="hidden" name="Usuario" value="<?php echo $rif  ?>">
                 <input type="hidden" name="Contraseña" value="<?php echo $password ?>">
             </form>

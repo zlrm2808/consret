@@ -112,17 +112,20 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
 		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),5,2)=11 THEN 'Noviembre'
 		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),5,2)=12 THEN 'Diciembre'
 	END) AS '4',
-    UPPER(TRIM(ADDRESS1)) AS '5.1',
-    UPPER(TRIM(ADDRESS2)) AS '5.2',
-    UPPER(CONCAT(TRIM(ADDRESS3),', ',TRIM(CITY),', ',TRIM(STATE))) AS '5.3',
+    UPPER(LTRIM(RTRIM(ADDRESS1))) AS '5.1',
+    UPPER(LTRIM(RTRIM(ADDRESS2))) AS '5.2',
+    UPPER(CONCAT(LTRIM(RTRIM(ADDRESS3)),', ',LTRIM(RTRIM(CITY)),', ',LTRIM(RTRIM(STATE)))) AS '5.3',
     UPPER(IMP_gene_nompro) AS '6',
     IMP_gene_rif000 as '7',
 	PV_MI_direc1 as '8.1',
 	PV_MI_direc2 as '8.2',
-	PV_MI_direc3 as '8.3'
+	PV_MI_direc3 as '8.3',
+	CO_MI_nit000 as '9',
+	PV_MI_nit000 as '10'
     FROM IMPP4000
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
-	INNER JOIN IMPP0161 on PV_MI_idprov = IMP_gene_rif000
+	INNER JOIN IMPP0161 on PV_MI_rif000 = IMP_gene_rif000
+	INNER JOIN IMPC0001 on CO_MI_rif000 = TAXREGTN
     WHERE IMP_gene_rif000 =  '" . $rif . "'
     AND IMP_gene_corr != ''
     AND IMP_gene_numdoc = '" . $doc . "'");
@@ -148,6 +151,8 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         $dirP1 = $row["8.1"];
         $dirP2 = $row["8.2"];
         $dirP3 = $row["8.3"];
+        $licae = $row["9"];
+        $licae2 = $row["10"];
     }
     ?>
     <center>
@@ -181,9 +186,9 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                     <td style="width:500px;"><b>Nº de Licencia del Sujeto Retenido:</b></td>
                 </tr>
                 <tr>
-                    <td style="width:500px; font-weight: normal;">1234567890123</td>
+                    <td style="width:500px; font-weight: normal;"><?php echo $licae ?></td>
                     <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px; font-weight: normal">9876543210987</td>
+                    <td style="width:500px; font-weight: normal"><?php echo $licae2 ?></td>
                 </tr>
                 <tr>
                     <td style="width:500px;"><b>Nº de Registro de Información Fiscal:</b></td>

@@ -140,6 +140,6 @@ if (isset($_POST['subir'])) {
 
     echo '<script>
             alert("Datos Guardados Correctamente!");
-            window.location.replace("index.html")
+            window.location.replace("index.php")
         </script>';
 }
