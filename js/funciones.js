@@ -72,7 +72,7 @@ function pdf(id) {
             reqUrl = "./retadcpdf.php";
             break;
         case "MUN":
-            reqUrl = "./munpdf.php";
+            reqUrl = "./retmunpdf.php";
             break;
     }
     myRedirect(reqUrl);
@@ -121,7 +121,7 @@ function html(id) {
             reqUrl = "./retadc.php";
             break;
         case "MUN":
-            reqUrl = "./mun.php";
+            reqUrl = "./retmun.php";
             break;
     }
     myRedirect(reqUrl);

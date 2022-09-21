@@ -15,7 +15,9 @@
     $doc = $_POST["doc"];
     $tipo = $_POST["tipo"];
     $rif = $_POST["rif"];
-
+    $EMPRESA = $_POST["EMPRESA"];
+    $LOGORET = './images/'.$EMPRESA. '-logo-ret.png';
+    $FIRMA  = './images/'.$EMPRESA.'-FirmaySello.png';
 
     include_once("conexion.php");
 
@@ -263,7 +265,7 @@
         <table>
             <tr>
                 <td width='20%'></td>
-                <td width='20%' align='center'><img src='./images/FirmaySello.png' width='200px' height='100px'></td>
+                <td width='20%' align='center'><img src='<?php echo $FIRMA ?>' width='200px' height='100px'></td>
                 <td width='20%'></td>
                 <td width='20%'></td>
                 <td width='20%'></td>

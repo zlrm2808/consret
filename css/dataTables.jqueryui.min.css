@@ -1,10 +1,14 @@
+table.dataTable td{
+    font-size: 14px;
+}
+
 table.dataTable td.dt-control {
     text-align: center;
     cursor: pointer
 }
 
 table.dataTable td.dt-control:before {
-    height: 1em;
+    height: 0.5em;
     width: 1em;
     margin-top: -9px;
     display: inline-block;
@@ -32,7 +36,7 @@ table.dataTable td.dt-control {
 }
 
 table.dataTable td.dt-control:before {
-    height: 1em;
+    height: 0.5em;
     width: 1em;
     margin-top: -9px;
     display: inline-block;
@@ -93,7 +97,7 @@ table.dataTable thead>tr>td.sorting_desc_disabled:after {
     display: block;
     opacity: .125;
     right: 10px;
-    line-height: 9px;
+    line-height: 5px;
     font-size: .9em
 }
 

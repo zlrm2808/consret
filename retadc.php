@@ -336,7 +336,7 @@
         <table border='0' style='border-collapse: collapse' align=center width='100%'>
             <tr>
                 <td align='center'>
-                    <img src='./images/FirmaySello.png' width='200px' height='100px'>
+                    <img src='<?php echo $FIRMA ?>' width='200px' height='100px'>
                 </td>
             </tr>
             <tr>

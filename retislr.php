@@ -15,6 +15,9 @@
     $doc = $_POST["doc"];
     $tipo = $_POST["tipo"];
     $rif = $_POST["rif"];
+    $EMPRESA = $_POST["EMPRESA"];
+    $LOGORET = './images/' . $EMPRESA . '-logo-ret.png';
+    $FIRMA  = './images/' . $EMPRESA . '-FirmaySello.png';
 
 
     include_once("conexion.php");
@@ -83,7 +86,7 @@
         <table border='0' style="width:100%; height:60px;">
             <tr>
                 <td width='200'>
-                    <img src="./images/logo-ret.png" width="205" height="72" border="0" alt="">
+                    <img src="<?php echo $LOGORET ?>" width="205" height="72" border="0" alt="">
                 </td>
                 <td valign='top' align='center'>
                     <h4>COMPROBANTE DE RETENCIÓN DE ISLR</h4>
@@ -155,7 +158,7 @@
                 <td colspan='3'></td>
             </tr>
             <tr>
-                <td><?php echo $rzsoc ?></td>
+                <td><?php echo utf8_encode($rzsoc) ?></td>
                 <td></td>
                 <td colspan='2'><?php echo $rifEmp ?></td>
                 <td width='2%'></td>
@@ -177,7 +180,7 @@
                 <td colspan='3'></td>
             </tr>
             <tr>
-                <td colspan='4'><?php echo $dir1 . ' ' . $dir2 . ' ' . $dir3 ?>
+                <td colspan='4'><?php echo utf8_encode($dir1) . ' ' . utf8_encode($dir2) . ' ' . utf8_encode($dir3) ?>
                     <div class="hr">
                         <hr />
                     </div>
@@ -208,7 +211,7 @@
                 <td colspan='3'></td>
             </tr>
             <tr>
-                <td><?php echo $nempr ?></td>
+                <td><?php echo utf8_encode($nempr) ?></td>
                 <td></td>
                 <td colspan='2'><?php echo $rif ?></td>
                 <td width='2%'></td>
@@ -230,7 +233,7 @@
                 <td colspan='3'></td>
             </tr>
             <tr>
-                <td colspan='4'><?php echo $dirP1 . ' ' . $dirP2 . ' ' . $dirP3 ?></td>
+                <td colspan='4'><?php echo utf8_encode($dirP1) . ' ' . utf8_encode($dirP2) . ' ' . utf8_encode($dirP3) ?></td>
                 <td width='2%'></td>
                 <td width='10%'></td>
                 <td colspan='3'></td>
@@ -264,7 +267,7 @@
         }
 
         $tableIva =
-        "<table class='tbfont' border='1' style='border-collapse: collapse' align='center' width='100%'>
+            "<table class='tbfont' border='1' style='border-collapse: collapse' align='center' width='100%'>
             <tr height='25'>
                 <td align='center' bgcolor='#EAEAEA'><b>Fecha de la Factura</b></td>
                 <td width='90' align='center' bgcolor='#EAEAEA'><b>Número de Factura</b></td>
@@ -321,14 +324,14 @@
         <table border='0' style='border-collapse: collapse' align=center width='100%'>
             <tr>
                 <td align='center'>
-                    <img src='./images/FirmaySello.png' width='200px' height='100px'>
+                    <img src='<?php echo $FIRMA ?>' width='200px' height='100px'>
                 </td>
             </tr>
             <tr>
                 <td align='center'>_______________________________________________________</td>
             </tr>
             <tr>
-                <td align='center'><?php echo $rzsoc ?><br />Fecha de Descarga:<?php echo ' ' . $hoy ?></td>
+                <td align='center'><?php echo utf8_encode($rzsoc) ?><br />Fecha de Descarga:<?php echo ' ' . $hoy ?></td>
             </tr>
         </table>
     </div>

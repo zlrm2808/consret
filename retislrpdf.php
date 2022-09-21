@@ -5,9 +5,10 @@ $hoy = date("d/m/Y");
 $doc = $_POST["doc"];
 $tipo = $_POST["tipo"];
 $rif = $_POST["rif"];
-$logoRet = "./images/logo-ret.png";
+$EMPRESA = $_POST["EMPRESA"];
+$logoRet = "./images/".$EMPRESA."-logo-ret.png";
 $logoRet64 = "data:image/png;base64," . base64_encode(file_get_contents($logoRet));
-$FirmaySello = "./images/FirmaySello.png";
+$FirmaySello = "./images/" . $EMPRESA . "-FirmaySello.png";
 $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySello));
 ?>
 <html lang="en">
