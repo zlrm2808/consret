@@ -72,7 +72,7 @@
         $fecha = $row["1"];
         $rzsoc = $row["2"];
         $rifEmp = $row["3"];
-        $perdf = $row["4"];
+        $perdf = utf8_encode($row["4"]);
         $dir1 = $row["5.1"];
         $dir2 = $row["5.2"];
         $dir3 = $row["5.3"];
@@ -101,7 +101,6 @@
             <tr>
                 <td colspan='3' rowspan='2'>(Decreto 1.808 de retenciones de impuesto sobre la renta, Gaceta Oficial Nro. 36.203 del 12 de Mayo de 1.997)</td>
                 <td colspan='2'> </td>
-
                 <td align='center'>
                     <div>FECHA DE EMISIÓN</div>
                     <div class="hr">
@@ -276,8 +275,8 @@
                 <td align='center' bgcolor='#EAEAEA'><b>Número de NC</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Monto Total (Bs.)</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Base Imponible de Retención (Bs.)</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>% Islr Ret.</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Importe Islr (Bs.)</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>% ISLR Ret.</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Importe ISLR (Bs.)</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Detalle Ret</b></td>
             </tr>";
 

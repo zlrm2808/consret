@@ -120,18 +120,18 @@ if ($stmt === false) {
 }
 
 while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-    $ncomp = $row["0"];
+    $ncomp = utf8_encode($row["0"]);
     $fecha = $row["1"];
-    $rzsoc = $row["2"];
+    $rzsoc = utf8_encode($row["2"]);
     $rifEmp = $row["3"];
-    $perdf = $row["4"];
-    $dir1 = $row["5.1"];
-    $dir2 = $row["5.2"];
-    $dir3 = $row["5.3"];
-    $nempr = $row["6"];
-    $dirP1 = $row["8.1"];
-    $dirP2 = $row["8.2"];
-    $dirP3 = $row["8.3"];
+    $perdf = utf8_encode($row["4"]);
+    $dir1 = utf8_encode($row["5.1"]);
+    $dir2 = utf8_encode($row["5.2"]);
+    $dir3 = utf8_encode($row["5.3"]);
+    $nempr = utf8_encode($row["6"]);
+    $dirP1 = utf8_encode($row["8.1"]);
+    $dirP2 = utf8_encode($row["8.2"]);
+    $dirP3 = utf8_encode($row["8.3"]);
 }
 ?>
 <div id="" class="paginaHorizontal">

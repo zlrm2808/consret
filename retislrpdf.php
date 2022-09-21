@@ -6,7 +6,7 @@ $doc = $_POST["doc"];
 $tipo = $_POST["tipo"];
 $rif = $_POST["rif"];
 $EMPRESA = $_POST["EMPRESA"];
-$logoRet = "./images/".$EMPRESA."-logo-ret.png";
+$logoRet = "./images/" . $EMPRESA . "-logo-ret.png";
 $logoRet64 = "data:image/png;base64," . base64_encode(file_get_contents($logoRet));
 $FirmaySello = "./images/" . $EMPRESA . "-FirmaySello.png";
 $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySello));
@@ -170,9 +170,9 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $ncomp = $row["0"];
         $fecha = $row["1"];
-        $rzsoc = $row["2"];
+        $rzsoc = utf8_encode($row["2"]);
         $rifEmp = $row["3"];
-        $perdf = $row["4"];
+        $perdf = utf8_encode($row["4"]);
         $dir1 = utf8_encode($row["5.1"]);
         $dir2 = utf8_encode($row["5.2"]);
         $dir3 = utf8_encode($row["5.3"]);
@@ -198,9 +198,8 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
             <tr>
                 <td colspan='3' rowspan='2'>(Decreto 1.808 de retenciones de impuesto sobre la renta, Gaceta Oficial Nro. 36.203 del 12 de Mayo de 1.997)</td>
                 <td colspan='2'> </td>
-
                 <td align='center'>
-                    <div>Nº COMPROBANTE</div>
+                    <div>FECHA DE EMISIÓN</div>
                     <div class="hr">
                         <hr />
                     </div>
@@ -208,19 +207,11 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
 
                 <td> </td>
                 <td align='center'>
-                    <div>FECHA DE EMISIÓN</div>
-                    <div class="hr">
-                        <hr />
-                    </div>
                 </td>
                 <td></td>
             </tr>
             <tr>
                 <td colspan='2'> </td>
-
-                <td align='center'> <?php echo $ncomp ?> </td>
-
-                <td></td>
                 <td align='center'> <?php echo $fecha ?> </td>
                 <td></td>
             </tr>
@@ -281,7 +272,11 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 <td colspan='3'></td>
             </tr>
             <tr>
-                <td colspan='4'><?php echo $dir1 . ' ' . $dir2 . ' ' . $dir3 ?></td>
+                <td colspan='4'><?php echo utf8_encode($dir1) . ' ' . utf8_encode($dir2) . ' ' . utf8_encode($dir3) ?>
+                    <div class="hr">
+                        <hr />
+                    </div>
+                </td>
                 <td width='2%'></td>
                 <td width='10%'></td>
                 <td colspan='3'></td>
@@ -373,8 +368,8 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 <td align='center' bgcolor='#EAEAEA'><b>Número de NC</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Monto Total (Bs.)</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Base Imponible de Retención (Bs.)</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>% Islr Ret.</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Importe Islr (Bs.)</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>% ISLR Ret.</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Importe ISLR (Bs.)</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Detalle Ret</b></td>
             </tr>";
 
@@ -403,7 +398,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
             $totimp += $row['COL-8'];
         }
         $tableIva .=
-        "</table>
+            "</table>
         <table border='0' class='tbfont' style='border-collapse: collapse' align='center' width='100%'>
             <tr height='25'>
                 <td colspan='7' colspan='2' align='right'>Totales (Bs.):</td>

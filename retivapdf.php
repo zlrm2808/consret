@@ -20,19 +20,31 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
 
 <style>
     @page {
-        margin-left: 0.5cm;
-        margin-right: 0.5cm;
-        margin-top: 1cm;
-        margin-bottom: 0.5cm;
+        margin-left: 0.2cm;
+        margin-right: 0.1cm;
+        margin-top: 0.2cm;
+        margin-bottom: 0.1cm;
     }
 
     body {
         font-family: Verdana, Arial, Helvetica, sans-serif;
-        font-size: 10px;
+        font-size: 20px;
         color: #000000;
         background-color: #ffffff;
         margin: 0px;
         padding: 0px;
+    }
+
+    .paginaVertical {
+        width: 230mm;
+        height: 279.4mm;
+        margin: 2cm
+    }
+
+    .paginaHorizontal {
+        width: 230mm;
+        height: 189mm;
+        margin: 1cm
     }
 
     p {
@@ -49,6 +61,14 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         margin-bottom: 1px;
     }
 
+    h5 {
+        color: #000000;
+        font-family: Verdana;
+        font-size: 10pt;
+        text-decoration: underline;
+        margin-bottom: 10px;
+    }
+
     table {
         font-family: verdana;
         font-size: 8pt;
@@ -60,6 +80,39 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         font-size: 8pt;
         font-weight: bold;
     }
+
+    .cabecera {
+        height: 40px;
+        font-weight: normal;
+    }
+
+    .cabecera2 {
+        height: 20px;
+        font-weight: normal;
+    }
+
+    th {
+        background-color: #EAEAEA;
+    }
+
+    .tbfont {
+        font-size: 9px;
+    }
+
+    .tbfont2 {
+        font-size: 7px;
+    }
+
+    .interno {
+        font-weight: normal;
+    }
+
+    .unica {
+        border-left: solid 1px;
+        border-bottom: solid 1px;
+        border-right: solid 1px;
+        border-color: gray;
+    }
 </style>
 
 <body>
@@ -68,6 +121,9 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
     $doc = $_POST["doc"];
     $tipo = $_POST["tipo"];
     $rif = $_POST["rif"];
+    $EMPRESA = $_POST["EMPRESA"];
+    $LOGORET = './images/' . $EMPRESA . '-logo-ret.png';
+    $FIRMA  = './images/' . $EMPRESA . '-FirmaySello.png';
 
     include_once("conexion.php");
 
@@ -117,13 +173,13 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $ncomp = $row["0"];
         $fecha = $row["1"];
-        $rzsoc = $row["2"];
+        $rzsoc = utf8_encode($row["2"]);
         $rifEmp = $row["3"];
         $perdf = $row["4"];
-        $dir1 = $row["5.1"];
-        $dir2 = $row["5.2"];
-        $dir3 = $row["5.3"];
-        $nempr = $row["6"];
+        $dir1 = utf8_encode($row["5.1"]);
+        $dir2 = utf8_encode($row["5.2"]);
+        $dir3 = utf8_encode($row["5.3"]);
+        $nempr = utf8_encode($row["6"]);
     }
     ?>
     <div id="" Class="paginaHorizontal">
@@ -222,10 +278,11 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 <td colspan='3'></td>
             </tr>
             <tr>
-                <td colspan='4'><?php echo $dir1 . ' ' . $dir2 . ' ' . $dir3 ?></td>
-                <div class="hr">
-                    <hr />
-                </div>
+                <td colspan='4'><?php echo $dir1 . ' ' . $dir2 . ' ' . $dir3 ?>
+                    <div class="hr">
+                        <hr />
+                    </div>
+                </td>
                 <td width='2%'></td>
                 <td width='10%'></td>
                 <td colspan='3'></td>
@@ -269,8 +326,8 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
 
         <table border='0' style='border-collapse: collapse' align=center width='100%'>
             <tr>
-                <td width='68%'></td>
-                <td width='24%'>
+                <td width='43%'></td>
+                <td width='33%'>
                     <table border='1' width='100%' style='border-collapse: collapse' bordercolor='#000000'>
                         <tr>
                             <td align='center' bgcolor='#EAEAEA'><b>Compras Internas o Importaciones</b></td>
@@ -299,8 +356,15 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 STR(IMP_nc_open_cosiva,9,2) AS 'col-10',
                 STR(IIF(IMP_nc_open_tipdoc = 4, IMP_basimp_alicgene * -1, IMP_basimp_alicgene),9,2) AS 'col-11',
                 STR(IMP_porceimp_alicgene,9,2) AS 'col-12',
-                IIF(IMP_nc_open_tipdoc = 4, IMP_montoimp_alicgene * -1, IMP_montoimp_alicgene) AS 'col-13',
-                IIF(IMP_nc_open_tipdoc = 4,IMP_montrete_alicgene,ABS(IMP_montrete_alicgene)) AS 'col-14'
+				STR(IIF(IMP_nc_open_tipdoc = 4, IMP_montoimp_alicgene * -1, IMP_montoimp_alicgene),9,2) AS 'col-13',
+				STR(IIF(IMP_nc_open_tipdoc = 4, IMP_basimp_alicreduc * -1, IMP_basimp_alicreduc),9,2) AS 'col-14',
+                STR(IMP_porceimp_alicreduc,9,2) AS 'col-15',
+				STR(IIF(IMP_nc_open_tipdoc = 4, IMP_montoimp_alicreduc * -1, IMP_montoimp_alicreduc),9,2) AS 'col-16',
+				STR(IIF(IMP_nc_open_tipdoc = 4, IMP_basimp_alicadic * -1, IMP_basimp_alicadic),9,2) AS 'col-17',
+                STR(IMP_porceimp_alicadic,9,2) AS 'col-18',
+				STR(IIF(IMP_nc_open_tipdoc = 4, IMP_montoimp_alicadic * -1, IMP_montoimp_alicadic),9,2) AS 'col-19',
+                STR(ABS(IMP_porcrete_alicgene),9,2) AS 'col-20',
+				STR((IIF(IMP_nc_open_tipdoc = 4, IMP_montoimp_alicgene * -1, IMP_montoimp_alicgene)+(IIF(IMP_nc_open_tipdoc = 4, IMP_montoimp_alicreduc * -1, IMP_montoimp_alicreduc)+(IIF(IMP_nc_open_tipdoc = 4, IMP_montoimp_alicadic * -1, IMP_montoimp_alicadic)))),9,2) AS 'col-21'
             FROM IMPP2001
             WHERE open_p = '" . $rif . "'
             AND IMP_nc_open_numfac = '" . $doc . "'
@@ -317,22 +381,29 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
 
         $tableIva =
 
-            "<table border='1' style='border-collapse: collapse' align='center' width='100%'>
+            "<table class='tbfont2' border='1' style='border-collapse: collapse' align='center' width='100%'>
             <tr height='25'>
                 <td align='center' bgcolor='#EAEAEA'><b>Oper Nº</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Fecha de la Factura</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Número de Factura</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Núm. Control de Factura</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Núm. Nota Débito</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Núm. Nota Crédito</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Número Factura</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Número Control</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Número ND</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Número NC</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Tipo de Trans.</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Núm. de Factura Afectada</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Total Compras Incluyendo el IVA (Bs.)</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Compras sin Derecho Crédito IVA (Bs.)</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Base Imponible (Bs.)</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>%Alícuota</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Impuesto IVA (Bs.)</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>IVA Retenido (Bs.)</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Factura Afectada</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Total Compras Incl. IVA</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Total Compras Exentas</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Total Base Imp Alic. General</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>% Alíc</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Total Imp. Causado IVA Gral.</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Total Base Imp Alic. Reduc.</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>% Alíc</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Total Imp. Causado IVA Reduc.</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Total Base Imp Alic. Adic.</b></td>               
+                <td align='center' bgcolor='#EAEAEA'><b>% Alíc</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Total Imp. Causado IVA Adic.</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>% Ret</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Total Monto del Imp. Retenido</b></td>
             </tr>";
 
         $numrow = 1;
@@ -343,41 +414,50 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         $totimp = 0;
         $totivaret = 0;
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-            $tableIva .= "
+            $tableIva .=
+                "
+            <tbody>
             <tr height='22'>
-                <td align='center'>" . $row['col-1'] . "</td>
-                <td align='center'>" . $row['col-2'] . "</td> 
-                <td align='center'>" . $row['col-3'] . "</td>
-                <td align='center'>" . $row['col-4'] . "</td>
-                <td align='center'>" . $row['col-5'] . "</td>
-                <td align='center'>" . $row['col-6'] . "</td>
-                <td align='center'>" . $row['col-7'] . "</td>
-                <td align='center'>" . $row['col-8'] . "</td>
+                <td width='2%' align='center'>" . $row['col-1'] . "</td>
+                <td width='5%' align='center'>" . $row['col-2'] . "</td> 
+                <td width='5%' align='center'>" . $row['col-3'] . "</td>
+                <td width='6.5%' align='center'>" . $row['col-4'] . "</td>
+                <td width='2%' align='center'>" . $row['col-5'] . "</td>
+                <td width='2%' align='center'>" . $row['col-6'] . "</td>
+                <td width='8%' align='center'>" . $row['col-7'] . "</td>
+                <td width='5%' align='center'>" . $row['col-8'] . "</td>
                 <td align='right'>" . number_format($row['col-9'], 2, ',', '.') . "</td>
                 <td align='right'>" . number_format($row['col-10'], 2, ',', '.') . "</td>
                 <td align='right'>" . number_format($row['col-11'], 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($row['col-12'], 2, ',', '.') . "</td>
+                <td width='2%' align='right'>" . number_format($row['col-12'], 2, ',', '.') . "</td>
                 <td align='right'>" . number_format($row['col-13'], 2, ',', '.') . "</td>
                 <td align='right'>" . number_format($row['col-14'], 2, ',', '.') . "</td>
+                <td width='2%' align='right'>" . number_format($row['col-15'], 2, ',', '.') . "</td>
+                <td align='right'>" . number_format($row['col-16'], 2, ',', '.') . "</td>
+                <td width='5%' align='right'>" . number_format($row['col-17'], 2, ',', '.') . "</td>
+                <td width='2%' align='right'>" . number_format($row['col-18'], 2, ',', '.') . "</td>
+                <td align='right'>" . number_format($row['col-19'], 2, ',', '.') . "</td>
+                <td width='2%' align='right'>" . number_format($row['col-20'], 2, ',', '.') . "</td>
+                <td width='5%' align='right'>" . number_format($row['col-21'], 2, ',', '.') . "</td>
             </tr>";
             $numrow++;
             $totcciva += $row['col-9'];
             $totcsiva += $row['col-10'];
             $totbimp += $row['col-11'];
             $totimp += $row['col-13'];
-            $totivaret += $row['col-14'];
+            $totivaret += $row['col-21'];
         }
-        $tableIva .= "
+        $tableIva .=
+        "
+        </tbody>
+        </table>
+        <table class='tbfont2' border='0' style='border-collapse: collapse' align='center' width='100%'>
             <tr height='25'>
-                <td align='right' colspan='8'>Totales (Bs.):</td>
-                <td align='right'>" . number_format($totcciva, 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($totcsiva, 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($totbimp, 2, ',', '.') . "</td>
-                <td></td>
-                <td align='right'>" . number_format($totimp, 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($totivaret, 2, ',', '.') . "</td>
+                <td width='95%' align='right'>Totales Impuesto Retenido:</td>
+                <td class='unica' align='right'>" . number_format($totivaret, 2, ',', '.') . "</td>
             </tr>
-        </table>";
+        </table>
+        ";
         echo $tableIva;
         ?>
         <table border='0' style='border-collapse: collapse' align=center width='100%'>

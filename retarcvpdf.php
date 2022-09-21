@@ -107,16 +107,16 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $aimp = $row["1"];
         $femi = $row["2"];
-        $rzsoc = $row["3"];
+        $rzsoc = utf8_encode($row["3"]);
         $rifEmp = $row["4"];
-        $perdf = $row["5"];
-        $dir1 = $row["6.1"];
-        $dir2 = $row["6.2"];
-        $dir3 = $row["6.3"];
-        $nempr = $row["7"];
-        $dirP1 = $row["9.1"];
-        $dirP2 = $row["9.2"];
-        $dirP3 = $row["9.3"];
+        $perdf = utf8_encode($row["5"]);
+        $dir1 = utf8_encode($row["6.1"]);
+        $dir2 = utf8_encode($row["6.2"]);
+        $dir3 = utf8_encode($row["6.3"]);
+        $nempr = utf8_encode($row["7"]);
+        $dirP1 = utf8_encode($row["9.1"]);
+        $dirP2 = utf8_encode($row["9.2"]);
+        $dirP3 = utf8_encode($row["9.3"]);
     }
     ?>
     <div id="" class="paginaHorizontal">
