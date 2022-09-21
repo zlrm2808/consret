@@ -66,3 +66,18 @@ div {
 th {
     background-color: #EAEAEA;
 }
+
+.tbfont {
+    font-size: 9px;
+}
+
+.interno {
+    font-weight: normal;
+}
+
+.unica {
+    border-left: solid 1px;
+    border-bottom: solid 1px;
+    border-right: solid 1px;
+    border-color: gray;
+}

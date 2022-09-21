@@ -37,7 +37,7 @@ if (isset($_POST['subir'])) {
         } else {
             //Si la imagen es correcta en tamaño y tipo
             //Se intenta subir al servidor
-            $archivo = 'logo-emp.png';
+            $archivo = $EMPRESA.'-logo-emp.png';
             if (move_uploaded_file($temp, 'images/' . $archivo)) {
                 //Cambiamos los permisos del archivo a 777 para poder modificarlo posteriormente
                 chmod('images/' . $archivo, 0777);
@@ -66,7 +66,7 @@ if (isset($_POST['subir'])) {
         } else {
             //Si la imagen es correcta en tamaño y tipo
             //Se intenta subir al servidor
-            $archivo = 'logo-ret.png';
+            $archivo = $EMPRESA.'-logo-ret.png';
             if (move_uploaded_file($temp, 'images/' . $archivo)) {
                 //Cambiamos los permisos del archivo a 777 para poder modificarlo posteriormente
                 chmod('images/' . $archivo, 0777);
@@ -95,7 +95,7 @@ if (isset($_POST['subir'])) {
         } else {
             //Si la imagen es correcta en tamaño y tipo
             //Se intenta subir al servidor
-            $archivo = 'FirmaySello.png';
+            $archivo = $EMPRESA.'-FirmaySello.png';
             if (move_uploaded_file($temp, 'images/' . $archivo)) {
                 //Cambiamos los permisos del archivo a 777 para poder modificarlo posteriormente
                 chmod('images/' . $archivo, 0777);

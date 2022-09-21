@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/styles.css">
     <title>Inicio de Sesion</title>
 </head>
-<body>
+<body class="bgg">
     <?PHP
         $file = @fopen('config.ini', "r");
         if ($file) {

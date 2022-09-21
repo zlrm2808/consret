@@ -20,19 +20,31 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
 
 <style>
     @page {
-        margin-left: 0.5cm;
-        margin-right: 0.5cm;
-        margin-top: 1cm;
-        margin-bottom: 0.5cm;
+        margin-left: 0.2cm;
+        margin-right: 0.1cm;
+        margin-top: 0.2cm;
+        margin-bottom: 0.1cm;
     }
 
     body {
         font-family: Verdana, Arial, Helvetica, sans-serif;
-        font-size: 10px;
+        font-size: 20px;
         color: #000000;
         background-color: #ffffff;
         margin: 0px;
         padding: 0px;
+    }
+
+    .paginaVertical {
+        width: 230mm;
+        height: 279.4mm;
+        margin: 2cm
+    }
+
+    .paginaHorizontal {
+        width: 230mm;
+        height: 189mm;
+        margin: 1cm
     }
 
     p {
@@ -49,6 +61,14 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         margin-bottom: 1px;
     }
 
+    h5 {
+        color: #000000;
+        font-family: Verdana;
+        font-size: 10pt;
+        text-decoration: underline;
+        margin-bottom: 10px;
+    }
+
     table {
         font-family: verdana;
         font-size: 8pt;
@@ -59,6 +79,35 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         font-family: verdana;
         font-size: 8pt;
         font-weight: bold;
+    }
+
+    .cabecera {
+        height: 40px;
+        font-weight: normal;
+    }
+
+    .cabecera2 {
+        height: 20px;
+        font-weight: normal;
+    }
+
+    th {
+        background-color: #EAEAEA;
+    }
+
+    .tbfont {
+        font-size: 9px;
+    }
+
+    .interno {
+        font-weight: normal;
+    }
+
+    .unica {
+        border-left: solid 1px;
+        border-bottom: solid 1px;
+        border-right: solid 1px;
+        border-color: gray;
     }
 </style>
 
@@ -78,7 +127,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
     IMP_nc_open3_ncompr as '0',
     CONVERT(VARCHAR, IMP_nc_open3_feccon, 103) AS '1',
     UPPER(CMPNYNAM) AS '2',
-    TAXREGTN AS '3',
+    CO_MI_rif000 AS '3',
     CONCAT('AÑO ',RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4),' / MES ',
 	CASE
 		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=1 THEN 'ENE'
@@ -104,6 +153,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
 	PV_MI_direc3 as '8.3'
     FROM IMPP3000
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
+    INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
 	INNER JOIN IMPP0161 on PV_MI_idprov = open3_p 
     WHERE open3_p = '" . $rif . "'
     AND IMP_nc_open3_numfac = '" . $doc . "'");
@@ -296,8 +346,9 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                         IMP_nc_open3_basimp + (IMP_nc_open3_basimp * IMP_nc_open3_porimp)/100 AS 'COL-5',
                         IMP_nc_open3_basimp AS 'COL-6',
                         IMP_nc_open3_porimp AS 'COL-7',
-                        0 AS 'COL-8',
-                        (IMP_nc_open3_basimp * IMP_nc_open3_porimp)/100 AS 'COL-9'
+                        (IMP_nc_open3_basimp * IMP_nc_open3_porimp)/100 AS 'COL-8',
+						IMP_nc_open3_numnd AS 'COL-9',
+						IMP_nc_open3_numnc AS 'COL-10'
                 FROM IMPP3000
                 WHERE open3_p = '" . $rif . "'
                 AND IMP_nc_open3_numfac = '" . $doc . "'");
@@ -312,16 +363,18 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         }
 
         $tableIva =
-            "<table border='1' style='border-collapse: collapse' align='center' width='100%'>
+            "<table class='tbfont' border='1' style='border-collapse: collapse' align='center' width='100%'>
             <tr height='25'>
                 <td align='center' bgcolor='#EAEAEA'><b>Fecha de la Factura</b></td>
-                <td width='90' align='center' bgcolor='#EAEAEA'><b>Número de Factura</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Número de Factura</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Número de Control</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Descripción</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Número de ND</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Número de NC</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Monto Total (Bs.)</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Base Imponible de Retención (Bs.)</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>% Islr Ret.</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Importe Islr (Bs.)</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Detalle Ret</b></td>
             </tr>";
 
         $numrow = 1;
@@ -330,16 +383,18 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         $totbimp = 0;
         $totimp = 0;
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-            $tableIva .=            "
-            <tr>
-                <td align='center'>" . $row['COL-1'] . "</td>
-                <td align='center'>" . $row['COL-2'] . "</td>
-                <td align='center'>" . $row['COL-3'] . "</td>
-                <td align='left'>" . $row['COL-4'] . "</td>
-                <td align='right'>" . number_format($row['COL-5'], 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($row['COL-6'], 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($row['COL-7'], 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($row['COL-8'], 2, ',', '.') . "</td>
+            $tableIva .= "
+            <tr class='interno'>
+                <td width='8%' align='center'>" . $row['COL-1'] . "</td>
+                <td width='8%' align='center'>" . $row['COL-2'] . "</td>
+                <td width='8%' align='center'>" . $row['COL-3'] . "</td>
+                <td width='8%' align='center'>" . $row['COL-9'] . "</td>
+                <td width='8%' align='center'>" . $row['COL-10'] . "</td>
+                <td width='8%' align='right'>" . number_format($row['COL-5'], 2, ',', '.') . "</td>
+                <td width='22%' align='right'>" . number_format($row['COL-6'], 2, ',', '.') . "</td>
+                <td width='8%' align='right'>" . number_format($row['COL-7'], 2, ',', '.') . "</td>
+                <td width='12%' align='right'>" . number_format($row['COL-8'], 2, ',', '.') . "</td>
+                <td width='10%' align='left'>" . $row['COL-4'] . "</td>
             </tr>";
             $numrow++;
             $totmto += $row['COL-5'];
@@ -347,15 +402,12 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
             $totimp += $row['COL-8'];
         }
         $tableIva .=
-        "
-
+        "</table>
+        <table border='0' class='tbfont' style='border-collapse: collapse' align='center' width='100%'>
             <tr height='25'>
-                <td align='right' colspan='3'></td>
-                <td align='right'>Totales (Bs.):</td>
-                <td align='right'>" . number_format($totmto, 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($totbimp, 2, ',', '.') . "</td>
-                <td></td>
-                <td align='right'>" . number_format($totimp, 2, ',', '.') . "</td>
+                <td colspan='7' colspan='2' align='right'>Totales (Bs.):</td>
+                <td class='unica' width='11.98%' align='right'>" . number_format($totimp, 2, ',', '.') . "</td>
+                <td width='10.05%'>&nbsp;</td>
             </tr>
         </table>";
         echo $tableIva;

@@ -6,16 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/retenciones.css">
-    <title>Documento de IRM</title>
+    <title>Documento de ADC</title>
 </head>
 
 <body>
-    <?php
+    <?php   
     $hoy = date("d/m/Y");
     $doc = $_POST["doc"];
     $tipo = $_POST["tipo"];
     $rif = $_POST["rif"];
-
+    $EMPRESA = $_POST["EMPRESA"];
+    $LOGORET = './images/'.$EMPRESA. '-logo-ret.png';
+    $FIRMA  = './images/'.$EMPRESA.'-FirmaySello.png';
 
     include_once("conexion.php");
 
@@ -25,7 +27,7 @@
     IMP_gene_ncompr as '0',
     CONVERT(VARCHAR, IMP_gene_feccon, 103) AS '1',
     UPPER(CMPNYNAM) AS '2',
-    TAXREGTN AS '3',
+    CO_MI_rif000 AS '3',
     CONCAT('AÑO ',LEFT(CONVERT(VARCHAR,IMP_gene_fecdoc,23),4),' / MES ',
 	CASE
 		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=1 THEN 'ENE'
@@ -51,6 +53,7 @@
 	PV_MI_direc3 as '8.3'
     FROM IMPP4000
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
+    INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
 	INNER JOIN IMPP0161 on PV_MI_idprov = IMP_gene_rif000
     WHERE IMP_gene_rif000 =  '" . $rif . "'
     AND IMP_gene_numdoc = '" . $doc . "'");
@@ -82,7 +85,7 @@
         <table border='0' style="width:100%; height:60px;">
             <tr>
                 <td width='200'>
-                    <img src="./images/logo-ret.png" width="205" height="72" border="0" alt="">
+                    <img src="<?php echo $LOGORET ?>" width="205" height="72" border="0" alt="">
                 </td>
                 <td valign='top' align='center'>
                     <h4>COMPROBANTE DE RETENCIÓN DE IMPUESTO MUNICIPAL</h4>

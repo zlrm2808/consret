@@ -77,7 +77,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
     IMP_nc_open_nreten as '0',
     CONVERT(VARCHAR, IMP_nc_open_feccon, 103) AS '1',
     UPPER(CMPNYNAM) AS '2',
-    TAXREGTN AS '3',
+    CO_MI_rif000 AS '3',
     CONCAT('AÑO ',RIGHT(LTRIM(RTRIM(IMP_nc_open_period)),4),' / MES ',
 	CASE
 		WHEN SUBSTRING(IMP_nc_open_period,5,2)=1 THEN 'ENE'
@@ -100,6 +100,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
     open_p as '7'
     FROM IMPP2001
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
+    INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
     WHERE open_p = '" . $rif . "'
     AND IMP_nc_open_numfac = '" . $doc . "'
     "
@@ -222,6 +223,9 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
             </tr>
             <tr>
                 <td colspan='4'><?php echo $dir1 . ' ' . $dir2 . ' ' . $dir3 ?></td>
+                <div class="hr">
+                    <hr />
+                </div>
                 <td width='2%'></td>
                 <td width='10%'></td>
                 <td colspan='3'></td>

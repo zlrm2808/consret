@@ -72,7 +72,7 @@ textarea {
 
 textarea:focus,
 input:focus {
-    border-color: transparent !important
+    border-color: transparent !important;   
 }
 
 button {

@@ -25,7 +25,7 @@ h2 {
 
 h3 {
     text-align: left;
-    font-size: 14px;
+    font-size: 16px;
     display: inline-block;
     }
 
@@ -80,7 +80,7 @@ h2.active {
 }
 
 span {
-    font-size: 11px;
+    font-size: 16px;
     text-align: center;
 }
 
@@ -299,11 +299,12 @@ input[type=password]::placeholder {
 
 input[type="text"],
 input[type="date"] {
-    font-size: 22px;
+    font-size: 16px;
     border-radius: 5px;
     border-color: #005EE4;
     margin-left: 30px;
 }
+
 
 /* OTHERS */
 

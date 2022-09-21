@@ -1,13 +1,15 @@
 <?php ob_start();
+
 require_once "./conexion.php";
 
 $hoy = date("d/m/Y");
 $doc = $_POST["doc"];
 $tipo = $_POST["tipo"];
 $rif = $_POST["rif"];
-$logoRet = "./images/logo-ret.png";
+$EMPRESA = $_POST["EMPRESA"];
+$logoRet = "./images/".$EMPRESA."-logo-ret.png";
 $logoRet64 = "data:image/png;base64," . base64_encode(file_get_contents($logoRet));
-$FirmaySello = "./images/FirmaySello.png";
+$FirmaySello = "./images/".$EMPRESA."-FirmaySello.png";
 $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySello));
 ?>
 <html lang="en">
@@ -15,7 +17,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documento de IRM</title>
+    <title>Documento de ADC</title>
 </head>
 
 <style>
@@ -78,7 +80,7 @@ $sql = ("SELECT TOP 1
     IMP_gene_ncompr as '0',
     CONVERT(VARCHAR, IMP_gene_feccon, 103) AS '1',
     UPPER(CMPNYNAM) AS '2',
-    TAXREGTN AS '3',
+    CO_MI_rif000 AS '3',
     CONCAT('AÑO ',LEFT(CONVERT(VARCHAR,IMP_gene_fecdoc,23),4),' / MES ',
 	CASE
 		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=1 THEN 'ENE'
@@ -104,6 +106,7 @@ $sql = ("SELECT TOP 1
 	PV_MI_direc3 as '8.3'
     FROM IMPP4000
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
+    INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
 	INNER JOIN IMPP0161 on PV_MI_idprov = IMP_gene_rif000
     WHERE IMP_gene_rif000 =  '" . $rif . "'
     AND IMP_gene_numdoc = '" . $doc . "'");
@@ -412,6 +415,6 @@ $dompdf->render();
 header("Content-type: application/pdf");
 header("Content-Disposition: inline; filename=documento.pdf");
 $pdf = $dompdf->output();
-$filename = "RETIRM";
+$filename = "RETADC";
 $dompdf->stream($rif . '_' . $filename . '_' . $doc);
 ?>

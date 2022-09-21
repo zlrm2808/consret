@@ -12,13 +12,15 @@
 
 <?php
 $file = @fopen('config.ini', "r");
-    if ($file) {
-        while (!feof($file)) {
-            $lines[] = fgets($file, 4096);
-        }
-        fclose($file);
+if ($file) {
+    while (!feof($file)) {
+        $lines[] = fgets($file, 4096);
     }
-    $urlemp = ($lines[5]);
+    fclose($file);
+}
+$urlemp = ($lines[5]);
+$EMPRESA = ($lines[4]);
+$LOGOEMP = "./images/" . $EMPRESA . "-logo-emp.png";
 
 include_once("conexionIni.php");
 
@@ -94,7 +96,7 @@ sqlsrv_free_stmt($stmt);
             <div class="logo-empresa">
             </div>
             <div class="logo-derecha">
-                <right><a href="http://<?php echo $urlemp ?>" target="blank"><img src="./images/logo-emp.png" height="100px"></a></right>
+                <right><a href="http://<?php echo $urlemp ?>" target="blank"><img src="<?php echo $LOGOEMP ?>" height="100px"></a></right>
             </div>
         </div>
         <div class="contenedor-mid-sel">
@@ -123,6 +125,7 @@ sqlsrv_free_stmt($stmt);
                     }
                     '</select>';
                     ?>
+
                 </span>
                 <br>
                 <input type="hidden" name="prov" value="<?php echo $Prov; ?>">

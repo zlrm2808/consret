@@ -27,6 +27,9 @@
     $USERBD = ($lines[2]);
     $PASSBD = ($lines[3]);
     $urlemp = ($lines[5]);
+    $EMPRESA = ($lines[4]);
+
+    $LOGOEMP = "./images/" . $EMPRESA . "-logo-emp.png";
 
     $SERVIDOR = '';
 
@@ -66,7 +69,7 @@
             </form>
         </div>
         <div class="logo-empresa">
-            <right><a href="http://<?php echo $urlemp ?>" target="blank"><img src="./images/logo-emp.png" height="100px"></a></right>
+            <right><a href="http://<?php echo $urlemp ?>" target="blank"><img src="<?php echo $LOGOEMP ?>" height="100px"></a></right>
         </div>
     </div>
     <div class="contenedor-mid1">
@@ -78,7 +81,7 @@
         </div>
         <div class="empresa">
             <span>Empresa:</span>
-            <span id="emp"><b><?php echo $emp; ?></b></span>
+            <h3 style="margin-top:-5px;"><?php echo $emp; ?></h3>
         </div>
     </div>
     <div class="contenedor-mid2">
@@ -90,6 +93,10 @@
             "<input type='date' name='fecha' id='fechaIni' value='" . $hoy . "'>";
             ?>
             <br>
+            <?php
+            echo
+            "<input type='hidden' name='empresa' id='empresa' value='" . $EMPRESA . "'>";
+            ?>
         </div>
         <div class="fecha-hasta">
             <h3>Hasta:</h3>

@@ -1,84 +1,13 @@
-<?php ob_start();
-require_once "./conexion.php";
-
-$hoy = date("d/m/Y");
-$doc = $_POST["doc"];
-$tipo = $_POST["tipo"];
-$rif = $_POST["rif"];
-$logoRet = "./images/logo-ret.png";
-$logoRet64 = "data:image/png;base64," . base64_encode(file_get_contents($logoRet));
-$FirmaySello = "./images/FirmaySello.png";
-$FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySello));
-?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documento de RETAG</title>
+    <link rel="stylesheet" href="./css/retenciones.css">
+    <title>Documento de MUN</title>
 </head>
-
-<style>
-    @page {
-        margin-left: 0.5cm;
-        margin-right: 0.5cm;
-        margin-top: 1cm;
-        margin-bottom: 0.5cm;
-    }
-
-    body {
-        font-family: Verdana, Arial, Helvetica, sans-serif;
-        font-size: 10px;
-        color: #000000;
-        background-color: #ffffff;
-        margin: 0px;
-        padding: 0px;
-    }
-
-    p {
-        text-indent: 10px;
-        font-family: verdana;
-        font-size: 10pt;
-        margin-bottom: 10px;
-    }
-
-    h4 {
-        color: #000000;
-        font-family: verdana;
-        font-size: 14pt;
-        margin-bottom: 1px;
-    }
-
-    h5 {
-        color: #000000;
-        font-family: Verdana;
-        font-size: 10pt;
-        text-decoration: underline;
-        margin-bottom: 10px;
-    }
-
-    table {
-        font-family: verdana;
-        font-size: 8pt;
-        width: 100%;
-    }
-
-    div {
-        color: #000000;
-        font-family: verdana;
-        font-size: 8pt;
-        font-weight: bold;
-    }
-
-    th {
-        background-color: #EAEAEA;
-    }
-
-    .Tabletot {
-        width: 1000px;
-        border-collapse: collapse;
-    }
-</style>
 
 <body>
     <?php
@@ -96,7 +25,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
     IMP_gene_corr as '0',
     CONVERT(VARCHAR, IMP_gene_feccon, 103) AS '1',
     UPPER(CMPNYNAM) AS '2',
-    TAXREGTN AS '3',
+    CO_MI_rif000 AS '3',
     CONCAT('Año: ',LEFT(CONVERT(VARCHAR,IMP_gene_fecdoc,23),4),'  Mes: ',
 	CASE
 		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=1 THEN 'Enero'
@@ -124,8 +53,8 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
 	PV_MI_nit000 as '10'
     FROM IMPP4000
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
+    INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
 	INNER JOIN IMPP0161 on PV_MI_rif000 = IMP_gene_rif000
-	INNER JOIN IMPC0001 on CO_MI_rif000 = TAXREGTN
     WHERE IMP_gene_rif000 =  '" . $rif . "'
     AND IMP_gene_corr != ''
     AND IMP_gene_numdoc = '" . $doc . "'");
@@ -167,6 +96,9 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 <td style="width:5%;">&nbsp;</td>
                 <td style="width:45%;">
                     <h5>Datos de Identificacion del Sujeto Retenido</h5>
+                </td>
+                <td valign='top' align='right' width='100'>
+                    <a href="#" onclick="javascript:window.print()"><img src="./images/print.png" width="25" height="25"></a>
                 </td>
             </thead>
             <tbody>
@@ -280,7 +212,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
             }
             ?>
             <tfoot>
-                <table border="1" class="Tabletot">
+                <table border="1">
                     <thead>
                         <th>Fecha de Documento</th>
                         <th>Nº de Documento</th>
@@ -331,7 +263,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         <table>
             <tr>
                 <td width='20%'></td>
-                <td width='20%' align='center'><img src='<?php echo $FSello64 ?>' width='200px' height='100px'></td>
+                <td width='20%' align='center'><img src='./images/FirmaySello.png' width='200px' height='100px'></td>
                 <td width='20%'></td>
                 <td width='20%'></td>
                 <td width='20%'></td>
@@ -352,23 +284,6 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
             </tr>
         </table>
     </div>
+</body>
 
 </html>
-<?php
-include_once "./vendor/autoload.php";
-
-use Dompdf\Dompdf;
-use Dompdf\Options;
-
-$dompdf = new Dompdf();
-$dompdf->setPaper('Letter', 'landscape');
-$options = $dompdf->getOptions();
-$dompdf->setOptions($options);
-$dompdf->loadhtml(ob_get_clean());
-$dompdf->render();
-header("Content-type: application/pdf");
-header("Content-Disposition: inline; filename=documento.pdf");
-$pdf = $dompdf->output();
-$filename = "RETAG";
-$dompdf->stream($rif . '_' . $filename . '_' . $doc);
-?>

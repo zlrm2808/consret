@@ -1,14 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
 /* BASIC */
-
-html {
-  background-color: #C2C2C2;
-}
-
 body {
   font-family: "Poppins", sans-serif;
   height: 100vh;
+}
+
+.bgg {
+  background-color: #C2C2C2;
 }
 
 a {
@@ -30,7 +29,7 @@ h2 {
 
 h3 {
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
   display: inline-block;
@@ -38,10 +37,10 @@ h3 {
 }
 
 select {
-  font-size: 14px;
+  font-size: 16px;
   text-transform: uppercase;
   display: inline-block;
-  margin-left: 15px;
+  margin-left: 5px;
   background-color: #f6f6f6;
   border: 2px solid #3A8DD0;
   -webkit-transition: all 0.5s ease-in-out;
@@ -51,7 +50,7 @@ select {
   transition: all 0.5s ease-in-out;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  width: 450px;
+  width: 350px;
 }
 
 select option{
@@ -107,7 +106,7 @@ h2.active {
 }
 
 span {
-  font-size: 11px;
+  font-size: 16px;
   text-align: center;
 }
 

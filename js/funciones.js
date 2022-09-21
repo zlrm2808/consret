@@ -18,6 +18,8 @@ function getValueInput() {
     fechafin = $("#fechaFin").val();
     rif = $("#rif").val();
     nrodoc = $("#nrodoc").val();
+    empresa = $("#empresa").val();
+    
 
     $.post(
         Tabla,
@@ -26,6 +28,7 @@ function getValueInput() {
             fechafin: fechafin,
             rif: rif,
             nrodoc: nrodoc,
+            empresa: empresa,
         },
         function (data) {
             $("#tabla").html(data);
@@ -38,6 +41,7 @@ function pdf(id) {
     var fechaini = $("#fechaIni").val();
     var doc = $("#doc" + id).text();
     var tipo = $("#tipo" + id).text();
+    var empresa = $("#empresa").val();
 
     var myRedirect = function (redirectUrl) {
         var form = $(
@@ -46,6 +50,7 @@ function pdf(id) {
             '<input type="text" id="tipo" name="tipo" value="'+tipo+'"></input>' +
             '<input type="text" id="rif" name="rif" value="'+rif+'"></input>' +
             '<input type="text" id="fechaini" name="fechaini" value="'+fechaini+'"></input>' +
+            '<input type="text" id="EMPRESA" name="EMPRESA" value="'+empresa+'"></input>' +
             "</form>"
         );
         $("body").append(form);
@@ -63,11 +68,11 @@ function pdf(id) {
         case "ARCV":
             reqUrl = "./retarcvpdf.php";
             break;
-        case "IRM":
-            reqUrl = "./retirmpdf.php";
+        case "ADC":
+            reqUrl = "./retadcpdf.php";
             break;
-        case "RETAG":
-            reqUrl = "./retagpdf.php";
+        case "MUN":
+            reqUrl = "./munpdf.php";
             break;
     }
     myRedirect(reqUrl);
@@ -85,6 +90,7 @@ function html(id) {
     var fechaini = $("#fechaIni").val();
     var doc = $("#doc" + id).text();
     var tipo = $("#tipo" + id).text();
+    var empresa = $("#empresa").val();
 
     var myRedirect = function (redirectUrl) {
         var form = $(
@@ -93,6 +99,7 @@ function html(id) {
             '<input type="text" id="tipo" name="tipo" value="'+tipo+'"></input>' +
             '<input type="text" id="rif" name="rif" value="'+rif+'"></input>' +
             '<input type="text" id="fechaini" name="fechaini" value="'+fechaini+'"></input>' +
+            '<input type="text" id="EMPRESA" name="EMPRESA" value="'+empresa+'"></input>' +
             "</form>"
         );
         $("body").append(form);
@@ -110,11 +117,11 @@ function html(id) {
         case "ARCV":
             reqUrl = "./retarcv.php";
             break;
-        case "IRM":
-            reqUrl = "./retirm.php";
+        case "ADC":
+            reqUrl = "./retadc.php";
             break;
-        case "RETAG":
-            reqUrl = "./retag.php";
+        case "MUN":
+            reqUrl = "./mun.php";
             break;
     }
     myRedirect(reqUrl);

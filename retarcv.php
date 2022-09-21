@@ -30,7 +30,7 @@
                     RIGHT(CONVERT(VARCHAR, IMP_nc_open3_feccon, 103),4) AS '1',
                     CONCAT('31/12/',RIGHT(CONVERT(VARCHAR, IMP_nc_open3_feccon, 103),4)) AS '2',
                     UPPER(CMPNYNAM) AS '3',
-                    TAXREGTN AS '4',
+                    CO_MI_rif000 AS '4',
                     CONCAT(RIGHT(CONVERT(VARCHAR, IMP_nc_open3_feccon, 103),4),'0101 - ',RIGHT(CONVERT(VARCHAR, IMP_nc_open3_feccon, 103),4),'1231') AS '5',
                     UPPER(LTRIM(RTRIM(ADDRESS1))) AS '6.1',
                     UPPER(LTRIM(RTRIM(ADDRESS2))) AS '6.2',
@@ -42,6 +42,7 @@
                     PV_MI_direc3 as '9.3'
             FROM IMPP3000
             INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
+            INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
             INNER JOIN IMPP0161 on PV_MI_idprov = open3_p  
             WHERE open3_p = '" . $rif . "'");
     $stmt = sqlsrv_query($conn, $sql);
@@ -199,7 +200,7 @@
                 </td>
                 <td width='2%'></td>
                 <td width='10%'></td>
-                <td colspan='3'>&nbsp</td>
+                <td colspan='3'>&nbsp;</td>
             </tr>
             <tr>
                 <td colspan='4'><?php echo $dirP1 . ' ' . $dirP2 . ' ' . $dirP3 ?></td>

@@ -55,7 +55,7 @@
                         CONVERT(VARCHAR,IMP_gene_feccon,103) AS 'col-3',
                         STR(SUM(IMP_gene_porimp),9,2) AS 'col-4',
                         MAX(IMP_gene_detimp) AS 'col-5',
-                        'IRM' AS 'col-6'
+                        'ADC' AS 'col-6'
                 FROM IMPP4000
                 WHERE IMP_gene_idprov = '" . $rifProv . "'
                 AND CONVERT(VARCHAR,IMP_gene_feccon,23) >= '" . $fechaini . "' 
@@ -68,7 +68,7 @@
                         CONVERT(VARCHAR,IMP_gene_feccon,103) AS 'col-3',
                         STR(SUM(IMP_gene_porimp),9,2) AS 'col-4',
                         MAX(IMP_gene_detimp) AS 'col-5',
-                        'RETAG' AS 'col-6'
+                        'MUN' AS 'col-6'
                 FROM IMPP4000
                 WHERE IMP_gene_idprov = '" . $rifProv . "'
                 AND CONVERT(VARCHAR,IMP_gene_feccon,23) >= '" . $fechaini . "' 
