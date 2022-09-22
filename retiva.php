@@ -314,7 +314,7 @@
             $tableIva .= "
             <tbody>
             <tr height='22'>
-                <td width='20%' align='center'>" . $row['col-1'] . "</td>
+                <td width='2%' align='center'>" . $row['col-1'] . "</td>
                 <td width='5%' align='center'>" . $row['col-2'] . "</td> 
                 <td width='5%' align='center'>" . $row['col-3'] . "</td>
                 <td width='6.5%' align='center'>" . $row['col-4'] . "</td>

@@ -72,7 +72,7 @@
         $fecha = $row["1"];
         $rzsoc = $row["2"];
         $rifEmp = $row["3"];
-        $perdf = utf8_encode($row["4"]);
+        $perdf = $row["4"];
         $dir1 = $row["5.1"];
         $dir2 = $row["5.2"];
         $dir3 = $row["5.3"];

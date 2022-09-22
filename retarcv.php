@@ -59,7 +59,7 @@
         $femi = $row["2"];
         $rzsoc = utf8_encode($row["3"]);
         $rifEmp = $row["4"];
-        $perdf = utf8_encode($row["5"]);
+        $perdf = $row["5"];
         $dir1 = utf8_encode($row["6.1"]);
         $dir2 = utf8_encode($row["6.2"]);
         $dir3 = utf8_encode($row["6.3"]);
