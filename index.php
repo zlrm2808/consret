@@ -49,9 +49,7 @@ $LOGOEMP = "./images/".$EMPRESA."-logo-emp.png";
         </div>
     </div>
     <div class="contenedor-bot">
-
         <center><img src="./images/info.png" height="250px"></center>
-
     </div>
 </body>
 
