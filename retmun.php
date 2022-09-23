@@ -58,7 +58,7 @@
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
 	INNER JOIN IMPP0161 on PV_MI_rif000 = IMP_gene_rif000
     WHERE IMP_gene_rif000 =  '" . $rif . "'
-    AND IMP_gene_corr != ''
+    AND IMP_gene_detimp LIKE '%MUN%'
     AND IMP_gene_numdoc = '" . $doc . "'");
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {
@@ -72,16 +72,16 @@
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $ncomp = $row["0"];
         $fecha = $row["1"];
-        $rzsoc = utf8_encode($row["2"]);
+        $rzsoc = $row["2"];
         $rifEmp = $row["3"];
         $perdf = $row["4"];
-        $dir1 = utf8_encode($row["5.1"]);
-        $dir2 = utf8_encode($row["5.2"]);
-        $dir3 = utf8_encode($row["5.3"]);
-        $nempr = utf8_encode($row["6"]);
-        $dirP1 = utf8_encode($row["8.1"]);
-        $dirP2 = utf8_encode($row["8.2"]);
-        $dirP3 = utf8_encode($row["8.3"]);
+        $dir1 = $row["5.1"];
+        $dir2 = $row["5.2"];
+        $dir3 = $row["5.3"];
+        $nempr = $row["6"];
+        $dirP1 = $row["8.1"];
+        $dirP2 = $row["8.2"];
+        $dirP3 = $row["8.3"];
         $licae = $row["9"];
         $licae2 = $row["10"];
     }
@@ -110,7 +110,7 @@
                     <td style="width:500px;"><b>Nombre o Razón Social:</b></td>
                 </tr>
                 <tr>
-                    <td style="width:500px; font-weight: normal;"><?php echo $rzsoc ?></td>
+                    <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($rzsoc) ?></td>
                     <td style="width:100px;">&nbsp;</td>
                     <td style="width:500px; font-weight: normal"><?php echo $nempr ?></td>
                 </tr>
@@ -140,19 +140,19 @@
                     <td style="width:500px;"><b>Dirección Fiscal:</b></td>
                 </tr>
                 <tr>
-                    <td style="width:500px; font-weight: normal;"><?php echo $dir1 ?></td>
+                    <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir1) ?></td>
                     <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px; font-weight: normal;"><?php echo $dirP1 ?></td>
+                    <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP1) ?></td>
                 </tr>
                 <tr>
-                    <td style="width:500px; font-weight: normal;"><?php echo $dir2 ?></td>
+                    <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir2) ?></td>
                     <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px; font-weight: normal;"><?php echo $dirP2 ?></td>
+                    <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP2) ?></td>
                 </tr>
                 <tr>
-                    <td style="width:500px; font-weight: normal;"><?php echo $dir3 ?></td>
+                    <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir3) ?></td>
                     <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px; font-weight: normal;"><?php echo $dirP3 ?></td>
+                    <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP3) ?></td>
                 </tr>
                 <tr>
                     <td style="width:500px;">
@@ -202,6 +202,7 @@
                             IMP_gene_monimp AS 'COL-10'
                     FROM IMPP4000
                     WHERE IMP_gene_rif000 = '" . $rif . "'
+                    AND IMP_gene_detimp LIKE '%MUN%'
                     AND IMP_gene_numdoc = '" . $doc . "'");
 
             $stmt = sqlsrv_query($conn, $sql);

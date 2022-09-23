@@ -5,9 +5,10 @@ $hoy = date("d/m/Y");
 $doc = $_POST["doc"];
 $tipo = $_POST["tipo"];
 $rif = $_POST["rif"];
-$logoRet = "./images/logo-ret.png";
+$EMPRESA = $_POST["EMPRESA"];
+$logoRet = "./images/" . $EMPRESA . "-logo-ret.png";
 $logoRet64 = "data:image/png;base64," . base64_encode(file_get_contents($logoRet));
-$FirmaySello = "./images/FirmaySello.png";
+$FirmaySello = "./images/" . $EMPRESA . "-FirmaySello.png";
 $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySello));
 ?>
 <html lang="en">
@@ -107,16 +108,16 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $aimp = $row["1"];
         $femi = $row["2"];
-        $rzsoc = utf8_encode($row["3"]);
+        $rzsoc = $row["3"];
         $rifEmp = $row["4"];
         $perdf = $row["5"];
-        $dir1 = utf8_encode($row["6.1"]);
-        $dir2 = utf8_encode($row["6.2"]);
-        $dir3 = utf8_encode($row["6.3"]);
-        $nempr = utf8_encode($row["7"]);
-        $dirP1 = utf8_encode($row["9.1"]);
-        $dirP2 = utf8_encode($row["9.2"]);
-        $dirP3 = utf8_encode($row["9.3"]);
+        $dir1 = $row["6.1"];
+        $dir2 = $row["6.2"];
+        $dir3 = $row["6.3"];
+        $nempr = $row["7"];
+        $dirP1 = $row["9.1"];
+        $dirP2 = $row["9.2"];
+        $dirP3 = $row["9.3"];
     }
     ?>
     <div id="" class="paginaHorizontal">
@@ -187,7 +188,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 <td colspan='3'></td>
             </tr>
             <tr>
-                <td><?php echo $rzsoc ?></td>
+                <td><?php echo utf8_encode($rzsoc) ?></td>
                 <td></td>
                 <td colspan='2'><?php echo $rifEmp ?></td>
                 <td width='2%'></td>
@@ -207,7 +208,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 <td colspan='3'></td>
             </tr>
             <tr>
-                <td colspan='4'><?php echo $dir1 . ' ' . $dir2 . ' ' . $dir3 ?></td>
+                <td colspan='4'><?php echo utf8_encode($dir1) . ' ' . utf8_encode($dir2) . ' ' . utf8_encode($dir3) ?></td>
                 <td width='2%'></td>
                 <td width='10%'></td>
                 <td colspan='3'></td>
@@ -250,7 +251,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 <td colspan='3'></td>
             </tr>
             <tr>
-                <td colspan='4'><?php echo $dirP1 . ' ' . $dirP2 . ' ' . $dirP3 ?></td>
+                <td colspan='4'><?php echo utf8_encode($dirP1) . ' ' . utf8_encode($dirP2) . ' ' . utf8_encode($dirP3) ?></td>
                 <td width='2%'></td>
                 <td width='10%'></td>
                 <td colspan='3'></td>
@@ -346,7 +347,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 <td align='center'>_______________________________________________________</td>
             </tr>
             <tr>
-                <td align='center'><?php echo $rzsoc ?><br />Fecha de Descarga:<?php echo ' ' . $hoy ?></td>
+                <td align='center'><?php echo utf8_encode($rzsoc) ?><br />Fecha de Descarga:<?php echo ' ' . $hoy ?></td>
             </tr>
         </table>
     </div>

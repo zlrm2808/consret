@@ -5,9 +5,10 @@ $hoy = date("d/m/Y");
 $doc = $_POST["doc"];
 $tipo = $_POST["tipo"];
 $rif = $_POST["rif"];
-$logoRet = "./images/logo-ret.png";
+$EMPRESA = $_POST["EMPRESA"];
+$logoRet = "./images/" . $EMPRESA . "-logo-ret.png";
 $logoRet64 = "data:image/png;base64," . base64_encode(file_get_contents($logoRet));
-$FirmaySello = "./images/FirmaySello.png";
+$FirmaySello = "./images/" . $EMPRESA . "-FirmaySello.png";
 $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySello));
 ?>
 <html lang="en">
@@ -173,13 +174,13 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $ncomp = $row["0"];
         $fecha = $row["1"];
-        $rzsoc = utf8_encode($row["2"]);
+        $rzsoc = $row["2"];
         $rifEmp = $row["3"];
         $perdf = $row["4"];
-        $dir1 = utf8_encode($row["5.1"]);
-        $dir2 = utf8_encode($row["5.2"]);
-        $dir3 = utf8_encode($row["5.3"]);
-        $nempr = utf8_encode($row["6"]);
+        $dir1 = $row["5.1"];
+        $dir2 = $row["5.2"];
+        $dir3 = $row["5.3"];
+        $nempr = $row["6"];
     }
     ?>
     <div id="" Class="paginaHorizontal">
@@ -256,7 +257,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 <td colspan='3'></td>
             </tr>
             <tr>
-                <td><?php echo $rzsoc ?></td>
+                <td><?php echo utf8_encode($rzsoc) ?></td>
                 <td></td>
                 <td colspan='2'><?php echo $rifEmp ?></td>
                 <td width='2%'></td>
@@ -278,7 +279,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 <td colspan='3'></td>
             </tr>
             <tr>
-                <td colspan='4'><?php echo $dir1 . ' ' . $dir2 . ' ' . $dir3 ?>
+                <td colspan='4'><?php echo utf8_encode($dir1) . ' ' . utf8_encode($dir2) . ' ' . utf8_encode($dir3) ?>
                     <div class="hr">
                         <hr />
                     </div>

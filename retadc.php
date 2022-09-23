@@ -56,6 +56,7 @@
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
 	INNER JOIN IMPP0161 on PV_MI_idprov = IMP_gene_rif000
     WHERE IMP_gene_rif000 =  '" . $rif . "'
+    AND IMP_gene_detimp LIKE '%MUN%'
     AND IMP_gene_numdoc = '" . $doc . "'");
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {
@@ -67,18 +68,18 @@
     }
 
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-        $ncomp = utf8_encode($row["0"]);
+        $ncomp = $row["0"];
         $fecha = $row["1"];
-        $rzsoc = utf8_encode($row["2"]);
+        $rzsoc = $row["2"];
         $rifEmp = $row["3"];
         $perdf = $row["4"];
-        $dir1 = utf8_encode($row["5.1"]);
-        $dir2 = utf8_encode($row["5.2"]);
-        $dir3 = utf8_encode($row["5.3"]);
-        $nempr = utf8_encode($row["6"]);
-        $dirP1 = utf8_encode($row["8.1"]);
-        $dirP2 = utf8_encode($row["8.2"]);
-        $dirP3 = utf8_encode($row["8.3"]);
+        $dir1 = $row["5.1"];
+        $dir2 = $row["5.2"];
+        $dir3 = $row["5.3"];
+        $nempr = $row["6"];
+        $dirP1 = $row["8.1"];
+        $dirP2 = $row["8.2"];
+        $dirP3 = $row["8.3"];
     }
     ?>
     <div id="" class="paginaHorizontal">
@@ -168,7 +169,7 @@
                 <td colspan='3'></td>
             </tr>
             <tr>
-                <td><?php echo $rzsoc ?></td>
+                <td><?php echo utf8_encode($rzsoc) ?></td>
                 <td></td>
                 <td colspan='2'><?php echo $rifEmp ?></td>
                 <td width='2%'></td>
@@ -198,7 +199,7 @@
                 <td colspan='3'></td>
             </tr>
             <tr>
-                <td colspan='4'><?php echo $dir1 . ' ' . $dir2 . ' ' . $dir3 ?></td>
+                <td colspan='4'><?php echo utf8_encode($dir1) . ' ' . utf8_encode($dir2) . ' ' . utf8_encode($dir3) ?></td>
                 <td width='2%'></td>
                 <td width='10%'></td>
                 <td colspan='3'></td>
@@ -265,6 +266,7 @@
 						IMP_gene_detimp AS 'COL-13'
                 FROM IMPP4000
                 WHERE IMP_gene_rif000 = '" . $rif . "'
+                AND IMP_gene_detimp LIKE '%MUN%' 
                 AND IMP_gene_numdoc = '" . $doc . "'");
 
         $stmt = sqlsrv_query($conn, $sql);
@@ -344,7 +346,7 @@
                 <td align='center'>_______________________________________________________</td>
             </tr>
             <tr>
-                <td align='center'><?php echo $rzsoc .'' ?>(SELLO Y FIRMA)</td>
+                <td align='center'><?php echo utf8_encode($rzsoc) .'' ?>(SELLO Y FIRMA)</td>
                 <td align='center'>RECIBIDO CONFORME POR</td>
             </tr>
         </table>
