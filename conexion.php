@@ -1,5 +1,6 @@
 <?php
-
+    header('Content-Type: text/html; charset=utf-8');
+    
     $file = @fopen('config.cone', "r");
     if ($file) {
         while (!feof($file)) {

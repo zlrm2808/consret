@@ -170,16 +170,16 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $ncomp = $row["0"];
         $fecha = $row["1"];
-        $rzsoc = utf8_encode($row["2"]);
+        $rzsoc = $row["2"];
         $rifEmp = $row["3"];
         $perdf = $row["4"];
-        $dir1 = utf8_encode($row["5.1"]);
-        $dir2 = utf8_encode($row["5.2"]);
-        $dir3 = utf8_encode($row["5.3"]);
-        $nempr = utf8_encode($row["6"]);
-        $dirP1 = utf8_encode($row["8.1"]);
-        $dirP2 = utf8_encode($row["8.2"]);
-        $dirP3 = utf8_encode($row["8.3"]);
+        $dir1 = $row["5.1"];
+        $dir2 = $row["5.2"];
+        $dir3 = $row["5.3"];
+        $nempr = $row["6"];
+        $dirP1 = $row["8.1"];
+        $dirP2 = $row["8.2"];
+        $dirP3 = $row["8.3"];
     }
     ?>
     <div id="" class="paginaHorizontal">
@@ -193,144 +193,77 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 </td>
             </tr>
         </table>
-
-        <table border='0' style='border-collapse: collapse' width='100%'>
+        <table border='0' style='border-collapse: collapse' align=center width='100%'>
             <tr>
-                <td colspan='3' rowspan='2'>(Decreto 1.808 de retenciones de impuesto sobre la renta, Gaceta Oficial Nro. 36.203 del 12 de Mayo de 1.997)</td>
-                <td colspan='2'> </td>
-                <td align='center'>
-                    <div>FECHA DE EMISIÓN</div>
-                    <div class="hr">
-                        <hr />
-                    </div>
+                <td style="width:200px;">
+                    <h5>Datos de la Transacción:</h5>
                 </td>
-
-                <td> </td>
-                <td align='center'>
-                </td>
-                <td></td>
+                <td style="width:500px;"></td>
             </tr>
             <tr>
-                <td colspan='2'> </td>
-                <td align='center'> <?php echo $fecha ?> </td>
-                <td></td>
+                <td colspan="2">(Decreto 1.808 de retenciones de impuesto sobre la renta, Gaceta Oficial Nro. 36.203 del 12 de Mayo de 1.997)</td>
             </tr>
             <tr>
-                <td width='30%'></td>
-                <td width='2%'></td>
-                <td width='19%'></td>
-                <td width='10%'></td>
-                <td width='2%'></td>
-                <td width='14%'></td>
-                <td width='2%'></td>
-                <td width='14%'></td>
-                <td width='12%'></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
             </tr>
             <tr>
-                <td>
-                    <div>NOMBRE DEL AGENTE DE RETENCIÓN</div>
-                    <div class="hr">
-                        <hr />
-                    </div>
-                </td>
-                <td></td>
-                <td colspan='2'>
-                    <div>RIF DEL AGENTE DE RETENCIÓN</div>
-                    <div class="hr">
-                        <hr />
-                    </div>
-                </td>
-                <td></td>
-                <td align='center'>
-                    <div>PERÍODO FISCAL</div>
-                    <div class="hr">
-                        <hr />
-                    </div>
-                </td>
-                <td colspan='3'></td>
+                <td style="width:200px;">Fecha de Emisión:</td>
+                <td style="width:500px;">Periodo Fiscal:</td>
             </tr>
             <tr>
-                <td><?php echo $rzsoc ?></td>
-                <td></td>
-                <td colspan='2'><?php echo $rifEmp ?></td>
-                <td width='2%'></td>
-                <td align='center'><?php echo $perdf ?></td>
-                <td colspan='3'></td>
+                <td style="width:200px; font-weight: normal;"><?php echo $fecha ?></td>
+                <td style="width:500px; font-weight: normal"><?php echo $perdf ?></td>
+            </tr>
+        </table>
+        <table border='0' style='border-collapse: collapse' align=center width='100%'>
+            <td style="width:45%;">
+                <h5>Datos de Identificacion del Agente de Retención</h5>
+            </td>
+            <td style="width:5%;">&nbsp;</td>
+            <td style="width:45%;">
+                <h5>Datos de Identificacion del Sujeto Retenido</h5>
+            </td>
+            <tr>
+                <td style="width:500px;"><b>Nombre o Razón Social:</b></td>
+                <td style="width:50px;">&nbsp;</td>
+                <td style="width:540px;"><b>Nombre o Razón Social:</b></td>
             </tr>
             <tr>
-                <td colspan='9'></td>
+                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($rzsoc) ?></td>
+                <td style="width:100px;">&nbsp;</td>
+                <td style="width:500px; font-weight: normal"><?php echo utf8_encode($nempr) ?></td>
             </tr>
             <tr>
-                <td colspan='4'>
-                    <div>DIRECCIÓN FISCAL DEL AGENTE DE RETENCIÓN</div>
-                    <div class="hr">
-                        <hr />
-                    </div>
-                </td>
-                <td width='2%'></td>
-                <td width='10%'></td>
-                <td colspan='3'></td>
+                <td style="width:500px;"><b>Nº de Registro de Información Fiscal:</b></td>
+                <td style="width:100px;">&nbsp;</td>
+                <td style="width:500px;"><b>Nº de Registro de Información Fiscal:</b></td>
             </tr>
             <tr>
-                <td colspan='4'><?php echo utf8_encode($dir1) . ' ' . utf8_encode($dir2) . ' ' . utf8_encode($dir3) ?>
-                    <div class="hr">
-                        <hr />
-                    </div>
-                </td>
-                <td width='2%'></td>
-                <td width='10%'></td>
-                <td colspan='3'></td>
+                <td style="width:500px; font-weight: normal;"><?php echo $rifEmp ?></td>
+                <td style="width:100px;">&nbsp;</td>
+                <td style="width:500px; font-weight: normal"><?php echo $rif ?></td>
             </tr>
             <tr>
-                <td colspan='9'></td>
+                <td style="width:500px;"><b>Dirección Fiscal:</b></td>
+                <td style="width:100px;">&nbsp;</td>
+                <td style="width:500px;"><b>Dirección Fiscal:</b></td>
             </tr>
             <tr>
-                <td>
-                    <div>NOMBRE O RAZÓN SOCIAL DEL SUJETO RETENIDO</div>
-                    <div class="hr">
-                        <hr />
-                    </div>
-                </td>
-                <td></td>
-                <td colspan='2'>
-                    <div>REGISTRO DE INFORMACIÓN FISCAL DEL SUJETO</div>
-                    <div class="hr">
-                        <hr />
-                    </div>
-                </td>
-                <td></td>
-                <td></td>
-                <td colspan='3'></td>
+                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir1) ?></td>
+                <td style="width:100px;">&nbsp;</td>
+                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP1) ?></td>
             </tr>
             <tr>
-                <td><?php echo $nempr ?></td>
-                <td></td>
-                <td colspan='2'><?php echo $rif ?></td>
-                <td width='2%'></td>
-                <td></td>
-                <td colspan='3'></td>
+                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir2) ?></td>
+                <td style="width:100px;">&nbsp;</td>
+                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP2) ?></td>
             </tr>
             <tr>
-                <td colspan='9'></td>
+                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir3) ?></td>
+                <td style="width:100px;">&nbsp;</td>
+                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP3) ?></td>
             </tr>
-            <tr>
-                <td colspan='4'>
-                    <div>DIRECCIÓN FISCAL DEL SUJETO RETENIDO</div>
-                    <div class="hr">
-                        <hr />
-                    </div>
-                </td>
-                <td width='2%'></td>
-                <td width='10%'></td>
-                <td colspan='3'></td>
-            </tr>
-            <tr>
-                <td colspan='4'><?php echo $dirP1 . ' ' . $dirP2 . ' ' . $dirP3 ?></td>
-                <td width='2%'></td>
-                <td width='10%'></td>
-                <td colspan='3'></td>
-            </tr>
-            <tr>
         </table>
         <br /><br />
 

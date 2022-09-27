@@ -20,7 +20,9 @@
     $fechafin = $_POST["fechafin"];
     $rifProv = $_POST["rif"];
     $nrodoc = $_POST["nrodoc"];
-
+    $yearini = substr($fechaini,0,4);
+    $yearfin = substr($fechafin,0,4);
+    
     include_once("conexion.php");
 
     // Con esta Consulta ubico las filas de todas las retenciones
@@ -31,7 +33,8 @@
                     'ARCV' AS 'COL-4'
             FROM IMPP3000
             INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
-            WHERE open3_p = 'J309672371'
+            WHERE open3_p = '" . $rifProv . "'
+            AND RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4) BETWEEN '" . $yearini ."' AND '" . $yearfin . "'
             GROUP BY RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4),CONCAT('31-12-',RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4)),UPPER(CMPNYNAM)"
     );
     $stmt = sqlsrv_query($conn, $sql);

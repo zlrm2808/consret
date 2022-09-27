@@ -28,7 +28,11 @@
     $sql = ("SELECT IMP_nc_open_numfac as 'col-1',
                         CONVERT(VARCHAR, IMP_nc_open_fecdoc, 103) AS 'col-2',
                         CONVERT(VARCHAR, IMP_nc_open_feccon, 103) AS 'col-3',
-                        STR(ABS(IMP_porcrete_alicgene),9,2) AS 'col-4',
+                        CASE
+                            WHEN IMP_porcrete_alicgene != 0 THEN STR(ABS(IMP_porcrete_alicgene),9,2)
+                            WHEN IMP_porcrete_alicreduc != 0 THEN STR(ABS(IMP_porcrete_alicreduc),9,2)
+                            WHEN IMP_porcrete_alicadic != 0 THEN STR(ABS(IMP_porcrete_alicadic),9,2)
+                        END AS 'col-4',
                         '' AS 'col-5',
                         IIF(IMP_nc_open_numntd = '' AND IMP_nc_open_numntc = '', 'IVA','') AS 'col-6'
                 FROM IMPP2001
