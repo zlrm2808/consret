@@ -10,6 +10,8 @@ $logoRet = "./images/" . $EMPRESA . "-logo-ret.png";
 $logoRet64 = "data:image/png;base64," . base64_encode(file_get_contents($logoRet));
 $FirmaySello = "./images/" . $EMPRESA . "-FirmaySello.png";
 $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySello));
+$anulado = "./images/anulado.png";
+$anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado));
 ?>
 <html lang="en">
 
@@ -34,6 +36,12 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         background-color: #ffffff;
         margin: 0px;
         padding: 0px;
+    }
+
+    .anulado2 {
+        position: absolute;
+        top: 370px;
+        left: 350px;
     }
 
     .paginaVertical {
@@ -225,44 +233,44 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                 <h5>Datos de Identificacion del Sujeto Retenido</h5>
             </td>
             <tr>
-                <td style="width:500px;"><b>Nombre o Razón Social:</b></td>
+                <td style="width:400px;"><b>Nombre o Razón Social:</b></td>
                 <td style="width:50px;">&nbsp;</td>
-                <td style="width:540px;"><b>Nombre o Razón Social:</b></td>
+                <td style="width:440px;"><b>Nombre o Razón Social:</b></td>
             </tr>
             <tr>
-                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($rzsoc) ?></td>
-                <td style="width:100px;">&nbsp;</td>
-                <td style="width:500px; font-weight: normal"><?php echo utf8_encode($nempr) ?></td>
+                <td style="width:400px; font-weight: normal;"><?php echo utf8_encode($rzsoc) ?></td>
+                <td style="width:50px;">&nbsp;</td>
+                <td style="width:400px; font-weight: normal"><?php echo utf8_encode($nempr) ?></td>
             </tr>
             <tr>
-                <td style="width:500px;"><b>Nº de Registro de Información Fiscal:</b></td>
-                <td style="width:100px;">&nbsp;</td>
-                <td style="width:500px;"><b>Nº de Registro de Información Fiscal:</b></td>
+                <td style="width:400px;"><b>Nº de Registro de Información Fiscal:</b></td>
+                <td style="width:50px;">&nbsp;</td>
+                <td style="width:400px;"><b>Nº de Registro de Información Fiscal:</b></td>
             </tr>
             <tr>
-                <td style="width:500px; font-weight: normal;"><?php echo $rifEmp ?></td>
-                <td style="width:100px;">&nbsp;</td>
-                <td style="width:500px; font-weight: normal"><?php echo $rif ?></td>
+                <td style="width:400px; font-weight: normal;"><?php echo $rifEmp ?></td>
+                <td style="width:50px;">&nbsp;</td>
+                <td style="width:400px; font-weight: normal"><?php echo $rif ?></td>
             </tr>
             <tr>
-                <td style="width:500px;"><b>Dirección Fiscal:</b></td>
-                <td style="width:100px;">&nbsp;</td>
-                <td style="width:500px;"><b>Dirección Fiscal:</b></td>
+                <td style="width:400px;"><b>Dirección Fiscal:</b></td>
+                <td style="width:50px;">&nbsp;</td>
+                <td style="width:400px;"><b>Dirección Fiscal:</b></td>
             </tr>
             <tr>
-                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir1) ?></td>
-                <td style="width:100px;">&nbsp;</td>
-                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP1) ?></td>
+                <td style="width:400px; font-weight: normal;"><?php echo utf8_encode($dir1) ?></td>
+                <td style="width:50px;">&nbsp;</td>
+                <td style="width:400px; font-weight: normal;"><?php echo utf8_encode($dirP1) ?></td>
             </tr>
             <tr>
-                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir2) ?></td>
-                <td style="width:100px;">&nbsp;</td>
-                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP2) ?></td>
+                <td style="width:400px; font-weight: normal;"><?php echo utf8_encode($dir2) ?></td>
+                <td style="width:50px;">&nbsp;</td>
+                <td style="width:400px; font-weight: normal;"><?php echo utf8_encode($dirP2) ?></td>
             </tr>
             <tr>
-                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir3) ?></td>
-                <td style="width:100px;">&nbsp;</td>
-                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP3) ?></td>
+                <td style="width:400px; font-weight: normal;"><?php echo utf8_encode($dir3) ?></td>
+                <td style="width:50px;">&nbsp;</td>
+                <td style="width:400px; font-weight: normal;"><?php echo utf8_encode($dirP3) ?></td>
             </tr>
         </table>
         <br /><br />
@@ -280,7 +288,20 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
 						IMP_nc_open3_numnc AS 'COL-10'
                 FROM IMPP3000
                 WHERE open3_p = '" . $rif . "'
-                AND IMP_nc_open3_numfac = '" . $doc . "'");
+                AND IMP_nc_open3_numfac = '" . $doc . "'
+                UNION
+                SELECT CONVERT(VARCHAR, IMP_nc_open3_fecdocd, 103) AS 'COL-1', 
+                        IMP_nc_open3_numfacd AS 'COL-2', 
+                        IMP_nc_open3_ncontrod AS 'COL-3', 
+                        IMP_nc_open3_detimpd AS 'COL-4',
+                        IMP_nc_open3_basimpd + (IMP_nc_open3_basimpd * IMP_nc_open3_porimpd)/100 AS 'COL-5', 
+                        IMP_nc_open3_basimpd AS 'COL-6', 
+                        IMP_nc_open3_porimpd AS 'COL-7', 
+                        (IMP_nc_open3_basimpd * IMP_nc_open3_porimpd)/100 AS 'COL-8', 
+                        IMP_nc_open3_numndd AS 'COL-9', 
+                        IMP_nc_open3_numncd AS 'COL-10' 
+                FROM IMPP3100
+                WHERE IMP_nc_open3_numfafd = '" . $doc . "'");
 
         $stmt = sqlsrv_query($conn, $sql);
         if ($stmt === false) {
@@ -356,6 +377,14 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
             </tr>
         </table>
     </div>
+    <?php
+    if ($totimp == 0) {
+        echo
+        '<div class="anulado2">
+            <img src="' . $anulado64 . '" height="35px" alt="">
+        </div>';
+    }
+    ?>
 </body>
 
 </html>

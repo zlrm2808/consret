@@ -183,8 +183,21 @@
 						IMP_nc_open3_numnc AS 'COL-10'
                 FROM IMPP3000
                 WHERE open3_p = '" . $rif . "'
-                AND IMP_nc_open3_numfac = '" . $doc . "'");
-        
+                AND IMP_nc_open3_numfac = '" . $doc . "'
+                UNION
+                SELECT CONVERT(VARCHAR, IMP_nc_open3_fecdocd, 103) AS 'COL-1', 
+                        IMP_nc_open3_numfacd AS 'COL-2', 
+                        IMP_nc_open3_ncontrod AS 'COL-3', 
+                        IMP_nc_open3_detimpd AS 'COL-4',
+                        IMP_nc_open3_basimpd + (IMP_nc_open3_basimpd * IMP_nc_open3_porimpd)/100 AS 'COL-5', 
+                        IMP_nc_open3_basimpd AS 'COL-6', 
+                        IMP_nc_open3_porimpd AS 'COL-7', 
+                        (IMP_nc_open3_basimpd * IMP_nc_open3_porimpd)/100 AS 'COL-8', 
+                        IMP_nc_open3_numndd AS 'COL-9', 
+                        IMP_nc_open3_numncd AS 'COL-10' 
+                FROM IMPP3100
+                WHERE IMP_nc_open3_numfafd = '" . $doc . "'");
+
         $stmt = sqlsrv_query($conn, $sql);
         if ($stmt === false) {
             die(print_r(sqlsrv_errors(), true));
@@ -263,6 +276,14 @@
             </tr>
         </table>
     </div>
+    <?php
+    if ($totimp == 0) {
+        echo
+        '<div class="anulado2">
+            <img src="./images/Anulado.png" height="35px" alt="">
+        </div>';
+    }
+    ?>
 </body>
 
 </html>
