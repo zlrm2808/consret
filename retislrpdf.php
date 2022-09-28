@@ -139,18 +139,18 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     CO_MI_rif000 AS '3',
     CONCAT('AÑO ',RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4),' / MES ',
 	CASE
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=1 THEN 'ENE'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=2 THEN 'FEB'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=3 THEN 'MAR'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=4 THEN 'ABR'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=5 THEN 'MAY'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=6 THEN 'JUN'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=7 THEN 'JUL'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=8 THEN 'AGO'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=9 THEN 'SEP'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=10 THEN 'OCT'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=11 THEN 'NOV'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=12 THEN 'DIC'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=1 THEN 'ENERO'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=2 THEN 'FEBRERO'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=3 THEN 'MARZO'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=4 THEN 'ABRIL'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=5 THEN 'MAYO'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=6 THEN 'JUNIO'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=7 THEN 'JULIO'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=8 THEN 'AGOSTO'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=9 THEN 'SEPTIEMBRE'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=10 THEN 'OCTUBRE'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=11 THEN 'NOVIEMBRE'
+		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=12 THEN 'DICIEMBRE'
 	END) AS '4',
     UPPER(LTRIM(RTRIM(ADDRESS1))) AS '5.1',
     UPPER(LTRIM(RTRIM(ADDRESS2))) AS '5.2',
