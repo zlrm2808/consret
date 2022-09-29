@@ -16,8 +16,8 @@
     $tipo = $_POST["tipo"];
     $rif = $_POST["rif"];
     $EMPRESA = $_POST["EMPRESA"];
-    $LOGORET = './images/'.$EMPRESA. '-logo-ret.png';
-    $FIRMA  = './images/'.$EMPRESA.'-FirmaySello.png';
+    $LOGORET = './images/' . $EMPRESA . '-logo-ret.png';
+    $FIRMA  = './images/' . $EMPRESA . '-FirmaySello.png';
 
     include_once("conexion.php");
 
@@ -52,7 +52,8 @@
 	PV_MI_direc2 as '8.2',
 	PV_MI_direc3 as '8.3',
 	CO_MI_nit000 as '9',
-	PV_MI_nit000 as '10'
+	PV_MI_nit000 as '10',
+    IMP_gene_njrnent as '11'
     FROM IMPP4000
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
@@ -84,24 +85,57 @@
         $dirP3 = $row["8.3"];
         $licae = $row["9"];
         $licae2 = $row["10"];
+        $noper = $row["11"];
     }
     ?>
-    <center>
-        <h4>COMPROBANTE DE RETENCIÓN MUNICIPAL ALCALDIA DE GIRARDOT</h4>
-    </center>
-    <div id="encabezado" class="paginaHorizontal" style="margin-top: -10px ;">
-        <table border="0">
-            <thead>
-                <td style="width:45%;">
-                    <h5>Datos de Identificacion del Agente de Retención</h5>
+    <div class="paginaHorizontal">
+        <table border='0' style="width:100%; height:60px;">
+            <tr>
+                <td width='200'>
+                    <img src="<?php echo $LOGORET ?>" width="205" height="72" border="0" alt="">
                 </td>
-                <td style="width:5%;">&nbsp;</td>
-                <td style="width:45%;">
-                    <h5>Datos de Identificacion del Sujeto Retenido</h5>
+                <td valign='top' align='center'>
+                    <h4>COMPROBANTE DE RETENCIÓN MUNICIPAL ALCALDIA DE GIRARDOT</h4>
                 </td>
                 <td valign='top' align='right' width='100'>
                     <a href="#" onclick="javascript:window.print()"><img src="./images/print.png" width="25" height="25"></a>
                 </td>
+            </tr>
+        </table>
+        <table border='0' style="width:100%; height:60px;">
+            <tr>
+                <td style="width:200px;">
+                    <h5>Datos de la Transacción:</h5>
+                </td>
+                <td style="width:500px;">
+                    <h5></h5>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:200px;">Periodo Fiscal:</td>
+                <td style="width:400px;">Nº del Comprobante</td>
+            </tr>
+            <tr>
+                <td style="width:200px; font-weight: normal;"><?php echo $perdf ?></td>
+                <td style="width:500px; font-weight: normal"><?php echo $ncomp ?></td>
+            </tr>
+            <tr>
+                <td style="width:200px;">Fecha de Emisión:</td>
+                <td style="width:500px;">Nº de la Operación de la Contabilidad de la Empresa</td>
+            </tr>
+            <tr>
+                <td style="width:200px; font-weight: normal;"><?php echo $fecha ?></td>
+                <td style="width:500px; font-weight: normal"><?php echo number_format($noper, 0, ',', '.') ?></td>
+            </tr>
+        </table>
+        <table border='0' style="width:100%; height:60px;">
+            <td style="width:45%;">
+                <h5>Datos de Identificacion del Agente de Retención</h5>
+            </td>
+            <td style="width:5%;">&nbsp;</td>
+            <td style="width:45%;">
+                <h5>Datos de Identificacion del Sujeto Retenido</h5>
+            </td>
             </thead>
             <tbody>
                 <tr>
@@ -155,35 +189,6 @@
                     <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP3) ?></td>
                 </tr>
                 <tr>
-                    <td style="width:500px;">
-                        <h5>Datos de la Transacción:</h5>
-                    </td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;">
-                        <h5></h5>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:500px;">Periodo Fiscal:</td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;">Nº del Comprobante</td>
-                </tr>
-                <tr>
-                    <td style="width:500px; font-weight: normal;"><?php echo $perdf ?></td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px; font-weight: normal"><?php echo $ncomp ?></td>
-                </tr>
-                <tr>
-                    <td style="width:500px;">Fecha de Emisión:</td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;">Nº de la Operación de la Contabilidad de la Empresa</td>
-                </tr>
-                <tr>
-                    <td style="width:500px; font-weight: normal;"><?php echo $fecha ?></td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px; font-weight: normal">4.948</td>
-                </tr>
-                <tr>
                     <td style="width:500px; ">&nbsp;</td>
                     <td style="width:100px;">&nbsp;</td>
                     <td style="width:500px;">&nbsp;</td>
@@ -203,7 +208,22 @@
                     FROM IMPP4000
                     WHERE IMP_gene_rif000 = '" . $rif . "'
                     AND IMP_gene_detimp LIKE '%MUN%'
-                    AND IMP_gene_numdoc = '" . $doc . "'");
+                    AND IMP_gene_numdoc = '" . $doc . "'
+                    UNION
+                    SELECT CONVERT(VARCHAR, IMP_gene_fecdoc, 103) AS 'COL-1',
+                            '' AS 'COL-2',
+                            IMP_gene_ncontr AS 'COL-3',
+                            IMP_gene_numntd AS 'COL-4',
+                            IMP_gene_numntc AS 'COL-5',
+                            IMP_gene_numfaf AS 'COL-6',
+                            IMP_gene_acteco AS 'COL-7',
+                            IMP_gene_basimp AS 'COL-8',
+                            '' AS 'COL-9',
+                            IMP_gene_monimp AS 'COL-10'
+                    FROM IMPP4300
+                    WHERE IMP_gene_rif000 = '" . $rif . "'
+                    AND IMP_gene_detimp LIKE '%MUN%' 
+                    AND IMP_gene_numfaf = '" . $doc . "'");
 
             $stmt = sqlsrv_query($conn, $sql);
             if ($stmt === false) {
@@ -215,7 +235,7 @@
             }
             ?>
             <tfoot>
-                <table border="1">
+                <table border='1' style='border-collapse: collapse' align='center' width='100%'>
                     <thead>
                         <th>Fecha de Documento</th>
                         <th>Nº de Documento</th>
@@ -237,16 +257,16 @@
                         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                             $tableIva .= '
                         <tr>
-                            <td style="font-weight: normal;">' . $row['COL-1'] . '</td>
-                            <td style="font-weight: normal;">' . $row['COL-2'] . '</td>
-                            <td style="font-weight: normal;">' . $row['COL-3'] . '</td>
-                            <td style="font-weight: normal;">' . $row['COL-4'] . '</td>
-                            <td style="font-weight: normal;">' . $row['COL-5'] . '</td>
-                            <td style="font-weight: normal;">' . $row['COL-6'] . '</td>
+                            <td width="8%" style="font-weight: normal;">' . $row['COL-1'] . '</td>
+                            <td width="8%" style="font-weight: normal;">' . $row['COL-2'] . '</td>
+                            <td width="8%" style="font-weight: normal;">' . $row['COL-3'] . '</td>
+                            <td width="8%" style="font-weight: normal;">' . $row['COL-4'] . '</td>
+                            <td width="8%" style="font-weight: normal;">' . $row['COL-5'] . '</td>
+                            <td width="8%" style="font-weight: normal;">' . $row['COL-6'] . '</td>
                             <td style="font-weight: normal;">' . $row['COL-7'] . '</td>
                             <td style="font-weight: normal; text-align: right;">' . number_format($row['COL-8'], 2, ',', '.') . '</td>
                             <td style="font-weight: normal; text-align: right;">' . $row['COL-9'] . '</td>
-                            <td style="font-weight: normal; text-align: right;">' . number_format($row['COL-10'], 2, ',', '.') . '</td>
+                            <td width="12%" style="font-weight: normal; text-align: right;">' . number_format($row['COL-10'], 2, ',', '.') . '</td>
                         </tr>';
                             $numrow++;
                             $totret += $row['COL-10'];
@@ -254,12 +274,12 @@
                         echo $tableIva;
                         ?>
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td style="text-align: right;" colspan="9">Total Impuesto Municipal Retenido</td>
-                            <td style="text-align: right;"><?php echo number_format($totret, 2, ',', '.') ?></td>
-                        </tr>
-                    </tfoot>
+                </table>
+                <table border='0' style='border-collapse: collapse' align='center' width='100%'>
+                    <tr>
+                        <td width='88%' style="text-align: right;" colspan="9">Total Impuesto Municipal Retenido:</td>
+                        <td width='12%' class="unica" style="text-align: right;"><?php echo number_format($totret, 2, ',', '.') ?></td>
+                    </tr>
                 </table>
             </tfoot>
         </table>
@@ -280,13 +300,21 @@
             </tr>
             <tr>
                 <td width='20%'></td>
-                <td width='20%'></td>
+                <td width='20%' align='center'>Fecha de Descarga:<?php echo ' ' . $hoy ?></td>
                 <td width='20%'></td>
                 <td width='20%' align='center'>Fecha de Recepción<br /></td>
                 <td width='20%'></td>
             </tr>
         </table>
     </div>
+    <?php
+    if ($totret == 0) {
+        echo
+        '<div class="anulado">
+            <img src="./images/Anulado.png" height="35px" alt="">
+        </div>';
+    }
+    ?>
 </body>
 
 </html>

@@ -296,7 +296,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
 
         $tableIva =
             "<table border='1' style='border-collapse: collapse' align='center' width='100%'>
-            <tr height='25'>
+            <tr>
                 <td width='10%' align='center' bgcolor='#EAEAEA'><b>Año</b></td>
                 <td width='10%' align='center' bgcolor='#EAEAEA'><b>Mes</b></td>
                 <td width='20%' align='center' bgcolor='#EAEAEA'><b>Cantidad Objeto de Retención (Bs.)</b></td>
@@ -312,7 +312,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $tableIva .= "
 
-            <tr>
+            <tr class='interno'>
                 <td align='center'>" . $row['COL-1'] . "</td>
                 <td align='center'>" . $row['COL-2'] . "</td>
                 <td align='right'>" . number_format($row['COL-3'], 2, ',', '.') . "</td>

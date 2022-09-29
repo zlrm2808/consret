@@ -175,21 +175,20 @@
                         IMP_nc_open3_numfac AS 'COL-2',
                         IMP_nc_open3_ncontro AS 'COL-3',
                         IMP_nc_open3_detimp AS 'COL-4',
-                        IMP_nc_open3_basimp + (IMP_nc_open3_basimp * IMP_nc_open3_porimp)/100 AS 'COL-5',
+                        IMP_nc_open3_basimp - IMP_nc_open3_monimp AS 'COL-5',
                         IMP_nc_open3_basimp AS 'COL-6',
                         IMP_nc_open3_porimp AS 'COL-7',
                         (IMP_nc_open3_basimp * IMP_nc_open3_porimp)/100 AS 'COL-8',
 						IMP_nc_open3_numnd AS 'COL-9',
 						IMP_nc_open3_numnc AS 'COL-10'
                 FROM IMPP3000
-                WHERE open3_p = '" . $rif . "'
-                AND IMP_nc_open3_numfac = '" . $doc . "'
+				WHERE IMP_nc_open3_numdoc= '" . $doc . "'
                 UNION
                 SELECT CONVERT(VARCHAR, IMP_nc_open3_fecdocd, 103) AS 'COL-1', 
                         IMP_nc_open3_numfacd AS 'COL-2', 
                         IMP_nc_open3_ncontrod AS 'COL-3', 
                         IMP_nc_open3_detimpd AS 'COL-4',
-                        IMP_nc_open3_basimpd + (IMP_nc_open3_basimpd * IMP_nc_open3_porimpd)/100 AS 'COL-5', 
+                        IMP_nc_open3_basimpd - IMP_nc_open3_monimpd  AS 'COL-5', 
                         IMP_nc_open3_basimpd AS 'COL-6', 
                         IMP_nc_open3_porimpd AS 'COL-7', 
                         (IMP_nc_open3_basimpd * IMP_nc_open3_porimpd)/100 AS 'COL-8', 
@@ -208,23 +207,21 @@
         }
 
         $tableIva =
-            "<table class='tbfont' border='1' style='border-collapse: collapse' align='center' width='100%'>
-            <tr height='25'>
+        "<table class='tbfont' border='1' style='border-collapse: collapse' align='center' width='100%'>
+            <tr>
                 <td align='center' bgcolor='#EAEAEA'><b>Fecha de la Factura</b></td>
-                <td width='90' align='center' bgcolor='#EAEAEA'><b>Número de Factura</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Número de Factura</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Número de Control</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Número de ND</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Número de NC</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Monto Total (Bs.)</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Base Imponible de Retención (Bs.)</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Monto Pagado o Abonado en Cuenta</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Base Imponible de Retención</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>% ISLR Ret.</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Importe ISLR (Bs.)</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Importe ISLR</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Detalle Ret</b></td>
             </tr>";
-
         $numrow = 1;
         //Totales
-        $totmto = 0;
         $totbimp = 0;
         $totimp = 0;
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -235,28 +232,23 @@
                 <td width='8%' align='center'>" . $row['COL-3'] . "</td>
                 <td width='8%' align='center'>" . $row['COL-9'] . "</td>
                 <td width='8%' align='center'>" . $row['COL-10'] . "</td>
-                <td width='8%' align='right'>" . number_format($row['COL-5'], 2, ',', '.') . "</td>
-                <td width='22%' align='right'>" . number_format($row['COL-6'], 2, ',', '.') . "</td>
-                <td width='8%' align='right'>" . number_format($row['COL-7'], 2, ',', '.') . "</td>
+                <td width='12%' align='right'>" . number_format($row['COL-5'], 2, ',', '.') . "</td>
+                <td width='12%' align='right'>" . number_format($row['COL-6'], 2, ',', '.') . "</td>
+                <td width='12%' align='right'>" . number_format($row['COL-7'], 2, ',', '.') . "</td>
                 <td width='12%' align='right'>" . number_format($row['COL-8'], 2, ',', '.') . "</td>
-                <td width='10%' align='left'>" . $row['COL-4'] . "</td>
+                <td width='12%' align='left'>" . $row['COL-4'] . "</td>
             </tr>";
             $numrow++;
-            $totmto += $row['COL-5'];
             $totbimp += $row['COL-6'];
             $totimp += $row['COL-8'];
         }
         $tableIva .= "
         </table>
         <table border='0' class='tbfont' border='0' style='border-collapse: collapse' align='center' width='100%'>
-            <tr height='25'>
-                <td width='12%'></td>
-                <td width='12%'></td>
-                <td width='12%'></td>
-                <td width='12%'></td>
-                <td width='30%' colspan='2' align='right'>Totales (Bs.):</td>
-                <td class='unica' width='11.9%' align='right'>" . number_format($totimp, 2, ',', '.') . "</td>
-                <td ></td>
+            <tr>
+                <td width='76%' colspan='2' align='right'>Totales (Bs.):</td>
+                <td class='unica' width='12%' align='right'>" . number_format($totimp, 2, ',', '.') . "</td>
+                <td width='12%' align='right'></td>
             </tr>
         </table>";
         echo $tableIva;

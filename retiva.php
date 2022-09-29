@@ -228,7 +228,7 @@
         $tableIva =
 
             "<table class='tbfont2' border='1' style='border-collapse: collapse' align='center' width='100%'>
-            <tr height='25'>
+            <tr>
                 <td align='center' bgcolor='#EAEAEA'><b>Oper Nº</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Fecha de la Factura</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Número Factura</b></td>
@@ -262,7 +262,7 @@
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $tableIva .= "
             <tbody>
-            <tr height='22'>
+            <tr class='interno'>
                 <td width='2%' align='center'>" . $row['col-1'] . "</td>
                 <td width='5%' align='center'>" . $row['col-2'] . "</td> 
                 <td width='5%' align='center'>" . $row['col-3'] . "</td>

@@ -221,7 +221,7 @@
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $tableIva .= "
 
-            <tr>
+            <tr class='interno'>
                 <td align='center'>" . $row['COL-1'] . "</td>
                 <td align='center'>" . $row['COL-2'] . "</td>
                 <td align='right'>" . number_format($row['COL-3'], 2, ',', '.') . "</td>

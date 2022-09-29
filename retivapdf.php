@@ -8,11 +8,11 @@ $tipo = $_POST["tipo"];
 $rif = $_POST["rif"];
 $EMPRESA = $_POST["EMPRESA"];
 $logoRet = "./images/" . $EMPRESA . "-logo-ret.png";
-$logoRet64 = "data:image/png;base64," . base64_encode(utf8_decode(file_get_contents($logoRet)));
+$logoRet64 = "data:image/png;base64," . base64_encode(file_get_contents($logoRet));
 $FirmaySello = "./images/" . $EMPRESA . "-FirmaySello.png";
-$FSello64 = "data:image/png;base64," . base64_encode(utf8_decode(file_get_contents($FirmaySello)));
+$FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySello));
 $anulado = "./images/anulado.png";
-$anulado64 = "data:image/png;base64," . base64_encode(utf8_decode(file_get_contents($anulado)));
+$anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado));
 ?>
 <html lang="en">
 
@@ -341,7 +341,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(utf8_decode(file_get_conte
         $tableIva =
 
             "<table class='tbfont2' border='1' style='border-collapse: collapse' align='center' width='100%'>
-            <tr height='25'>
+            <tr>
                 <td align='center' bgcolor='#EAEAEA'><b>Oper Nº</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Fecha de la Factura</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Número Factura</b></td>
@@ -376,7 +376,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(utf8_decode(file_get_conte
             $tableIva .=
                 "
             <tbody>
-            <tr height='22'>
+            <tr class='interno'>
                 <td width='2%' align='center'>" . $row['col-1'] . "</td>
                 <td width='5%' align='center'>" . $row['col-2'] . "</td> 
                 <td width='5%' align='center'>" . $row['col-3'] . "</td>

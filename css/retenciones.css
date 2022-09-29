@@ -38,6 +38,12 @@ body {
     left: 350px;
 }
 
+.anulado3 {
+    position: absolute;
+    top: 350px;
+    left: 350px;
+}
+
 p {
     text-indent: 10px;
     font-family: verdana;

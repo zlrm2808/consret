@@ -185,7 +185,29 @@
                 FROM IMPP4000
                 WHERE IMP_gene_rif000 = '" . $rif . "'
                 AND IMP_gene_detimp LIKE '%MUN%' 
-                AND IMP_gene_numdoc = '" . $doc . "'");
+                AND IMP_gene_numdoc = '" . $doc . "'
+                UNION
+                SELECT IMP_gene_nopera AS 'COL-1', 
+                    CONVERT(VARCHAR, IMP_gene_fecdoc, 103) AS 'COL-2', 
+                    '' AS 'COL-3', 
+                    IMP_gene_ncontr AS 'COL-4', 
+                    IMP_gene_numntd AS 'COL-5', 
+                    IMP_gene_numntc AS 'COL-6',  
+                    CASE 
+                        WHEN IMP_gene_tiptra = 1 THEN '01-Registro' 
+                        WHEN IMP_gene_tiptra = 2 THEN '02-Complemento' 
+                        WHEN IMP_gene_tiptra = 3 THEN '03-Anulacion' 
+                        ELSE '04-Ajuste' END AS 'COL-7', 
+                    IMP_gene_numfaf AS 'COL-8', 
+                    IMP_gene_montabon AS 'COL-9', 
+                    IMP_gene_basimp AS 'COL-10', 
+                    IMP_gene_porimp AS 'COL-11', 
+                    IMP_gene_monimp AS 'COL-12', 
+                    IMP_gene_detimp AS 'COL-13' 
+                FROM IMPP4300
+                WHERE IMP_gene_rif000 = '" . $rif . "'
+                AND IMP_gene_detimp LIKE '%MUN%' 
+                AND IMP_gene_numfaf = '" . $doc . "'");
 
         $stmt = sqlsrv_query($conn, $sql);
         if ($stmt === false) {
@@ -197,14 +219,14 @@
         }
 
         $tableIva =
-            "<table border='1' style='border-collapse: collapse' align='center' width='100%'>
-            <tr height='25'>
+        "<table border='1' style='border-collapse: collapse' align='center' width='100%'>
+            <tr>
                 <td align='center' bgcolor='#EAEAEA'><b>Nº Oper</b></td>            
                 <td align='center' bgcolor='#EAEAEA'><b>Fecha Documento</b></td>
-                <td width='90' align='center' bgcolor='#EAEAEA'><b>Nº Factura</b></td>
+                <td width='9%' align='center' bgcolor='#EAEAEA'><b>Nº Factura</b></td>
                 <td width='7%' align='center' bgcolor='#EAEAEA'><b>Nº Control</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Nº Nota Débito</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Nº Nota Crédito</b></td>
+                <td width='9%' align='center' bgcolor='#EAEAEA'><b>Nº Nota Débito</b></td>
+                <td width='9%' align='center' bgcolor='#EAEAEA'><b>Nº Nota Crédito</b></td>
                 <td width='11%' align='center' bgcolor='#EAEAEA'><b>Tipo TRX</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Nº Fac Afectada</b></td>
                 <td width='12%' align='center' bgcolor='#EAEAEA'><b>Monto Pagado o Abonado en Cuenta</b></td>
@@ -219,7 +241,7 @@
         $totret = 0;
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $tableIva .= "
-            <tr>
+            <tr class='interno'>
                 <td align='center'>" . $row['COL-1'] . "</td>
                 <td align='center'>" . $row['COL-2'] . "</td>
                 <td align='center'>" . $row['COL-3'] . "</td>
@@ -238,16 +260,12 @@
             $totret += $row['COL-12'];
         }
         $tableIva .= "
-
-            <tr height='25'>
-                <td align='right' colspan='6'>Totales (Bs.):</td>
-                <td align='right'></td>
-                <td align='right'></td>
-                <td align='right'></td>
-                <td></td>
-                <td align='right'></td>
-                <td align='right'>" . number_format($totret, 2, ',', '.') . "</td>
-                <td align='right'></td>
+        </table>
+        <table border='0' style='border-collapse: collapse' align='center' width='100%'>
+            <tr>
+                <td width='86%' align='right'>Totales (Bs.):</td>
+                <td class='unica' width='6.6%' align='right'>" . number_format($totret, 2, ',', '.') . "</td>
+                <td width='7.4%' align='right'>&nbsp;</td>
             </tr>
         </table>";
         echo $tableIva;
@@ -264,11 +282,21 @@
                 <td align='center'>_______________________________________________________</td>
             </tr>
             <tr>
-                <td align='center'><?php echo utf8_encode($rzsoc) . '' ?>(SELLO Y FIRMA)</td>
+                <td align='center'><?php echo utf8_encode($rzsoc) . '(SELLO Y FIRMA)' ?><br />Fecha de Descarga:<?php echo ' ' . $hoy ?></td></td>
                 <td align='center'>RECIBIDO CONFORME POR</td>
+            </tr>
+            <tr>
             </tr>
         </table>
     </div>
+    <?php
+    if ($totret == 0) {
+        echo
+        '<div class="anulado3">
+            <img src="./images/Anulado.png" height="35px" alt="">
+        </div>';
+    }
+    ?>
 </body>
 
 </html>

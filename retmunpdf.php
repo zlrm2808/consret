@@ -10,6 +10,8 @@ $logoRet = "./images/" . $EMPRESA . "-logo-ret.png";
 $logoRet64 = "data:image/png;base64," . base64_encode(file_get_contents($logoRet));
 $FirmaySello = "./images/" . $EMPRESA . "-FirmaySello.png";
 $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySello));
+$anulado = "./images/anulado.png";
+$anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado));
 ?>
 <html lang="en">
 
@@ -27,13 +29,50 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         margin-bottom: 0.5cm;
     }
 
+    @page {
+        margin-left: 0.1cm;
+        margin-right: 0.05cm;
+        margin-top: 0.1cm;
+        margin-bottom: 0.05cm;
+    }
+
     body {
         font-family: Verdana, Arial, Helvetica, sans-serif;
-        font-size: 10px;
+        font-size: 20px;
         color: #000000;
         background-color: #ffffff;
         margin: 0px;
         padding: 0px;
+    }
+
+    .paginaVertical {
+        width: 230mm;
+        height: 279.4mm;
+        margin: 2cm
+    }
+
+    .paginaHorizontal {
+        width: 230mm;
+        height: 189mm;
+        margin: 1cm
+    }
+
+    .anulado {
+        position: absolute;
+        top: 400px;
+        left: 310px;
+    }
+
+    .anulado2 {
+        position: absolute;
+        top: 370px;
+        left: 350px;
+    }
+
+    .anulado3 {
+        position: absolute;
+        top: 350px;
+        left: 350px;
     }
 
     p {
@@ -61,7 +100,6 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
     table {
         font-family: verdana;
         font-size: 8pt;
-        width: 100%;
     }
 
     div {
@@ -71,13 +109,37 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         font-weight: bold;
     }
 
+    .cabecera {
+        height: 40px;
+        font-weight: normal;
+    }
+
+    .cabecera2 {
+        height: 20px;
+        font-weight: normal;
+    }
+
     th {
         background-color: #EAEAEA;
     }
 
-    .Tabletot {
-        width: 1000px;
-        border-collapse: collapse;
+    .tbfont {
+        font-size: 9px;
+    }
+
+    .tbfont2 {
+        font-size: 7px;
+    }
+
+    .interno {
+        font-weight: normal;
+    }
+
+    .unica {
+        border-left: solid 1px;
+        border-bottom: solid 1px;
+        border-right: solid 1px;
+        border-color: gray;
     }
 </style>
 
@@ -122,7 +184,8 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
 	PV_MI_direc2 as '8.2',
 	PV_MI_direc3 as '8.3',
 	CO_MI_nit000 as '9',
-	PV_MI_nit000 as '10'
+	PV_MI_nit000 as '10',
+    IMP_gene_njrnent as '11'
     FROM IMPP4000
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
@@ -154,110 +217,100 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
         $dirP3 = $row["8.3"];
         $licae = $row["9"];
         $licae2 = $row["10"];
+        $noper = $row["11"];
     }
     ?>
-    <center>
-        <h4>COMPROBANTE DE RETENCIÓN MUNICIPAL ALCALDIA DE GIRARDOT</h4>
-    </center>
-    <div id="encabezado" class="paginaHorizontal" style="margin-top: -10px ;">
-        <table border="0">
-            <thead>
-                <td style="width:45%;">
-                    <h5>Datos de Identificacion del Agente de Retención</h5>
+    <div id="encabezado" class="paginaHorizontal">
+        <table border='0' style="width:100%; height:60px;">
+            <tr>
+                <td width='200'>
+                    <img src="<?php echo $logoRet64 ?>" width="205" height="72" border="0" alt="">
                 </td>
-                <td style="width:5%;">&nbsp;</td>
-                <td style="width:45%;">
-                    <h5>Datos de Identificacion del Sujeto Retenido</h5>
+                <td valign='top' align='center'>
+                    <h4>COMPROBANTE DE RETENCIÓN MUNICIPAL ALCALDIA DE GIRARDOT</h4>
                 </td>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="width:500px;"><b>Nombre o Razón Social:</b></td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;"><b>Nombre o Razón Social:</b></td>
-                </tr>
-                <tr>
-                    <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($rzsoc) ?></td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px; font-weight: normal"><?php echo utf8_encode($nempr) ?></td>
-                </tr>
-                <tr>
-                    <td style="width:500px;"><b>Nº de Licencia de Actividades Económicas:</b></td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;"><b>Nº de Licencia del Sujeto Retenido:</b></td>
-                </tr>
-                <tr>
-                    <td style="width:500px; font-weight: normal;"><?php echo $licae ?></td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px; font-weight: normal"><?php echo $licae2 ?></td>
-                </tr>
-                <tr>
-                    <td style="width:500px;"><b>Nº de Registro de Información Fiscal:</b></td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;"><b>Nº de Registro de Información Fiscal:</b></td>
-                </tr>
-                <tr>
-                    <td style="width:500px; font-weight: normal;"><?php echo $rifEmp ?></td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px; font-weight: normal"><?php echo $rif ?></td>
-                </tr>
-                <tr>
-                    <td style="width:500px;"><b>Dirección Fiscal:</b></td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;"><b>Dirección Fiscal:</b></td>
-                </tr>
-                <tr>
-                    <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir1) ?></td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP1) ?></td>
-                </tr>
-                <tr>
-                    <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir2) ?></td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP2) ?></td>
-                </tr>
-                <tr>
-                    <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir3) ?></td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP3) ?></td>
-                </tr>
-                <tr>
-                    <td style="width:500px;">
-                        <h5>Datos de la Transacción:</h5>
-                    </td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;">
-                        <h5></h5>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:500px;">Periodo Fiscal:</td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;">Nº del Comprobante</td>
-                </tr>
-                <tr>
-                    <td style="width:500px; font-weight: normal;"><?php echo $perdf ?></td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px; font-weight: normal"><?php echo $ncomp ?></td>
-                </tr>
-                <tr>
-                    <td style="width:500px;">Fecha de Emisión:</td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;">Nº de la Operación de la Contabilidad de la Empresa</td>
-                </tr>
-                <tr>
-                    <td style="width:500px; font-weight: normal;"><?php echo $fecha ?></td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px; font-weight: normal">4.948</td>
-                </tr>
-                <tr>
-                    <td style="width:500px; ">&nbsp;</td>
-                    <td style="width:100px;">&nbsp;</td>
-                    <td style="width:500px;">&nbsp;</td>
-                </tr>
-            </tbody>
-            <?php
-            $sql = ("SELECT CONVERT(VARCHAR, IMP_gene_fecdoc, 103) AS 'COL-1',
+            </tr>
+        </table>
+        <table border='0' style="width:100%; height:60px;">
+            <tr>
+                <td style="width:200px;">
+                    <h5>Datos de la Transacción:</h5>
+                </td>
+                <td style="width:500px;">
+                    <h5></h5>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:200px;">Periodo Fiscal:</td>
+                <td style="width:400px;">Nº del Comprobante</td>
+            </tr>
+            <tr>
+                <td style="width:200px; font-weight: normal;"><?php echo $perdf ?></td>
+                <td style="width:500px; font-weight: normal"><?php echo $ncomp ?></td>
+            </tr>
+            <tr>
+                <td style="width:200px;">Fecha de Emisión:</td>
+                <td style="width:500px;">Nº de la Operación de la Contabilidad de la Empresa</td>
+            </tr>
+            <tr>
+                <td style="width:200px; font-weight: normal;"><?php echo $fecha ?></td>
+                <td style="width:500px; font-weight: normal"><?php echo number_format($noper, 0, ',', '.') ?></td>
+            </tr>
+        </table>
+        <table border='0' style='border-collapse: collapse' align='center' width='100%'>
+            <td style="width:45%;">
+                <h5>Datos de Identificacion del Agente de Retención</h5>
+            </td>
+            <td style="width:45%;">
+                <h5>Datos de Identificacion del Sujeto Retenido</h5>
+            </td>
+            <tr>
+                <td style="width:400px;"><b>Nombre o Razón Social:</b></td>
+                <td style="width:500px;"><b>Nombre o Razón Social:</b></td>
+            </tr>
+            <tr>
+                <td style="width:400px; font-weight: normal;"><?php echo utf8_encode($rzsoc) ?></td>
+                <td style="width:500px; font-weight: normal"><?php echo $nempr ?></td>
+            </tr>
+            <tr>
+                <td style="width:400px;"><b>Nº de Licencia de Actividades Económicas:</b></td>
+                <td style="width:500px;"><b>Nº de Licencia del Sujeto Retenido:</b></td>
+            </tr>
+            <tr>
+                <td style="width:400px; font-weight: normal;">&nbsp;<?php echo $licae ?></td>
+                <td style="width:500px; font-weight: normal">&nbsp;<?php echo $licae2 ?></td>
+            </tr>
+            <tr>
+                <td style="width:400px;"><b>Nº de Registro de Información Fiscal:</b></td>
+                <td style="width:500px;"><b>Nº de Registro de Información Fiscal:</b></td>
+            </tr>
+            <tr>
+                <td style="width:5400px00px; font-weight: normal;"><?php echo $rifEmp ?></td>
+                <td style="width:500px; font-weight: normal"><?php echo $rif ?></td>
+            </tr>
+            <tr>
+                <td style="width:400px;"><b>Dirección Fiscal:</b></td>
+                <td style="width:500px;"><b>Dirección Fiscal:</b></td>
+            </tr>
+            <tr>
+                <td style="width:400px; font-weight: normal;"><?php echo utf8_encode($dir1) ?></td>
+                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP1) ?></td>
+            </tr>
+            <tr>
+                <td style="width:400px; font-weight: normal;"><?php echo utf8_encode($dir2) ?></td>
+                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP2) ?></td>
+            </tr>
+            <tr>
+                <td style="width:400px; font-weight: normal;"><?php echo utf8_encode($dir3) ?></td>
+                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP3) ?></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+        <?php
+        $sql = ("SELECT CONVERT(VARCHAR, IMP_gene_fecdoc, 103) AS 'COL-1',
                             IMP_gene_numdoc AS 'COL-2',
                             IMP_gene_ncontr AS 'COL-3',
                             IMP_gene_numntd AS 'COL-4',
@@ -270,90 +323,112 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                     FROM IMPP4000
                     WHERE IMP_gene_rif000 = '" . $rif . "'
                     AND IMP_gene_detimp LIKE '%MUN%'
-                    AND IMP_gene_numdoc = '" . $doc . "'");
+                    AND IMP_gene_numdoc = '" . $doc . "'
+                    UNION
+                    SELECT CONVERT(VARCHAR, IMP_gene_fecdoc, 103) AS 'COL-1',
+                            '' AS 'COL-2',
+                            IMP_gene_ncontr AS 'COL-3',
+                            IMP_gene_numntd AS 'COL-4',
+                            IMP_gene_numntc AS 'COL-5',
+                            IMP_gene_numfaf AS 'COL-6',
+                            IMP_gene_acteco AS 'COL-7',
+                            IMP_gene_basimp AS 'COL-8',
+                            '' AS 'COL-9',
+                            IMP_gene_monimp AS 'COL-10'
+                    FROM IMPP4300
+                    WHERE IMP_gene_rif000 = '" . $rif . "'
+                    AND IMP_gene_detimp LIKE '%MUN%' 
+                    AND IMP_gene_numfaf = '" . $doc . "'");
 
-            $stmt = sqlsrv_query($conn, $sql);
-            if ($stmt === false) {
-                die(print_r(sqlsrv_errors(), true));
-            }
+        $stmt = sqlsrv_query($conn, $sql);
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
 
-            if ($stmt === false) {
-                die(print_r(sqlsrv_errors(), true));
-            }
-            ?>
-            <tfoot>
-                <table border="1" class="Tabletot">
-                    <thead>
-                        <th>Fecha de Documento</th>
-                        <th>Nº de Documento</th>
-                        <th style="width: 10%;">Nº de Control</th>
-                        <th>Nº de ND</th>
-                        <th>Nº de NC</th>
-                        <th>Nº de Doc. Afectado</th>
-                        <th>Actividad Económica Realizada</th>
-                        <th>Base Imponible</th>
-                        <th>Alicuota Aplicada</th>
-                        <th>Impuesto Municipal Ret</th>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $numrow = 1;
-                        //Totales
-                        $totret = 0;
-                        $tableIva = '';
-                        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                            $tableIva .= '
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+        ?>
+        <table border='1' style='border-collapse: collapse' align='center' width='900px'>
+            <thead>
+                <th>Fecha de Documento</th>
+                <th>Nº de Documento</th>
+                <th style="width: 10%;">Nº de Control</th>
+                <th>Nº de ND</th>
+                <th>Nº de NC</th>
+                <th>Nº de Doc. Afectado</th>
+                <th>Actividad Económica Realizada</th>
+                <th>Base Imponible</th>
+                <th>Alicuota Aplicada</th>
+                <th>Impuesto Municipal Ret</th>
+            </thead>
+            <tbody>
+                <?php
+                $numrow = 1;
+                //Totales
+                $totret = 0;
+                $tableIva = '';
+                while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                    $tableIva .= '
                         <tr>
-                            <td style="font-weight: normal;">' . $row['COL-1'] . '</td>
-                            <td style="font-weight: normal;">' . $row['COL-2'] . '</td>
-                            <td style="font-weight: normal;">' . $row['COL-3'] . '</td>
-                            <td style="font-weight: normal;">' . $row['COL-4'] . '</td>
-                            <td style="font-weight: normal;">' . $row['COL-5'] . '</td>
-                            <td style="font-weight: normal;">' . $row['COL-6'] . '</td>
+                            <td width="8%" style="font-weight: normal;">' . $row['COL-1'] . '</td>
+                            <td width="8%" style="font-weight: normal;">' . $row['COL-2'] . '</td>
+                            <td width="8%" style="font-weight: normal;">' . $row['COL-3'] . '</td>
+                            <td width="8%" style="font-weight: normal;">' . $row['COL-4'] . '</td>
+                            <td width="8%" style="font-weight: normal;">' . $row['COL-5'] . '</td>
+                            <td width="8%" style="font-weight: normal;">' . $row['COL-6'] . '</td>
                             <td style="font-weight: normal;">' . $row['COL-7'] . '</td>
                             <td style="font-weight: normal; text-align: right;">' . number_format($row['COL-8'], 2, ',', '.') . '</td>
                             <td style="font-weight: normal; text-align: right;">' . $row['COL-9'] . '</td>
-                            <td style="font-weight: normal; text-align: right;">' . number_format($row['COL-10'], 2, ',', '.') . '</td>
+                            <td width="12%" style="font-weight: normal; text-align: right;">' . number_format($row['COL-10'], 2, ',', '.') . '</td>
                         </tr>';
-                            $numrow++;
-                            $totret += $row['COL-10'];
-                        }
-                        echo $tableIva;
-                        ?>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td style="text-align: right;" colspan="9">Total Impuesto Municipal Retenido</td>
-                            <td style="text-align: right;"><?php echo number_format($totret, 2, ',', '.') ?></td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </tfoot>
+                    $numrow++;
+                    $totret += $row['COL-10'];
+                }
+                echo $tableIva;
+                ?>
+            </tbody>
         </table>
-        <table>
+        <table border='0' style='border-collapse: collapse' align='center' width='900px'>
             <tr>
+                <td width="88%" style="text-align: right;" colspan="9">Total Impuesto Municipal Retenido:</td>
+                <td width="12%" class="unica" style="text-align: right;"><?php echo number_format($totret, 2, ',', '.') ?></td>
+            </tr>
+        </table>
+        </table>
+        </table>
+        <table border='0' style='border-collapse: collapse' align='center' width='100%'>
+            <tr>
+                <td width='10%'></td>
+                <td width='30%' align='center'><img src='<?php echo $FSello64 ?>' width='200px' height='100px'></td>
                 <td width='20%'></td>
-                <td width='20%' align='center'><img src='<?php echo $FSello64 ?>' width='200px' height='100px'></td>
-                <td width='20%'></td>
-                <td width='20%'></td>
-                <td width='20%'></td>
+                <td width='30%'></td>
+                <td width='10%'></td>
             </tr>
             <tr>
+                <td width='10%'></td>
+                <td width='30%' align='center'>______________________________________<br><br>AGENTE DE RETENCIÓN (SELLO Y FIRMA)<br></td>
                 <td width='20%'></td>
-                <td width='20%' align='center'>______________________________________<br />AGENTE DE RETENCIÓN (SELLO Y FIRMA)<br /></td>
-                <td width='20%'></td>
-                <td width='20%' align='center'>______________________________________<br />RECIBIDO CONFORME POR<br /></td>
-                <td width='20%'></td>
+                <td width='30%' align='center'>______________________________________<br><br>RECIBIDO CONFORME POR<br></td>
+                <td width='10%'></td>
             </tr>
             <tr>
+                <td width='10%'></td>
+                <td width='30%'>Fecha de Descarga:<?php echo ' ' . $hoy ?></td>
                 <td width='20%'></td>
-                <td width='20%'></td>
-                <td width='20%'></td>
-                <td width='20%' align='center'>Fecha de Recepción<br /></td>
-                <td width='20%'></td>
+                <td width='30%' align='center'>Fecha de Recepción<br /></td>
+                <td width='10%'></td>
             </tr>
         </table>
     </div>
+    <?php
+    if ($totret == 0) {
+        echo
+        '<div class="anulado">
+            <img src="' . $anulado64 . '" height="35px" alt="">
+        </div>';
+    }
+    ?>
 
 </html>
 <?php
