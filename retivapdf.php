@@ -110,7 +110,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     }
 
     .tbfont2 {
-        font-size: 7px;
+        font-size: 6px;
     }
 
     .interno {
@@ -163,14 +163,16 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     UPPER(LTRIM(RTRIM(ADDRESS2))) AS '5.2',
     UPPER(CONCAT(LTRIM(RTRIM(ADDRESS3)),', ',LTRIM(RTRIM(CITY)),', ',LTRIM(RTRIM(STATE)))) AS '5.3',
     UPPER(IMP_nc_open_nompro) AS '6',
-    open_p as '7'
+    open_p as '7',
+    PV_MI_direc1 as '8.1',
+	PV_MI_direc2 as '8.2',
+	PV_MI_direc3 as '8.3'
     FROM IMPP2001
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
+    INNER JOIN IMPP0161 ON PV_MI_rif000 = open_p
     WHERE open_p = '" . $rif . "'
-    AND IMP_nc_open_numfac = '" . $doc . "'
-    "
-    );
+    AND IMP_nc_open_numfac = '" . $doc . "'");
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
@@ -190,6 +192,9 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
         $dir2 = $row["5.2"];
         $dir3 = $row["5.3"];
         $nempr = $row["6"];
+        $dirP1 = $row["8.1"];
+        $dirP2 = $row["8.2"];
+        $dirP3 = $row["8.3"];
     }
     ?>
     <div id="" Class="paginaHorizontal">
@@ -205,17 +210,13 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
         </table>
         <table border='0' style='border-collapse: collapse' align=center width='100%'>
             <tr>
+                <td colspan="2">(Ley IVA - Art. 11: La administración Tributaria podrá designar como responsables del pago del impuesto, en calidad de agentes de retención a quienes por sus funciones publicas o por razón de sus actividades privadas intervengan en operaciones gravadas con el impuesto establecido en este decreto con rango, valor y fuerza de ley)</td>
+            </tr>
+            <tr>
                 <td style="width:200px;">
                     <h5>Datos de la Transacción:</h5>
                 </td>
                 <td style="width:500px;"></td>
-            </tr>
-            <tr>
-                <td colspan="2">(Ley IVA - Art. 11: La administración Tributaria podrá designar como responsables del pago del impuesto, en calidad de agentes de retención a quienes por sus funciones publicas o por razón de sus actividades privadas intervengan en operaciones gravadas con el impuesto establecido en este decreto con rango, valor y fuerza de ley)</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
             </tr>
             <tr>
                 <td style="width:200px;">Nº del Comprobante:</td>
@@ -270,17 +271,17 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
             <tr>
                 <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir1) ?></td>
                 <td style="width:100px;">&nbsp;</td>
-                <td style="width:500px; font-weight: normal;">&nbsp;</td>
+                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP1) ?></td>
             </tr>
             <tr>
                 <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir2) ?></td>
                 <td style="width:100px;">&nbsp;</td>
-                <td style="width:500px; font-weight: normal;">&nbsp;</td>
+                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP2) ?></td>
             </tr>
             <tr>
                 <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir3) ?></td>
                 <td style="width:100px;">&nbsp;</td>
-                <td style="width:500px; font-weight: normal;">&nbsp;</td>
+                <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dirP3) ?></td>
             </tr>
         </table>
         <table border='0' style='border-collapse: collapse' align=center width='100%'>
@@ -305,9 +306,9 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                 IMP_nc_open_numntd AS 'col-5',
                 IMP_nc_open_numntc AS 'col-6',
                 CASE
-                    WHEN IMP_nc_open_tiptra = 1 THEN '01-Registro'
-                    WHEN IMP_nc_open_tiptra = 2 THEN '02-Complemento'
-                    WHEN IMP_nc_open_tiptra = 3 THEN '03-Anulacion'
+                    WHEN IMP_nc_open_tiptra = 1 THEN '01-Reg'
+                    WHEN IMP_nc_open_tiptra = 2 THEN '02-Comp'
+                    WHEN IMP_nc_open_tiptra = 3 THEN '03-Anul'
                     ELSE '04-Ajuste'
                 END AS 'col-7',
                 IMP_nc_open_facafe AS 'col-8',
@@ -322,8 +323,12 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
 				STR(IIF(IMP_nc_open_tipdoc = 4, IMP_basimp_alicadic * -1, IMP_basimp_alicadic),9,2) AS 'col-17',
                 STR(IMP_porceimp_alicadic,9,2) AS 'col-18',
 				STR(IIF(IMP_nc_open_tipdoc = 4, IMP_montoimp_alicadic * -1, IMP_montoimp_alicadic),9,2) AS 'col-19',
-                STR(ABS(IMP_porcrete_alicgene),9,2) AS 'col-20',
-				STR((IIF(IMP_nc_open_tipdoc = 4, IMP_montoimp_alicgene * -1, IMP_montoimp_alicgene)+(IIF(IMP_nc_open_tipdoc = 4, IMP_montoimp_alicreduc * -1, IMP_montoimp_alicreduc)+(IIF(IMP_nc_open_tipdoc = 4, IMP_montoimp_alicadic * -1, IMP_montoimp_alicadic)))),9,2) AS 'col-21'
+                CASE
+                    WHEN IMP_porcrete_alicgene != 0 THEN STR(ABS(IMP_porcrete_alicgene),9,2)
+                    WHEN IMP_porcrete_alicreduc != 0 THEN STR(ABS(IMP_porcrete_alicreduc),9,2)
+                    ELSE STR(ABS(IMP_porcrete_alicadic),9,2)
+                END AS 'col-20',
+				IIF(IMP_nc_open_numntc='',STR(ABS(IMP_nc_open_ivaret),9,2),STR(IMP_nc_open_ivaret,9,2)) AS 'col-21'
             FROM IMPP2001
             WHERE open_p = '" . $rif . "'
             AND IMP_nc_open_numfac = '" . $doc . "'
@@ -342,7 +347,6 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
 
             "<table class='tbfont2' border='1' style='border-collapse: collapse' align='center' width='100%'>
             <tr>
-                <td align='center' bgcolor='#EAEAEA'><b>Oper Nº</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Fecha de la Factura</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Número Factura</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Número Control</b></td>
@@ -374,30 +378,29 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
         $totivaret = 0;
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $tableIva .=
-                "
+            "
             <tbody>
             <tr class='interno'>
-                <td width='2%' align='center'>" . $row['col-1'] . "</td>
                 <td width='5%' align='center'>" . $row['col-2'] . "</td> 
                 <td width='5%' align='center'>" . $row['col-3'] . "</td>
-                <td width='6.5%' align='center'>" . $row['col-4'] . "</td>
-                <td width='2%' align='center'>" . $row['col-5'] . "</td>
-                <td width='2%' align='center'>" . $row['col-6'] . "</td>
-                <td width='8%' align='center'>" . $row['col-7'] . "</td>
+                <td width='5%' align='center'>" . $row['col-4'] . "</td>
+                <td width='5%' align='center'>" . $row['col-5'] . "</td>
+                <td width='5%' align='center'>" . $row['col-6'] . "</td>
+                <td width='4%' align='center'>" . $row['col-7'] . "</td>
                 <td width='5%' align='center'>" . $row['col-8'] . "</td>
-                <td align='right'>" . number_format($row['col-9'], 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($row['col-10'], 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($row['col-11'], 2, ',', '.') . "</td>
-                <td width='2%' align='right'>" . number_format($row['col-12'], 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($row['col-13'], 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($row['col-14'], 2, ',', '.') . "</td>
-                <td width='2%' align='right'>" . number_format($row['col-15'], 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($row['col-16'], 2, ',', '.') . "</td>
-                <td width='5%' align='right'>" . number_format($row['col-17'], 2, ',', '.') . "</td>
-                <td width='2%' align='right'>" . number_format($row['col-18'], 2, ',', '.') . "</td>
-                <td align='right'>" . number_format($row['col-19'], 2, ',', '.') . "</td>
-                <td width='2%' align='right'>" . number_format($row['col-20'], 2, ',', '.') . "</td>
-                <td width='5%' align='right'>" . number_format($row['col-21'], 2, ',', '.') . "</td>
+                <td width='6%' align='right'>" . number_format($row['col-9'], 2, ',', '.') . "</td>
+                <td width='6%' align='right'>" . number_format($row['col-10'], 2, ',', '.') . "</td>
+                <td width='6%' align='right'>" . number_format($row['col-11'], 2, ',', '.') . "</td>
+                <td width='3%' align='right'>" . number_format($row['col-12'], 2, ',', '.') . "</td>
+                <td width='6%' align='right'>" . number_format($row['col-13'], 2, ',', '.') . "</td>
+                <td width='6%' align='right'>" . number_format($row['col-14'], 2, ',', '.') . "</td>
+                <td width='3%' align='right'>" . number_format($row['col-15'], 2, ',', '.') . "</td>
+                <td width='6%' align='right'>" . number_format($row['col-16'], 2, ',', '.') . "</td>
+                <td width='6%' align='right'>" . number_format($row['col-17'], 2, ',', '.') . "</td>
+                <td width='3%' align='right'>" . number_format($row['col-18'], 2, ',', '.') . "</td>
+                <td width='6%' align='right'>" . number_format($row['col-19'], 2, ',', '.') . "</td>
+                <td width='3%' align='right'>" . number_format($row['col-20'], 2, ',', '.') . "</td>
+                <td width='6%' align='right'>" . number_format($row['col-21'], 2, ',', '.') . "</td>
             </tr>";
             $numrow++;
             $totcciva += $row['col-9'];
@@ -407,12 +410,12 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
             $totivaret += $row['col-21'];
         }
         $tableIva .=
-            "
+        "
         </tbody>
         </table>
         <table class='tbfont2' border='0' style='border-collapse: collapse' align='center' width='100%'>
             <tr height='25'>
-                <td width='95%' align='right'>Totales Impuesto Retenido:</td>
+                <td width='94%' align='right'>Totales Impuesto Retenido:</td>
                 <td class='unica' align='right'>" . number_format($totivaret, 2, ',', '.') . "</td>
             </tr>
         </table>
@@ -447,7 +450,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     if ($totivaret == 0) {
         echo
         '<div class="anulado">
-            <img src="'. $anulado64 .'" height="35px" alt="">
+            <img src="' . $anulado64 . '" height="35px" alt="">
         </div>';
     }
     ?>

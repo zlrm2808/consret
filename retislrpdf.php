@@ -40,7 +40,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
 
     .anulado2 {
         position: absolute;
-        top: 370px;
+        top: 350px;
         left: 350px;
     }
 
@@ -203,17 +203,13 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
         </table>
         <table border='0' style='border-collapse: collapse' align=center width='100%'>
             <tr>
+                <td colspan="2">(Decreto 1.808 de retenciones de impuesto sobre la renta, Gaceta Oficial Nro. 36.203 del 12 de Mayo de 1.997)</td>
+            </tr>
+            <tr>
                 <td style="width:200px;">
                     <h5>Datos de la Transacción:</h5>
                 </td>
                 <td style="width:500px;"></td>
-            </tr>
-            <tr>
-                <td colspan="2">(Decreto 1.808 de retenciones de impuesto sobre la renta, Gaceta Oficial Nro. 36.203 del 12 de Mayo de 1.997)</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
             </tr>
             <tr>
                 <td style="width:200px;">Fecha de Emisión:</td>
@@ -280,26 +276,30 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                         IMP_nc_open3_numfac AS 'COL-2',
                         IMP_nc_open3_ncontro AS 'COL-3',
                         IMP_nc_open3_detimp AS 'COL-4',
-                        IMP_nc_open3_basimp - IMP_nc_open3_monimp AS 'COL-5',
+                        IIF(PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
                         IMP_nc_open3_basimp AS 'COL-6',
                         IMP_nc_open3_porimp AS 'COL-7',
-                        (IMP_nc_open3_basimp * IMP_nc_open3_porimp)/100 AS 'COL-8',
-						IMP_nc_open3_numnd AS 'COL-9',
-						IMP_nc_open3_numnc AS 'COL-10'
+                        IMP_nc_open3_monimp AS 'COL-8', 
+                        IMP_nc_open3_numnd AS 'COL-9',
+                        IMP_nc_open3_numnc AS 'COL-10'
                 FROM IMPP3000
+                LEFT JOIN PM20000 ON PM20000.DOCNUMBR = IMP_nc_open3_numdoc
+                LEFT JOIN PM30200 ON PM30200.DOCNUMBR = IMP_nc_open3_numdoc
 				WHERE IMP_nc_open3_numdoc= '" . $doc . "'
                 UNION
                 SELECT CONVERT(VARCHAR, IMP_nc_open3_fecdocd, 103) AS 'COL-1', 
                         IMP_nc_open3_numfacd AS 'COL-2', 
                         IMP_nc_open3_ncontrod AS 'COL-3', 
                         IMP_nc_open3_detimpd AS 'COL-4',
-                        IMP_nc_open3_basimpd - IMP_nc_open3_monimpd  AS 'COL-5', 
+                        IIF(PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
                         IMP_nc_open3_basimpd AS 'COL-6', 
                         IMP_nc_open3_porimpd AS 'COL-7', 
-                        (IMP_nc_open3_basimpd * IMP_nc_open3_porimpd)/100 AS 'COL-8', 
+                        IMP_nc_open3_monimpd AS 'COL-8', 
                         IMP_nc_open3_numndd AS 'COL-9', 
                         IMP_nc_open3_numncd AS 'COL-10' 
                 FROM IMPP3100
+                LEFT JOIN PM20000 ON PM20000.DOCNUMBR = IMP_nc_open3_numdocd
+                LEFT JOIN PM30200 ON PM30200.DOCNUMBR = IMP_nc_open3_numdocd
                 WHERE IMP_nc_open3_numfafd = '" . $doc . "'");
 
         $stmt = sqlsrv_query($conn, $sql);
@@ -312,7 +312,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
         }
 
         $tableIva =
-        "<table class='tbfont' border='1' style='border-collapse: collapse' align='center' width='100%'>
+            "<table class='tbfont' border='1' style='border-collapse: collapse' align='center' width='100%'>
             <tr>
                 <td align='center' bgcolor='#EAEAEA'><b>Fecha de la Factura</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Número de Factura</b></td>
@@ -351,7 +351,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
             $totimp += $row['COL-8'];
         }
         $tableIva .=
-        "</table>
+            "</table>
         <table border='0' class='tbfont' style='border-collapse: collapse' align='center' width='100%'>
             <tr>
                 <td width='76%' align='right'>Totales (Bs.):</td>

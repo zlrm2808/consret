@@ -318,7 +318,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                             IMP_gene_numfaf AS 'COL-6',
                             IMP_gene_acteco AS 'COL-7',
                             IMP_gene_basimp AS 'COL-8',
-                            '' AS 'COL-9',
+                            IMP_gene_porimp AS 'COL-9',
                             IMP_gene_monimp AS 'COL-10'
                     FROM IMPP4000
                     WHERE IMP_gene_rif000 = '" . $rif . "'
@@ -333,7 +333,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                             IMP_gene_numfaf AS 'COL-6',
                             IMP_gene_acteco AS 'COL-7',
                             IMP_gene_basimp AS 'COL-8',
-                            '' AS 'COL-9',
+                            IMP_gene_porimp AS 'COL-9',
                             IMP_gene_monimp AS 'COL-10'
                     FROM IMPP4300
                     WHERE IMP_gene_rif000 = '" . $rif . "'
@@ -379,7 +379,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                             <td width="8%" style="font-weight: normal;">' . $row['COL-6'] . '</td>
                             <td style="font-weight: normal;">' . $row['COL-7'] . '</td>
                             <td style="font-weight: normal; text-align: right;">' . number_format($row['COL-8'], 2, ',', '.') . '</td>
-                            <td style="font-weight: normal; text-align: right;">' . $row['COL-9'] . '</td>
+                            <td style="font-weight: normal; text-align: right;">' . number_format($row['COL-9'], 2, ',', '.') . '</td>
                             <td width="12%" style="font-weight: normal; text-align: right;">' . number_format($row['COL-10'], 2, ',', '.') . '</td>
                         </tr>';
                     $numrow++;

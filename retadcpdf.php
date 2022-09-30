@@ -342,7 +342,6 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
         $tableIva =
             "<table border='1' style='border-collapse: collapse' align='center' width='900px'>
             <tr>
-                <td align='center' bgcolor='#EAEAEA'><b>Nº Oper</b></td>            
                 <td align='center' bgcolor='#EAEAEA'><b>Fecha Documento</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Nº Factura</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Nº Control</b></td>
@@ -363,7 +362,6 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $tableIva .= "
             <tr class='interno'>
-                <td width='3%' align='center'>" . $row['COL-1'] . "</td>
                 <td width='8%'align='center'>" . $row['COL-2'] . "</td>
                 <td width='6%' align='center'>" . $row['COL-3'] . "</td>
                 <td width='8%' align='center'>" . $row['COL-4'] . "</td>

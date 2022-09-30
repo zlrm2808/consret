@@ -221,7 +221,6 @@
         $tableIva =
         "<table border='1' style='border-collapse: collapse' align='center' width='100%'>
             <tr>
-                <td align='center' bgcolor='#EAEAEA'><b>Nº Oper</b></td>            
                 <td align='center' bgcolor='#EAEAEA'><b>Fecha Documento</b></td>
                 <td width='9%' align='center' bgcolor='#EAEAEA'><b>Nº Factura</b></td>
                 <td width='7%' align='center' bgcolor='#EAEAEA'><b>Nº Control</b></td>
@@ -242,7 +241,6 @@
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $tableIva .= "
             <tr class='interno'>
-                <td align='center'>" . $row['COL-1'] . "</td>
                 <td align='center'>" . $row['COL-2'] . "</td>
                 <td align='center'>" . $row['COL-3'] . "</td>
                 <td align='center'>" . $row['COL-4'] . "</td>

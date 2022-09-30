@@ -89,17 +89,13 @@
         </table>
         <table border='0' style='border-collapse: collapse' align=center width='100%'>
             <tr>
+                <td colspan="2">(Decreto 1.808 de retenciones de impuesto sobre la renta, Gaceta Oficial Nro. 36.203 del 12 de Mayo de 1.997)</td>
+            </tr>
+            <tr>
                 <td style="width:200px;">
                     <h5>Datos de la Transacción:</h5>
                 </td>
                 <td style="width:500px;"></td>
-            </tr>
-            <tr>
-                <td colspan="2">(Decreto 1.808 de retenciones de impuesto sobre la renta, Gaceta Oficial Nro. 36.203 del 12 de Mayo de 1.997)</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
             </tr>
             <tr>
                 <td style="width:200px;">Año Impositivo:</td>
@@ -205,7 +201,7 @@
 
         $tableIva =
             "<table border='1' style='border-collapse: collapse' align='center' width='100%'>
-            <tr height='25'>
+            <tr>
                 <td width='10%' align='center' bgcolor='#EAEAEA'><b>Año</b></td>
                 <td width='10%' align='center' bgcolor='#EAEAEA'><b>Mes</b></td>
                 <td width='20%' align='center' bgcolor='#EAEAEA'><b>Cantidad Objeto de Retención (Bs.)</b></td>

@@ -28,7 +28,7 @@ body {
 
 .anulado {
     position: absolute;
-    top: 430px;
+    top: 410px;
     left: 350px;
 }
 
@@ -97,7 +97,7 @@ th {
 }
 
 .tbfont2 {
-    font-size: 7px;
+    font-size: 6px;
 }
 
 .interno {
