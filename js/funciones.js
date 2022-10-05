@@ -17,12 +17,12 @@ function limpiartabla() {
 }
 
 function getValueInput() {
+    check();
     fechaini = $("#fechaIni").val();
     fechafin = $("#fechaFin").val();
     rif = $("#rif").val();
     nrodoc = $("#nrodoc").val();
     empresa = $("#empresa").val();
-    
 
     $.post(
         Tabla,

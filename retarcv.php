@@ -40,14 +40,35 @@
                     UPPER(CONCAT(LTRIM(RTRIM(ADDRESS3)),', ',LTRIM(RTRIM(CITY)),', ',LTRIM(RTRIM(STATE)))) AS '6.3',
                     UPPER(IMP_nc_open3_nompro) AS '7',
                     open3_p as '8',
-                    PV_MI_direc1 as '9.1',
-                    PV_MI_direc2 as '9.2',
-                    PV_MI_direc3 as '9.3'
+                    UPPER(LTRIM(RTRIM(PV_MI_direc1))) as '9.1',
+                    UPPER(LTRIM(RTRIM(PV_MI_direc2))) as '9.2',
+                    IIF(PV_MI_direc3 ='',UPPER(CONCAT(LTRIM(RTRIM(PV_MI_ciudad)),', EDO. ',LTRIM(RTRIM(PV_MI_estado)))), UPPER(CONCAT(LTRIM(RTRIM(PV_MI_direc3)),'-',LTRIM(RTRIM(PV_MI_ciudad)),', ',LTRIM(RTRIM(PV_MI_estado))))) AS '9.3'
             FROM IMPP3000
             INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
             INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
             INNER JOIN IMPP0161 on PV_MI_idprov = open3_p  
-            WHERE open3_p = '" . $rif . "'");
+            WHERE open3_p = '" . $rif . "'
+            UNION
+            SELECT TOP 1
+                    RIGHT(CONVERT(VARCHAR, IMP_nc_hist3_feccon, 103),4) AS '1',
+                    CONCAT('31/12/',RIGHT(CONVERT(VARCHAR, IMP_nc_hist3_feccon, 103),4)) AS '2',
+                    UPPER(CMPNYNAM) AS '3',
+                    CO_MI_rif000 AS '4',
+                    CONCAT(RIGHT(CONVERT(VARCHAR, IMP_nc_hist3_feccon, 103),4),'0101 - ',RIGHT(CONVERT(VARCHAR, IMP_nc_hist3_feccon, 103),4),'1231') AS '5',
+                    UPPER(LTRIM(RTRIM(ADDRESS1))) AS '6.1',
+                    UPPER(LTRIM(RTRIM(ADDRESS2))) AS '6.2',
+                    UPPER(CONCAT(LTRIM(RTRIM(ADDRESS3)),', ',LTRIM(RTRIM(CITY)),', ',LTRIM(RTRIM(STATE)))) AS '6.3',
+                    UPPER(IMP_nc_hist3_nompro) AS '7',
+                    hist3_p as '8',
+                    UPPER(LTRIM(RTRIM(PV_MI_direc1))) as '9.1',
+                    UPER(LTRIM(RTRIM(PV_MI_direc2))) as '9.2',
+                    IIF(PV_MI_direc3 ='',UPPER(CONCAT(LTRIM(RTRIM(PV_MI_ciudad)),', EDO. ',LTRIM(RTRIM(PV_MI_estado)))), UPPER(CONCAT(LTRIM(RTRIM(PV_MI_direc3)),'-',LTRIM(RTRIM(PV_MI_ciudad)),', ',LTRIM(RTRIM(PV_MI_estado))))) AS '9.3'
+            FROM IMPP3200
+            INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
+            INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
+            INNER JOIN IMPP0161 on PV_MI_idprov = hist3_p  
+            WHERE hist3_p = '" . $rif . "'");
+
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
@@ -186,8 +207,32 @@
                         SUM((IMP_nc_open3_basimp * IMP_nc_open3_porimp)/100) AS 'COL-6'
                 FROM IMPP3000
                 WHERE open3_p = '" . $rif . "'
-                AND RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4) = '" . $ano . "'
+                AND RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4) = '" . $ano ."'
                 GROUP BY RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4),LEFT(LTRIM(RTRIM(IMP_nc_open3_period)),3),IMP_nc_open3_porimp
+                UNION
+                SELECT RIGHT(LTRIM(RTRIM(IMP_nc_hist3_period)),4) AS 'COL-1',
+                        CASE
+                            WHEN LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3)='M1' THEN '01'
+                            WHEN LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3)='M2' THEN '02'
+                            WHEN LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3)='M3' THEN '03'
+                            WHEN LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3)='M4' THEN '04'
+                            WHEN LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3)='M5' THEN '05'
+                            WHEN LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3)='M6' THEN '06'
+                            WHEN LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3)='M7' THEN '07'
+                            WHEN LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3)='M8' THEN '08'
+                            WHEN LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3)='M9' THEN '09'
+                            WHEN LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3)='M10' THEN '10'
+                            WHEN LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3)='M11' THEN '11'
+                            WHEN LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3)='M12' THEN '12'
+                        END AS 'COL-2',
+                        SUM(IMP_nc_hist3_basimp) AS 'COL-3',
+                        IMP_nc_hist3_porimp AS 'COL-4',
+                        0 AS 'COL-5',
+                        SUM((IMP_nc_hist3_basimp * IMP_nc_hist3_porimp)/100) AS 'COL-6'
+                FROM IMPP3200
+                WHERE hist3_p = '" . $rif . "'
+                AND RIGHT(LTRIM(RTRIM(IMP_nc_hist3_period)),4) = '" . $ano . "'
+                GROUP BY RIGHT(LTRIM(RTRIM(IMP_nc_hist3_period)),4),LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3),IMP_nc_hist3_porimp
                 ORDER BY [COL-1],[COL-2]");
 
         $stmt = sqlsrv_query($conn, $sql);
