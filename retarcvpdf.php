@@ -164,7 +164,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                     UPPER(IMP_nc_hist3_nompro) AS '7',
                     hist3_p as '8',
                     UPPER(LTRIM(RTRIM(PV_MI_direc1))) as '9.1',
-                    UPER(LTRIM(RTRIM(PV_MI_direc2))) as '9.2',
+                    UPPER(LTRIM(RTRIM(PV_MI_direc2))) as '9.2',
                     IIF(PV_MI_direc3 ='',UPPER(CONCAT(LTRIM(RTRIM(PV_MI_ciudad)),', EDO. ',LTRIM(RTRIM(PV_MI_estado)))), UPPER(CONCAT(LTRIM(RTRIM(PV_MI_direc3)),'-',LTRIM(RTRIM(PV_MI_ciudad)),', ',LTRIM(RTRIM(PV_MI_estado))))) AS '9.3'
             FROM IMPP3200
             INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
