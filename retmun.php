@@ -48,9 +48,9 @@
     UPPER(CONCAT(LTRIM(RTRIM(ADDRESS3)),', ',LTRIM(RTRIM(CITY)),', ',LTRIM(RTRIM(STATE)))) AS '5.3',
     UPPER(IMP_gene_nompro) AS '6',
     IMP_gene_rif000 as '7',
-	PV_MI_direc1 as '8.1',
-	PV_MI_direc2 as '8.2',
-	PV_MI_direc3 as '8.3',
+	UPPER(LTRIM(RTRIM(PV_MI_direc1))) as '8.1',
+	UPPER(LTRIM(RTRIM(PV_MI_direc2))) as '8.2',
+    IIF(PV_MI_direc3 ='',UPPER(CONCAT(LTRIM(RTRIM(PV_MI_ciudad)),', EDO. ',LTRIM(RTRIM(PV_MI_estado)))), UPPER(CONCAT(LTRIM(RTRIM(PV_MI_direc3)),'-',LTRIM(RTRIM(PV_MI_ciudad)),', ',LTRIM(RTRIM(PV_MI_estado))))) AS '8.3',
 	CO_MI_nit000 as '9',
 	PV_MI_nit000 as '10',
     IMP_gene_njrnent as '11'
@@ -60,7 +60,46 @@
 	INNER JOIN IMPP0161 on PV_MI_rif000 = IMP_gene_rif000
     WHERE IMP_gene_rif000 =  '" . $rif . "'
     AND IMP_gene_detimp LIKE '%MUN%'
-    AND IMP_gene_numdoc = '" . $doc . "'");
+    AND IMP_gene_numdoc = '" . $doc ."'
+    UNION
+    SELECT TOP 1
+    IMP_gene_corrh as '0',
+    CONVERT(VARCHAR, IMP_gene_fecconh, 103) AS '1',
+    UPPER(CMPNYNAM) AS '2',
+    CO_MI_rif000 AS '3',
+    CONCAT('Año: ',LEFT(CONVERT(VARCHAR,IMP_gene_fecdoch,23),4),'  Mes: ',
+	CASE
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=1 THEN 'Enero'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=2 THEN 'Febreo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=3 THEN 'Marzo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=4 THEN 'Abril'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=5 THEN 'Mayo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=6 THEN 'Junio'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=7 THEN 'Julio'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=8 THEN 'Agosto'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=9 THEN 'Septiembre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=10 THEN 'Octubre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),5,2)=11 THEN 'Noviembre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),5,2)=12 THEN 'Diciembre'
+	END) AS '4',
+    UPPER(LTRIM(RTRIM(ADDRESS1))) AS '5.1',
+    UPPER(LTRIM(RTRIM(ADDRESS2))) AS '5.2',
+    UPPER(CONCAT(LTRIM(RTRIM(ADDRESS3)),', ',LTRIM(RTRIM(CITY)),', ',LTRIM(RTRIM(STATE)))) AS '5.3',
+    UPPER(IMP_gene_nomproh) AS '6',
+    IMP_gene_rif000h as '7',
+	UPPER(LTRIM(RTRIM(PV_MI_direc1))) as '8.1',
+	UPPER(LTRIM(RTRIM(PV_MI_direc2))) as '8.2',
+    IIF(PV_MI_direc3 ='',UPPER(CONCAT(LTRIM(RTRIM(PV_MI_ciudad)),', EDO. ',LTRIM(RTRIM(PV_MI_estado)))), UPPER(CONCAT(LTRIM(RTRIM(PV_MI_direc3)),'-',LTRIM(RTRIM(PV_MI_ciudad)),', ',LTRIM(RTRIM(PV_MI_estado))))) AS '8.3',
+	CO_MI_nit000 as '9',
+	PV_MI_nit000 as '10',
+    IMP_gene_njrnent as '11'
+    FROM IMPP4100
+    INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
+    INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
+	INNER JOIN IMPP0161 on PV_MI_rif000 = IMP_gene_rif000h
+    WHERE IMP_gene_rif000h =  '" . $rif . "'
+    AND IMP_gene_detimph LIKE '%MUN%'
+    AND IMP_gene_numdoch = '" . $doc . "'");
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
@@ -208,7 +247,22 @@
                     FROM IMPP4000
                     WHERE IMP_gene_rif000 = '" . $rif . "'
                     AND IMP_gene_detimp LIKE '%MUN%'
-                    AND IMP_gene_numdoc = '" . $doc . "'
+                    AND IMP_gene_numdoc = '" . $doc ."'
+                    UNION
+                    SELECT CONVERT(VARCHAR, IMP_gene_fecdoch, 103) AS 'COL-1',
+                            IMP_gene_numdoch AS 'COL-2',
+                            IMP_gene_ncontrh AS 'COL-3',
+                            IMP_gene_numntdh AS 'COL-4',
+                            IMP_gene_numntch AS 'COL-5',
+                            IMP_gene_numfafh AS 'COL-6',
+                            IMP_gene_actecoh AS 'COL-7',
+                            IMP_gene_basimph AS 'COL-8',
+                            IMP_gene_porimph AS 'COL-9',
+                            IMP_gene_monimph AS 'COL-10'
+                    FROM IMPP4100
+                    WHERE IMP_gene_rif000h = '" . $rif . "'
+                    AND IMP_gene_detimph LIKE '%MUN%'
+                    AND IMP_gene_numdoch = '" . $doc . "'
                     UNION
                     SELECT CONVERT(VARCHAR, IMP_gene_fecdoc, 103) AS 'COL-1',
                             '' AS 'COL-2',

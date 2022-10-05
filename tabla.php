@@ -119,8 +119,21 @@
                 WHERE IMP_gene_idprov = '" . $rifProv . "'
                 AND CONVERT(VARCHAR,IMP_gene_feccon,23) >= '" . $fechaini . "' 
                 AND CONVERT(VARCHAR,IMP_gene_feccon,23) <= '" . $fechafin . "'
-                AND IMP_gene_numdoc LIKE '%" . $nrodoc . "%'
+                AND IMP_gene_numdoc LIKE '%" . $nrodoc ."%'
                 GROUP BY IMP_gene_numdoc,IMP_gene_fecdoc,IMP_gene_feccon
+                UNION
+                SELECT  IMP_gene_numdoch AS 'col-1',
+                        CONVERT(VARCHAR,IMP_gene_fecdoch,103) AS 'col-2',
+                        CONVERT(VARCHAR,IMP_gene_fecconh,103) AS 'col-3',
+                        STR(SUM(IMP_gene_porimph),9,2) AS 'col-4',
+                        MAX(IMP_gene_detimph) AS 'col-5',
+                        'MUN' AS 'col-6'                        
+                FROM IMPP4100
+                WHERE IMP_gene_idprovh = '" . $rifProv . "'
+                AND CONVERT(VARCHAR,IMP_gene_fecconh,23) >= '" . $fechaini . "' 
+                AND CONVERT(VARCHAR,IMP_gene_fecconh,23) <= '" . $fechafin . "'
+                AND IMP_gene_numdoch LIKE '%" . $nrodoc . "%'
+                GROUP BY IMP_gene_numdoch,IMP_gene_fecdoch,IMP_gene_fecconh
                 ORDER BY 'col-1', 'col-3', 'col-6'");
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {
