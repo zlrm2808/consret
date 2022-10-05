@@ -34,9 +34,19 @@
             FROM IMPP3000
             INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
             WHERE open3_p = '" . $rifProv . "'
-            AND RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4) BETWEEN '" . $yearini ."' AND '" . $yearfin . "'
-            GROUP BY RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4),CONCAT('31-12-',RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4)),UPPER(CMPNYNAM)"
-    );
+            AND RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4) BETWEEN '" . $yearini ."' AND '" . $yearfin ."'
+            GROUP BY RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4),CONCAT('31-12-',RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4)),UPPER(CMPNYNAM)
+            UNION
+            SELECT RIGHT(LTRIM(RTRIM(IMP_nc_hist3_period)),4) AS 'COL-1',
+                    CONCAT('31-12-',RIGHT(LTRIM(RTRIM(IMP_nc_hist3_period)),4)) AS 'COL-2',
+                    UPPER(CMPNYNAM) AS 'COL-3',
+                    'ARCV' AS 'COL-4'
+            FROM IMPP3200
+            INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
+            WHERE hist3_p = '" . $rifProv . "'
+            AND RIGHT(LTRIM(RTRIM(IMP_nc_hist3_period)),4) BETWEEN '" . $yearini . "' AND '" . $yearfin . "'
+            GROUP BY RIGHT(LTRIM(RTRIM(IMP_nc_hist3_period)),4),CONCAT('31-12-',RIGHT(LTRIM(RTRIM(IMP_nc_hist3_period)),4)),UPPER(CMPNYNAM)");
+            
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
