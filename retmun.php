@@ -92,7 +92,7 @@
     IIF(PV_MI_direc3 ='',UPPER(CONCAT(LTRIM(RTRIM(PV_MI_ciudad)),', EDO. ',LTRIM(RTRIM(PV_MI_estado)))), UPPER(CONCAT(LTRIM(RTRIM(PV_MI_direc3)),'-',LTRIM(RTRIM(PV_MI_ciudad)),', ',LTRIM(RTRIM(PV_MI_estado))))) AS '8.3',
 	CO_MI_nit000 as '9',
 	PV_MI_nit000 as '10',
-    IMP_gene_njrnent as '11'
+    IMP_gene_njrnenth as '11'
     FROM IMPP4100
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
@@ -100,6 +100,7 @@
     WHERE IMP_gene_rif000h =  '" . $rif . "'
     AND IMP_gene_detimph LIKE '%MUN%'
     AND IMP_gene_numdoch = '" . $doc . "'");
+    
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
