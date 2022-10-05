@@ -84,40 +84,42 @@
             <h3 style="margin-top:-5px;"><?php echo $emp; ?></h3>
         </div>
     </div>
-    <div class="contenedor-mid2">
-        <div class="fecha-desde">
-            <h3>Desde:</h3>
-            <br>
-            <?php
-            echo
-            "<input type='date' name='fecha' id='fechaIni' value='" . $hoy . "'>";
-            ?>
-            <br>
-            <?php
-            echo
-            "<input type='hidden' name='empresa' id='empresa' value='" . $EMPRESA . "'>";
-            ?>
+    <form id="parametros">
+        <div class="contenedor-mid2">
+            <div class="fecha-desde">
+                <h3>Desde:</h3>
+                <br>
+                <?php
+                echo
+                "<input type='date' name='fecha' id='fechaIni' value='" . $hoy . "'>";
+                ?>
+                <br>
+                <?php
+                echo
+                "<input type='hidden' name='empresa' id='empresa' value='" . $EMPRESA . "'>";
+                ?>
+            </div>
+            <div class="fecha-hasta">
+                <h3>Hasta:</h3>
+                <br>
+                <?php
+                echo
+                "<input type='date' name='fecha' id='fechaFin' value='" . $hoy . "'>";
+                ?>
+            </div>
+            <div class="documento">
+                <h3>Documento:</h3>
+                <br>
+                <input type="text" name="documento" id="nrodoc">
+            </div>
+            <input type="hidden" name="rif" id="rif" value="<?php echo $rif ?>">
+            <div class="botones">
+                <input type="button" id="buscar" onclick="getValueInput()" value="Buscar">
+                <input type="reset" onclick="limpiartabla()" value="Borrar">
+                <p id="valueInput"></p>
+            </div>
         </div>
-        <div class="fecha-hasta">
-            <h3>Hasta:</h3>
-            <br>
-            <?php
-            echo
-            "<input type='date' name='fecha' id='fechaFin' value='" . $hoy . "'>";
-            ?>
-        </div>
-        <div class="documento">
-            <h3>Documento:</h3>
-            <br>
-            <input type="text" name="documento" id="nrodoc">
-        </div>
-        <input type="hidden" name="rif" id="rif" value="<?php echo $rif ?>">
-        <div class="botones">
-            <input type="button" id="buscar" onclick="getValueInput()" value="Buscar">
-            <input type="reset" onclick="limpiartabla()" value="Borrar">
-            <p id="valueInput"></p>
-        </div>
-    </div>
+    </form>
     <div class="contenedor-bot">
         <label class="cbArc">ARC
             <input type="checkbox" id="arc" name="arc" onclick="check()">

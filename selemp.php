@@ -91,7 +91,7 @@ sqlsrv_free_stmt($stmt);
         <div class="contenedor-top">
             <div class="logo-vog">
                 <img src="./images/VOG-horiz-blue.png" height="70px">
-                <h5>Compribantes de Retención Online</h5>
+                <h5>Comprobantes de Retención Online</h5>
             </div>
             <div class="logo-empresa">
             </div>

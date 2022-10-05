@@ -34,37 +34,71 @@
                             WHEN IMP_porcrete_alicadic != 0 THEN STR(ABS(IMP_porcrete_alicadic),9,2)
                         END AS 'col-4',
                         '' AS 'col-5',
-                        IIF(IMP_nc_open_numntd = '' AND IMP_nc_open_numntc = '', 'IVA','') AS 'col-6'
+                        IIF(IMP_nc_open_numntd = '' AND IMP_nc_open_numntc = '', 'IVA','') AS 'col-6',
+                        'ABIERTO' AS 'col-7'
                 FROM IMPP2001
                 WHERE open_p = '" . $rifProv . "'
                 AND (IMP_nc_open_numntd = '' AND IMP_nc_open_numntc = '')
                 AND CONVERT(VARCHAR, IMP_nc_open_feccon, 23) >= '" . $fechaini . "'
                 AND CONVERT(VARCHAR, IMP_nc_open_feccon, 23) <= '" . $fechafin . "'
-                AND IMP_nc_open_numfac LIKE '%" . $nrodoc ."%'
+                AND IMP_nc_open_numfac LIKE '%" . $nrodoc . "%'
+                UNION
+                SELECT IMP_nc_hist_numfac as 'col-1',
+                        CONVERT(VARCHAR, IMP_nc_hist_fecdoc, 103) AS 'col-2',
+                        CONVERT(VARCHAR, IMP_nc_hist_feccon, 103) AS 'col-3',
+                        CASE
+                            WHEN IMP_porcrete_alicgene != 0 THEN STR(ABS(IMP_porcrete_alicgene),9,2)
+                            WHEN IMP_porcrete_alicreduc != 0 THEN STR(ABS(IMP_porcrete_alicreduc),9,2)
+                            WHEN IMP_porcrete_alicadic != 0 THEN STR(ABS(IMP_porcrete_alicadic),9,2)
+                        END AS 'col-4',
+                        '' AS 'col-5',
+                        IIF(IMP_nc_hist_numntd = '' AND IMP_nc_hist_numntc = '', 'IVA','') AS 'col-6',
+                        'HISTORICO' AS 'col-7'
+                FROM IMPP2201
+                WHERE hist_p = '" . $rifProv . "'
+                AND (IMP_nc_hist_numntd = '' AND IMP_nc_hist_numntc = '')
+                AND CONVERT(VARCHAR, IMP_nc_hist_feccon, 23) >= '" . $fechaini . "'
+                AND CONVERT(VARCHAR, IMP_nc_hist_feccon, 23) <= '" . $fechafin . "'
+                AND IMP_nc_hist_numfac LIKE '%" . $nrodoc . "%'
                 UNION
                 SELECT  IMP_nc_open3_numfac AS 'col-1',
                         CONVERT(VARCHAR, IMP_nc_open3_fecdoc, 103) AS 'col-2',
                         CONVERT(VARCHAR, IMP_nc_open3_feccon, 103) AS 'col-3',
                         STR(IMP_nc_open3_porimp,9,2) AS 'col-4',
                         IMP_nc_open3_detimp AS 'col-5',
-                        IIF(IMP_nc_open3_detimp != '', 'ISLR','') AS 'col-6'
+                        IIF(IMP_nc_open3_detimp != '', 'ISLR','') AS 'col-6',
+                        'ABIERTO' AS 'col-7'
                 FROM IMPP3000
                 WHERE open3_p = '" . $rifProv . "'
                 AND CONVERT(VARCHAR, IMP_nc_open3_feccon, 23) >= '" . $fechaini . "'
                 AND CONVERT(VARCHAR, IMP_nc_open3_feccon, 23) <= '" . $fechafin . "'
                 AND IMP_nc_open3_numfac LIKE '%" . $nrodoc . "%'
                 UNION
+                SELECT  IMP_nc_hist3_numfac AS 'col-1',
+                        CONVERT(VARCHAR, IMP_nc_hist3_fecdoc, 103) AS 'col-2',
+                        CONVERT(VARCHAR, IMP_nc_hist3_feccon, 103) AS 'col-3',
+                        STR(IMP_nc_hist3_porimp,9,2) AS 'col-4',
+                        IMP_nc_hist3_detimp AS 'col-5',
+                        IIF(IMP_nc_hist3_detimp != '', 'ISLR','') AS 'col-6',
+                        'HISTORICO' AS 'col-7'
+                FROM IMPP3200
+                WHERE hist3_p = '" . $rifProv . "'
+                AND CONVERT(VARCHAR, IMP_nc_hist3_feccon, 23) >= '" . $fechaini . "'
+                AND CONVERT(VARCHAR, IMP_nc_hist3_feccon, 23) <= '" . $fechafin . "'
+                AND IMP_nc_hist3_numfac LIKE '%" . $nrodoc . "%'
+                UNION
                 SELECT  IMP_gene_numdoc AS 'col-1',
                         CONVERT(VARCHAR,IMP_gene_fecdoc,103) AS 'col-2',
                         CONVERT(VARCHAR,IMP_gene_feccon,103) AS 'col-3',
                         STR(SUM(IMP_gene_porimp),9,2) AS 'col-4',
                         MAX(IMP_gene_detimp) AS 'col-5',
-                        'ADC' AS 'col-6'
+                        'ADC' AS 'col-6',
+                        'ABIERTO' AS 'col-7'
                 FROM IMPP4000
                 WHERE IMP_gene_idprov = '" . $rifProv . "'
                 AND CONVERT(VARCHAR,IMP_gene_feccon,23) >= '" . $fechaini . "' 
                 AND CONVERT(VARCHAR,IMP_gene_feccon,23) <= '" . $fechafin . "'
-                AND IMP_gene_numdoc LIKE '%" . $nrodoc ."%'
+                AND IMP_gene_numdoc LIKE '%" . $nrodoc . "%'
                 GROUP BY IMP_gene_numdoc,IMP_gene_fecdoc,IMP_gene_feccon
                 UNION
                 SELECT  IMP_gene_numdoc AS 'col-1',
@@ -72,7 +106,8 @@
                         CONVERT(VARCHAR,IMP_gene_feccon,103) AS 'col-3',
                         STR(SUM(IMP_gene_porimp),9,2) AS 'col-4',
                         MAX(IMP_gene_detimp) AS 'col-5',
-                        'MUN' AS 'col-6'
+                        'MUN' AS 'col-6',
+                        'ABIERTO' AS 'col-7'
                 FROM IMPP4000
                 WHERE IMP_gene_idprov = '" . $rifProv . "'
                 AND CONVERT(VARCHAR,IMP_gene_feccon,23) >= '" . $fechaini . "' 
@@ -148,7 +183,7 @@
                             <td>
                                 <center>
                                 <input type="image" id="HTML" src="./images/html.png" height="25" width="25" title="Imprimir Comprobante HTML" value="' . $numrow . '" onclick="html(' . $numrow . ');">
-                                <input type="image" id="PDF" src="./images/pdf.jpg" height="25" width="25" title="Imprimir Comprobante PDF" value="' . $numrow . '" onclick="pdf('. $numrow.');">
+                                <input type="image" id="PDF" src="./images/pdf.jpg" height="25" width="25" title="Imprimir Comprobante PDF" value="' . $numrow . '" onclick="pdf('. $numrow. ');">
                                 </center>
                             </td>
                     </tr>

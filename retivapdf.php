@@ -164,15 +164,51 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     UPPER(CONCAT(LTRIM(RTRIM(ADDRESS3)),', ',LTRIM(RTRIM(CITY)),', ',LTRIM(RTRIM(STATE)))) AS '5.3',
     UPPER(IMP_nc_open_nompro) AS '6',
     open_p as '7',
-    PV_MI_direc1 as '8.1',
-	PV_MI_direc2 as '8.2',
-	PV_MI_direc3 as '8.3'
+    UPPER(LTRIM(RTRIM(PV_MI_direc1))) as '8.1',
+	UPPER(LTRIM(RTRIM(PV_MI_direc2))) as '8.2',
+    IIF(PV_MI_direc3 ='',UPPER(CONCAT(LTRIM(RTRIM(PV_MI_ciudad)),', EDO. ',LTRIM(RTRIM(PV_MI_estado)))), UPPER(CONCAT(LTRIM(RTRIM(PV_MI_direc3)),'-',LTRIM(RTRIM(PV_MI_ciudad)),', ',LTRIM(RTRIM(PV_MI_estado))))) AS '8.3'
     FROM IMPP2001
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
     INNER JOIN IMPP0161 ON PV_MI_rif000 = open_p
     WHERE open_p = '" . $rif . "'
-    AND IMP_nc_open_numfac = '" . $doc . "'");
+    AND IMP_nc_open_numfac = '" . $doc . "'
+    UNION
+    SELECT TOP 1
+        IMP_nc_hist_nreten as '0',
+        CONVERT(VARCHAR, IMP_nc_hist_feccon, 103) AS '1',
+        UPPER(CMPNYNAM) AS '2',
+        CO_MI_rif000 AS '3',
+        CONCAT('AÑO ',RIGHT(LTRIM(RTRIM(IMP_nc_hist_period)),4),' / MES ',
+        CASE
+            WHEN SUBSTRING(IMP_nc_hist_period,5,2)=1 THEN 'ENERO'
+            WHEN SUBSTRING(IMP_nc_hist_period,5,2)=2 THEN 'FEBRERO'
+            WHEN SUBSTRING(IMP_nc_hist_period,5,2)=3 THEN 'MARZO'
+            WHEN SUBSTRING(IMP_nc_hist_period,5,2)=4 THEN 'ABRIL'
+            WHEN SUBSTRING(IMP_nc_hist_period,5,2)=5 THEN 'MAYO'
+            WHEN SUBSTRING(IMP_nc_hist_period,5,2)=6 THEN 'JUNIO'
+            WHEN SUBSTRING(IMP_nc_hist_period,5,2)=7 THEN 'JULIO'
+            WHEN SUBSTRING(IMP_nc_hist_period,5,2)=8 THEN 'AGOSTO'
+            WHEN SUBSTRING(IMP_nc_hist_period,5,2)=9 THEN 'SEPTIEMBRE'
+            WHEN SUBSTRING(IMP_nc_hist_period,5,2)=10 THEN 'OCTTUBRE'
+            WHEN SUBSTRING(IMP_nc_hist_period,5,2)=11 THEN 'NOVIEMBRE'
+            WHEN SUBSTRING(IMP_nc_hist_period,5,2)=12 THEN 'DICIEMBRE'
+        END) AS '4',
+        UPPER(LTRIM(RTRIM(ADDRESS1))) AS '5.1',
+        UPPER(LTRIM(RTRIM(ADDRESS2))) AS '5.2',
+        UPPER(CONCAT(LTRIM(RTRIM(ADDRESS3)),', ',LTRIM(RTRIM(CITY)),', ',LTRIM(RTRIM(STATE)))) AS '5.3',
+        UPPER(IMP_nc_hist_nompro) AS '6',
+        hist_p as '7',
+        UPPER(LTRIM(RTRIM(PV_MI_direc1))) as '8.1',
+	UPPER(LTRIM(RTRIM(PV_MI_direc2))) as '8.2',
+    IIF(PV_MI_direc3 ='',UPPER(CONCAT(LTRIM(RTRIM(PV_MI_ciudad)),', EDO. ',LTRIM(RTRIM(PV_MI_estado)))), UPPER(CONCAT(LTRIM(RTRIM(PV_MI_direc3)),'-',LTRIM(RTRIM(PV_MI_ciudad)),', ',LTRIM(RTRIM(PV_MI_estado))))) AS '8.3'
+    FROM IMPP2201
+    INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
+    INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
+    INNER JOIN IMPP0161 ON PV_MI_rif000 = hist_p
+    WHERE hist_p = '" . $rif . "'
+    AND IMP_nc_hist_numfac = '" . $doc . "'");
+
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
@@ -332,7 +368,42 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
             FROM IMPP2001
             WHERE open_p = '" . $rif . "'
             AND IMP_nc_open_numfac = '" . $doc . "'
-            OR IMP_nc_open_facafe = '" . $doc . "'");
+            OR IMP_nc_open_facafe = '" . $doc . "'
+            UNION
+            SELECT IMP_nc_hist_numope AS 'col-1',
+                CONVERT(VARCHAR, IMP_nc_hist_fecdoc, 103) AS 'col-2',
+                IMP_nc_hist_numfac AS 'col-3',
+                IMP_nc_hist_ncontro AS 'col-4',
+                IMP_nc_hist_numntd AS 'col-5',
+                IMP_nc_hist_numntc AS 'col-6',
+                CASE
+                    WHEN IMP_nc_hist_tiptra = 1 THEN '01-Reg'
+                    WHEN IMP_nc_hist_tiptra = 2 THEN '02-Comp'
+                    WHEN IMP_nc_hist_tiptra = 3 THEN '03-Anul'
+                    ELSE '04-Ajuste'
+                END AS 'col-7',
+                IMP_nc_hist_facafe AS 'col-8',
+                STR(IIF(IMP_nc_hist_tipdoc = 4, IMP_nc_hist_cociva * -1, IMP_nc_hist_cociva),9,2) AS 'col-9',
+                STR(IMP_nc_hist_cosiva,9,2) AS 'col-10',
+                STR(IIF(IMP_nc_hist_tipdoc = 4, IMP_basimp_alicgene * -1, IMP_basimp_alicgene),9,2) AS 'col-11',
+                STR(IMP_porceimp_alicgene,9,2) AS 'col-12',
+                STR(IIF(IMP_nc_hist_tipdoc = 4, IMP_montoimp_alicgene * -1, IMP_montoimp_alicgene),9,2) AS 'col-13',
+                STR(IIF(IMP_nc_hist_tipdoc = 4, IMP_basimp_alicreduc * -1, IMP_basimp_alicreduc),9,2) AS 'col-14',
+                STR(IMP_porceimp_alicreduc,9,2) AS 'col-15',
+                STR(IIF(IMP_nc_hist_tipdoc = 4, IMP_montoimp_alicreduc * -1, IMP_montoimp_alicreduc),9,2) AS 'col-16',
+                STR(IIF(IMP_nc_hist_tipdoc = 4, IMP_basimp_alicadic * -1, IMP_basimp_alicadic),9,2) AS 'col-17',
+                STR(IMP_porceimp_alicadic,9,2) AS 'col-18',
+                STR(IIF(IMP_nc_hist_tipdoc = 4, IMP_montoimp_alicadic * -1, IMP_montoimp_alicadic),9,2) AS 'col-19',
+                CASE
+                    WHEN IMP_porcrete_alicgene != 0 THEN STR(ABS(IMP_porcrete_alicgene),9,2)
+                    WHEN IMP_porcrete_alicreduc != 0 THEN STR(ABS(IMP_porcrete_alicreduc),9,2)
+                    ELSE STR(ABS(IMP_porcrete_alicadic),9,2)
+                END AS 'col-20',
+                IIF(IMP_nc_hist_numntc='',STR(ABS(IMP_nc_hist_ivaret),9,2),STR(IMP_nc_hist_ivaret,9,2)) AS 'col-21'
+            FROM IMPP2201
+            WHERE hist_p = '" . $rif . "'
+            AND IMP_nc_hist_numfac = '" . $doc . "'
+            OR IMP_nc_hist_facafe = '" . $doc . "'");
 
         $stmt = sqlsrv_query($conn, $sql);
         if ($stmt === false) {
@@ -378,7 +449,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
         $totivaret = 0;
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             $tableIva .=
-            "
+                "
             <tbody>
             <tr class='interno'>
                 <td width='5%' align='center'>" . $row['col-2'] . "</td> 
@@ -410,7 +481,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
             $totivaret += $row['col-21'];
         }
         $tableIva .=
-        "
+            "
         </tbody>
         </table>
         <table class='tbfont2' border='0' style='border-collapse: collapse' align='center' width='100%'>

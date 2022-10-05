@@ -10,7 +10,10 @@ function check() {
 }
 
 function limpiartabla() {
+    let formulario = document.getElementById('parametros');
     $("#tabla").hide();
+    $("#nrodoc").val() = '';
+    formulario.reset();
 }
 
 function getValueInput() {
@@ -91,6 +94,7 @@ function html(id) {
     var doc = $("#doc" + id).text();
     var tipo = $("#tipo" + id).text();
     var empresa = $("#empresa").val();
+    var tiptrans = $("#tiptrans").val();
 
     var myRedirect = function (redirectUrl) {
         var form = $(
