@@ -189,8 +189,8 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     FROM IMPP4000
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
-	INNER JOIN IMPP0161 on PV_MI_rif000 = IMP_gene_rif000
-    WHERE IMP_gene_rif000 =  '" . $rif . "'
+	INNER JOIN IMPP0161 on PV_MI_rif000 = IMP_gene_idprov
+    WHERE IMP_gene_idprov =  '" . $rif . "'
     AND IMP_gene_detimp LIKE '%MUN%'
     AND IMP_gene_numdoc = '" . $doc . "'
     UNION
@@ -228,8 +228,8 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     FROM IMPP4100
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
-	INNER JOIN IMPP0161 on PV_MI_rif000 = IMP_gene_rif000h
-    WHERE IMP_gene_rif000h =  '" . $rif . "'
+	INNER JOIN IMPP0161 on PV_MI_rif000 = IMP_gene_idprovh
+    WHERE IMP_gene_idprovh =  '" . $rif . "'
     AND IMP_gene_detimph LIKE '%MUN%'
     AND IMP_gene_numdoch = '" . $doc . "'");
 
@@ -252,6 +252,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
         $dir2 = $row["5.2"];
         $dir3 = $row["5.3"];
         $nempr = $row["6"];
+        $rifp = $row["7"];
         $dirP1 = $row["8.1"];
         $dirP2 = $row["8.2"];
         $dirP3 = $row["8.3"];
@@ -326,7 +327,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
             </tr>
             <tr>
                 <td style="width:5400px00px; font-weight: normal;"><?php echo $rifEmp ?></td>
-                <td style="width:500px; font-weight: normal"><?php echo $rif ?></td>
+                <td style="width:500px; font-weight: normal"><?php echo $rifp ?></td>
             </tr>
             <tr>
                 <td style="width:400px;"><b>Dirección Fiscal:</b></td>
@@ -361,7 +362,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                             IMP_gene_porimp AS 'COL-9',
                             IMP_gene_monimp AS 'COL-10'
                     FROM IMPP4000
-                    WHERE IMP_gene_rif000 = '" . $rif . "'
+                    WHERE IMP_gene_idprov = '" . $rif . "'
                     AND IMP_gene_detimp LIKE '%MUN%'
                     AND IMP_gene_numdoc = '" . $doc . "'
                     UNION
@@ -376,7 +377,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                             IMP_gene_porimph AS 'COL-9',
                             IMP_gene_monimph AS 'COL-10'
                     FROM IMPP4100
-                    WHERE IMP_gene_rif000h = '" . $rif . "'
+                    WHERE IMP_gene_idprovh = '" . $rif . "'
                     AND IMP_gene_detimph LIKE '%MUN%'
                     AND IMP_gene_numdoch = '" . $doc . "'
                     UNION
@@ -391,7 +392,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                             IMP_gene_porimp AS 'COL-9',
                             IMP_gene_monimp AS 'COL-10'
                     FROM IMPP4300
-                    WHERE IMP_gene_rif000 = '" . $rif . "'
+                    WHERE IMP_gene_idprov = '" . $rif . "'
                     AND IMP_gene_detimp LIKE '%MUN%' 
                     AND IMP_gene_numfaf = '" . $doc . "'");
 

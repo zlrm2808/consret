@@ -151,6 +151,7 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
             INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
             INNER JOIN IMPP0161 on PV_MI_idprov = open3_p  
             WHERE open3_p = '" . $rif . "'
+            AND YEAR(IMP_nc_open3_fecdoc) = '" . $doc . "'
             UNION
             SELECT TOP 1
                     RIGHT(CONVERT(VARCHAR, IMP_nc_hist3_feccon, 103),4) AS '1',
@@ -170,7 +171,8 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
             INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
             INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
             INNER JOIN IMPP0161 on PV_MI_idprov = hist3_p  
-            WHERE hist3_p = '" . $rif . "'");
+            WHERE hist3_p = '" . $rif . "'
+            AND YEAR(IMP_nc_hist3_fecdoc) = '" . $doc . "'");
 
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {
@@ -295,11 +297,11 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                         SUM(IMP_nc_open3_basimp) AS 'COL-3',
                         IMP_nc_open3_porimp AS 'COL-4',
                         0 AS 'COL-5',
-                        SUM((IMP_nc_open3_basimp * IMP_nc_open3_porimp)/100) AS 'COL-6'
+                        IMP_nc_open3_monimp AS 'COL-6'
                 FROM IMPP3000
                 WHERE open3_p = '" . $rif . "'
-                AND RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4) = '" . $ano . "'
-                GROUP BY RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4),LEFT(LTRIM(RTRIM(IMP_nc_open3_period)),3),IMP_nc_open3_porimp
+                AND YEAR(IMP_nc_open3_fecdoc) = '" . $doc . "'
+                GROUP BY RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4),LEFT(LTRIM(RTRIM(IMP_nc_open3_period)),3),IMP_nc_open3_porimp, IMP_nc_open3_monimp
                 UNION
                 SELECT RIGHT(LTRIM(RTRIM(IMP_nc_hist3_period)),4) AS 'COL-1',
                         CASE
@@ -319,11 +321,11 @@ $FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySe
                         SUM(IMP_nc_hist3_basimp) AS 'COL-3',
                         IMP_nc_hist3_porimp AS 'COL-4',
                         0 AS 'COL-5',
-                        SUM((IMP_nc_hist3_basimp * IMP_nc_hist3_porimp)/100) AS 'COL-6'
+                        IMP_nc_hist3_monimp AS 'COL-6'
                 FROM IMPP3200
                 WHERE hist3_p = '" . $rif . "'
-                AND RIGHT(LTRIM(RTRIM(IMP_nc_hist3_period)),4) = '" . $ano . "'
-                GROUP BY RIGHT(LTRIM(RTRIM(IMP_nc_hist3_period)),4),LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3),IMP_nc_hist3_porimp
+                AND YEAR(IMP_nc_hist3_fecdoc) = '" . $doc . "'
+                GROUP BY RIGHT(LTRIM(RTRIM(IMP_nc_hist3_period)),4),LEFT(LTRIM(RTRIM(IMP_nc_hist3_period)),3),IMP_nc_hist3_porimp, IMP_nc_hist3_monimp
                 ORDER BY [COL-1],[COL-2]");
 
         $stmt = sqlsrv_query($conn, $sql);

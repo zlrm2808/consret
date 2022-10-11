@@ -28,20 +28,20 @@
     CONVERT(VARCHAR, IMP_gene_feccon, 103) AS '1',
     UPPER(CMPNYNAM) AS '2',
     CO_MI_rif000 AS '3',
-    CONCAT('AÑO ',LEFT(CONVERT(VARCHAR,IMP_gene_fecdoc,23),4),' / MES ',
+    CONCAT('Año: ',LEFT(CONVERT(VARCHAR,IMP_gene_fecdoc,23),4),'  Mes: ',
 	CASE
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=1 THEN 'ENERO'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=2 THEN 'FEBRERO'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=3 THEN 'MARZO'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=4 THEN 'ABRIL'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=5 THEN 'MAYO'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=6 THEN 'JUNIO'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=7 THEN 'JULIO'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=8 THEN 'AGOSTO'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=9 THEN 'SEPTIEMBRE'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=10 THEN 'OCTUBRE'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),5,2)=11 THEN 'NOVIEMBRE'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),5,2)=12 THEN 'DICIEMBRE'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=1 THEN 'Enero'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=2 THEN 'Febreo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=3 THEN 'Marzo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=4 THEN 'Abril'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=5 THEN 'Mayo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=6 THEN 'Junio'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=7 THEN 'Julio'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=8 THEN 'Agosto'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=9 THEN 'Septiembre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),6,2)=10 THEN 'Octubre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),5,2)=11 THEN 'Noviembre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoc,23),5,2)=12 THEN 'Diciembre'
 	END) AS '4',
     UPPER(LTRIM(RTRIM(ADDRESS1))) AS '5.1',
     UPPER(LTRIM(RTRIM(ADDRESS2))) AS '5.2',
@@ -54,30 +54,30 @@
     FROM IMPP4000
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
-	INNER JOIN IMPP0161 on PV_MI_idprov = IMP_gene_rif000
-    WHERE IMP_gene_rif000 =  '" . $rif . "'
+	INNER JOIN IMPP0161 on PV_MI_idprov = IMP_gene_idprov
+    WHERE IMP_gene_idprov =  '" . $rif . "'
     AND IMP_gene_detimp LIKE '%MUN%'
-    AND IMP_gene_numdoc = '" . $doc ."'
+    AND IMP_gene_numdoc = '" . $doc . "'
     UNION
     SELECT TOP 1
     IMP_gene_ncomprh as '0',
     CONVERT(VARCHAR, IMP_gene_fecconh, 103) AS '1',
     UPPER(CMPNYNAM) AS '2',
     CO_MI_rif000 AS '3',
-    CONCAT('AÑO ',LEFT(CONVERT(VARCHAR,IMP_gene_fecdoch,23),4),' / MES ',
+    CONCAT('Año: ',LEFT(CONVERT(VARCHAR,IMP_gene_fecdoch,23),4),'  Mes: ',
 	CASE
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=1 THEN 'ENERO'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=2 THEN 'FEBRERO'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=3 THEN 'MARZO'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=4 THEN 'ABRIL'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=5 THEN 'MAYO'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=6 THEN 'JUNIO'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=7 THEN 'JULIO'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=8 THEN 'AGOSTO'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=9 THEN 'SEPTIEMBRE'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=10 THEN 'OCTUBRE'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),5,2)=11 THEN 'NOVIEMBRE'
-		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),5,2)=12 THEN 'DICIEMBRE'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=1 THEN 'Enero'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=2 THEN 'Febreo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=3 THEN 'Marzo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=4 THEN 'Abril'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=5 THEN 'Mayo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=6 THEN 'Junio'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=7 THEN 'Julio'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=8 THEN 'Agosto'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=9 THEN 'Septiembre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),6,2)=10 THEN 'Octubre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),5,2)=11 THEN 'Noviembre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_gene_fecdoch,23),5,2)=12 THEN 'Diciembre'
 	END) AS '4',
     UPPER(LTRIM(RTRIM(ADDRESS1))) AS '5.1',
     UPPER(LTRIM(RTRIM(ADDRESS2))) AS '5.2',
@@ -90,8 +90,8 @@
     FROM IMPP4100
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
-	INNER JOIN IMPP0161 on PV_MI_idprov = IMP_gene_rif000h
-    WHERE IMP_gene_rif000h =  '" . $rif . "'
+	INNER JOIN IMPP0161 on PV_MI_idprov = IMP_gene_idprovh
+    WHERE IMP_gene_idprovh =  '" . $rif . "'
     AND IMP_gene_detimph LIKE '%MUN%'
     AND IMP_gene_numdoch = '" . $doc . "'");
 
@@ -114,6 +114,7 @@
         $dir2 = $row["5.2"];
         $dir3 = $row["5.3"];
         $nempr = $row["6"];
+        $rifp = $row["7"];
         $dirP1 = $row["8.1"];
         $dirP2 = $row["8.2"];
         $dirP3 = $row["8.3"];
@@ -175,7 +176,7 @@
             <tr>
                 <td style="width:500px; font-weight: normal;"><?php echo $rifEmp ?></td>
                 <td style="width:100px;">&nbsp;</td>
-                <td style="width:500px; font-weight: normal"><?php echo $rif ?></td>
+                <td style="width:500px; font-weight: normal"><?php echo $rifp ?></td>
             </tr>
             <tr>
                 <td style="width:500px;"><b>Dirección Fiscal:</b></td>
@@ -220,9 +221,9 @@
 						IMP_gene_monimp AS 'COL-12',
 						IMP_gene_detimp AS 'COL-13'
                 FROM IMPP4000
-                WHERE IMP_gene_rif000 = '" . $rif . "'
+                WHERE IMP_gene_idprov = '" . $rif . "'
                 AND IMP_gene_detimp LIKE '%MUN%' 
-                AND IMP_gene_numdoc = '" . $doc ."'
+                AND IMP_gene_numdoc = '" . $doc . "'
                 UNION
                 SELECT IMP_gene_noperah AS 'COL-1',
                         CONVERT(VARCHAR, IMP_gene_fecdoch, 103) AS 'COL-2',
@@ -243,7 +244,7 @@
                         IMP_gene_monimph AS 'COL-12',
                         IMP_gene_detimph AS 'COL-13'
                 FROM IMPP4100
-                WHERE IMP_gene_rif000h = '" . $rif . "'
+                WHERE IMP_gene_idprovh = '" . $rif . "'
                 AND IMP_gene_detimph LIKE '%MUN%' 
                 AND IMP_gene_numdoch = '" . $doc . "'
                 UNION
@@ -265,7 +266,7 @@
                     IMP_gene_monimp AS 'COL-12', 
                     IMP_gene_detimp AS 'COL-13' 
                 FROM IMPP4300
-                WHERE IMP_gene_rif000 = '" . $rif . "'
+                WHERE IMP_gene_idprov = '" . $rif . "'
                 AND IMP_gene_detimp LIKE '%MUN%' 
                 AND IMP_gene_numfaf = '" . $doc . "'");
 

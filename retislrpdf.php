@@ -137,26 +137,26 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     CONVERT(VARCHAR, IMP_nc_open3_feccon, 103) AS '1',
     UPPER(CMPNYNAM) AS '2',
     CO_MI_rif000 AS '3',
-    CONCAT('AÑO ',RIGHT(LTRIM(RTRIM(IMP_nc_open3_period)),4),' / MES ',
+    CONCAT('Año: ',LEFT(CONVERT(VARCHAR,IMP_nc_open3_fecdoc,23),4),'  Mes: ',
 	CASE
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=1 THEN 'ENERO'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=2 THEN 'FEBRERO'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=3 THEN 'MARZO'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=4 THEN 'ABRIL'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=5 THEN 'MAYO'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=6 THEN 'JUNIO'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=7 THEN 'JULIO'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=8 THEN 'AGOSTO'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=9 THEN 'SEPTIEMBRE'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=10 THEN 'OCTUBRE'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=11 THEN 'NOVIEMBRE'
-		WHEN SUBSTRING(IMP_nc_open3_period,5,2)=12 THEN 'DICIEMBRE'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_open3_fecdoc,23),6,2)=1 THEN 'Enero'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_open3_fecdoc,23),6,2)=2 THEN 'Febreo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_open3_fecdoc,23),6,2)=3 THEN 'Marzo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_open3_fecdoc,23),6,2)=4 THEN 'Abril'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_open3_fecdoc,23),6,2)=5 THEN 'Mayo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_open3_fecdoc,23),6,2)=6 THEN 'Junio'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_open3_fecdoc,23),6,2)=7 THEN 'Julio'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_open3_fecdoc,23),6,2)=8 THEN 'Agosto'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_open3_fecdoc,23),6,2)=9 THEN 'Septiembre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_open3_fecdoc,23),6,2)=10 THEN 'Octubre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_open3_fecdoc,23),5,2)=11 THEN 'Noviembre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_open3_fecdoc,23),5,2)=12 THEN 'Diciembre'
 	END) AS '4',
     UPPER(LTRIM(RTRIM(ADDRESS1))) AS '5.1',
     UPPER(LTRIM(RTRIM(ADDRESS2))) AS '5.2',
     UPPER(CONCAT(LTRIM(RTRIM(ADDRESS3)),', ',LTRIM(RTRIM(CITY)),', ',LTRIM(RTRIM(STATE)))) AS '5.3',
     UPPER(IMP_nc_open3_nompro) AS '6',
-    open3_p as '7',
+    IMP_nc_open3_rif000 as '7',
     UPPER(LTRIM(RTRIM(PV_MI_direc1))) as '8.1',
 	UPPER(LTRIM(RTRIM(PV_MI_direc2))) as '8.2',
     IIF(PV_MI_direc3 ='',UPPER(CONCAT(LTRIM(RTRIM(PV_MI_ciudad)),', EDO. ',LTRIM(RTRIM(PV_MI_estado)))), UPPER(CONCAT(LTRIM(RTRIM(PV_MI_direc3)),'-',LTRIM(RTRIM(PV_MI_ciudad)),', ',LTRIM(RTRIM(PV_MI_estado))))) AS '8.3'
@@ -172,26 +172,26 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     CONVERT(VARCHAR, IMP_nc_hist3_feccon, 103) AS '1',
     UPPER(CMPNYNAM) AS '2',
     CO_MI_rif000 AS '3',
-    CONCAT('AÑO ',RIGHT(LTRIM(RTRIM(IMP_nc_hist3_period)),4),' / MES ',
+    CONCAT('Año: ',LEFT(CONVERT(VARCHAR,IMP_nc_hist3_fecdoc,23),4),'  Mes: ',
 	CASE
-		WHEN SUBSTRING(IMP_nc_hist3_period,5,2)=1 THEN 'ENERO'
-		WHEN SUBSTRING(IMP_nc_hist3_period,5,2)=2 THEN 'FEBRERO'
-		WHEN SUBSTRING(IMP_nc_hist3_period,5,2)=3 THEN 'MARZO'
-		WHEN SUBSTRING(IMP_nc_hist3_period,5,2)=4 THEN 'ABRIL'
-		WHEN SUBSTRING(IMP_nc_hist3_period,5,2)=5 THEN 'MAYO'
-		WHEN SUBSTRING(IMP_nc_hist3_period,5,2)=6 THEN 'JUNIO'
-		WHEN SUBSTRING(IMP_nc_hist3_period,5,2)=7 THEN 'JULIO'
-		WHEN SUBSTRING(IMP_nc_hist3_period,5,2)=8 THEN 'AGOSTO'
-		WHEN SUBSTRING(IMP_nc_hist3_period,5,2)=9 THEN 'SEPTIEMBRE'
-		WHEN SUBSTRING(IMP_nc_hist3_period,5,2)=10 THEN 'OCTUBRE'
-		WHEN SUBSTRING(IMP_nc_hist3_period,5,2)=11 THEN 'NOVIEMBRE'
-		WHEN SUBSTRING(IMP_nc_hist3_period,5,2)=12 THEN 'DICIEMBRE'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_hist3_fecdoc,23),6,2)=1 THEN 'Enero'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_hist3_fecdoc,23),6,2)=2 THEN 'Febreo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_hist3_fecdoc,23),6,2)=3 THEN 'Marzo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_hist3_fecdoc,23),6,2)=4 THEN 'Abril'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_hist3_fecdoc,23),6,2)=5 THEN 'Mayo'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_hist3_fecdoc,23),6,2)=6 THEN 'Junio'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_hist3_fecdoc,23),6,2)=7 THEN 'Julio'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_hist3_fecdoc,23),6,2)=8 THEN 'Agosto'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_hist3_fecdoc,23),6,2)=9 THEN 'Septiembre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_hist3_fecdoc,23),6,2)=10 THEN 'Octubre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_hist3_fecdoc,23),5,2)=11 THEN 'Noviembre'
+		WHEN SUBSTRING(CONVERT(VARCHAR,IMP_nc_hist3_fecdoc,23),5,2)=12 THEN 'Diciembre'
 	END) AS '4',
     UPPER(LTRIM(RTRIM(ADDRESS1))) AS '5.1',
     UPPER(LTRIM(RTRIM(ADDRESS2))) AS '5.2',
     UPPER(CONCAT(LTRIM(RTRIM(ADDRESS3)),', ',LTRIM(RTRIM(CITY)),', ',LTRIM(RTRIM(STATE)))) AS '5.3',
     UPPER(IMP_nc_hist3_nompro) AS '6',
-    hist3_p as '7',
+    IMP_nc_hist3_rif000 as '7',
 	UPPER(LTRIM(RTRIM(PV_MI_direc1))) as '8.1',
 	UPPER(LTRIM(RTRIM(PV_MI_direc2))) as '8.2',
     IIF(PV_MI_direc3 ='',UPPER(CONCAT(LTRIM(RTRIM(PV_MI_ciudad)),', EDO. ',LTRIM(RTRIM(PV_MI_estado)))), UPPER(CONCAT(LTRIM(RTRIM(PV_MI_direc3)),'-',LTRIM(RTRIM(PV_MI_ciudad)),', ',LTRIM(RTRIM(PV_MI_estado))))) AS '8.3'
@@ -202,13 +202,14 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     WHERE hist3_p = '" . $rif . "'
     AND IMP_nc_hist3_numfac = '" . $doc . "'");
 
-    if ($stmt === false) {
-        die(print_r(sqlsrv_errors(), true));
-    }
+$stmt = sqlsrv_query($conn, $sql);
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
 
-    if ($stmt === false) {
-        die(print_r(sqlsrv_errors(), true));
-    }
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
 
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $ncomp = $row["0"];
@@ -220,6 +221,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
         $dir2 = $row["5.2"];
         $dir3 = $row["5.3"];
         $nempr = $row["6"];
+        $rifp = $row["7"];
         $dirP1 = $row["8.1"];
         $dirP2 = $row["8.2"];
         $dirP3 = $row["8.3"];
@@ -281,7 +283,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
             <tr>
                 <td style="width:400px; font-weight: normal;"><?php echo $rifEmp ?></td>
                 <td style="width:50px;">&nbsp;</td>
-                <td style="width:400px; font-weight: normal"><?php echo $rif ?></td>
+                <td style="width:400px; font-weight: normal"><?php echo $rifp ?></td>
             </tr>
             <tr>
                 <td style="width:400px;"><b>Dirección Fiscal:</b></td>
@@ -321,6 +323,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                 LEFT JOIN PM20000 ON PM20000.DOCNUMBR = IMP_nc_open3_numdoc
                 LEFT JOIN PM30200 ON PM30200.DOCNUMBR = IMP_nc_open3_numdoc
 				WHERE IMP_nc_open3_numdoc= '" . $doc . "'
+                AND open3_p = '" . $rif . "'
                 UNION
                 SELECT CONVERT(VARCHAR, IMP_nc_hist3_fecdoc, 103) AS 'COL-1',
                         IMP_nc_hist3_numfac AS 'COL-2',
@@ -336,6 +339,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                 LEFT JOIN PM20000 ON PM20000.DOCNUMBR = IMP_nc_hist3_numdoc
                 LEFT JOIN PM30200 ON PM30200.DOCNUMBR = IMP_nc_hist3_numdoc
                 WHERE IMP_nc_hist3_numdoc= '" . $doc . "'
+                AND hist3_p = '" . $rif . "'
                 UNION
                 SELECT CONVERT(VARCHAR, IMP_nc_open3_fecdocd, 103) AS 'COL-1', 
                         IMP_nc_open3_numfacd AS 'COL-2', 
@@ -350,7 +354,8 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                 FROM IMPP3100
                 LEFT JOIN PM20000 ON PM20000.DOCNUMBR = IMP_nc_open3_numdocd
                 LEFT JOIN PM30200 ON PM30200.DOCNUMBR = IMP_nc_open3_numdocd
-                WHERE IMP_nc_open3_numfafd = '" . $doc . "'");
+                WHERE IMP_nc_open3_numfafd = '" . $doc . "'
+                AND open3_pd = '" . $rif . "'");
 
         $stmt = sqlsrv_query($conn, $sql);
         if ($stmt === false) {
