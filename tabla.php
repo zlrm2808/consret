@@ -62,7 +62,7 @@
                 SELECT  IMP_nc_open3_numfac AS 'col-1',
                         CONVERT(VARCHAR, IMP_nc_open3_fecdoc, 103) AS 'col-2',
                         CONVERT(VARCHAR, IMP_nc_open3_feccon, 103) AS 'col-3',
-                        STR(IMP_nc_open3_porimp,9,2) AS 'col-4',
+                        STR(ABS(IMP_nc_open3_porimp),9,2) AS 'col-4',
                         IMP_nc_open3_detimp AS 'col-5',
                         IIF(IMP_nc_open3_detimp != '', 'ISLR','') AS 'col-6'
                 FROM IMPP3000
