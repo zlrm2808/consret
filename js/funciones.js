@@ -65,6 +65,9 @@ function pdf(id) {
         case "IVA":
             reqUrl = "./retivapdf.php";
             break;
+        case "IVA-ND":
+            reqUrl = "./retivandpdf.php";
+            break;
         case "ISLR":
             reqUrl = "./retislrpdf.php";
             break;
@@ -114,6 +117,9 @@ function html(id) {
     switch (tipo) {
         case "IVA":
             reqUrl = "./retiva.php";
+            break;
+        case "IVA-ND":
+            reqUrl = "./retivand.php";
             break;
         case "ISLR":
             reqUrl = "./retislr.php";

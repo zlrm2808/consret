@@ -42,6 +42,23 @@
                 AND CONVERT(VARCHAR, IMP_nc_open_feccon, 23) <= '" . $fechafin . "'
                 AND IMP_nc_open_numfac LIKE '%" . $nrodoc . "%'
                 UNION
+                SELECT IIF(IMP_nc_open_numntd != '',IMP_nc_open_numntd,IMP_nc_open_numfac) AS 'col-1', 
+                        CONVERT(VARCHAR, IMP_nc_open_fecdoc, 103) AS 'col-2',
+                        CONVERT(VARCHAR, IMP_nc_open_feccon, 103) AS 'col-3',
+                        CASE
+                            WHEN IMP_porcrete_alicgene != 0 THEN STR(ABS(IMP_porcrete_alicgene),9,2)
+                            WHEN IMP_porcrete_alicreduc != 0 THEN STR(ABS(IMP_porcrete_alicreduc),9,2)
+                            WHEN IMP_porcrete_alicadic != 0 THEN STR(ABS(IMP_porcrete_alicadic),9,2)
+                        END AS 'col-4',
+                        '' AS 'col-5',
+                        IIF(IMP_nc_open_numntd != '', 'IVA-ND','') AS 'col-6'
+                FROM IMPP2001
+                WHERE open_p = '" . $rifProv . "'
+                AND (IMP_nc_open_numntd != '') 
+                AND CONVERT(VARCHAR, IMP_nc_open_feccon, 23) >= '" . $fechaini . "'
+                AND CONVERT(VARCHAR, IMP_nc_open_feccon, 23) <= '" . $fechafin . "'
+                AND IMP_nc_open_numfac LIKE '%" . $nrodoc . "%'
+                UNION
                 SELECT IMP_nc_hist_numfac as 'col-1',
                         CONVERT(VARCHAR, IMP_nc_hist_fecdoc, 103) AS 'col-2',
                         CONVERT(VARCHAR, IMP_nc_hist_feccon, 103) AS 'col-3',
@@ -135,6 +152,7 @@
                 AND IMP_gene_numdoch LIKE '%" . $nrodoc . "%'
                 GROUP BY IMP_gene_numdoch,IMP_gene_fecdoch,IMP_gene_fecconh
                 ORDER BY 'col-1', 'col-3', 'col-6'");
+                
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));

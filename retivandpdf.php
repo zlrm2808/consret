@@ -173,6 +173,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     INNER JOIN IMPP0161 ON PV_MI_rif000 = open_p
     WHERE open_p = '" . $rif . "'
     AND IMP_nc_open_numfac = '" . $doc . "'
+    OR IMP_nc_open_numntd = '" . $doc . "'
     UNION
     SELECT TOP 1
         IMP_nc_hist_nreten as '0',
@@ -206,8 +207,8 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     INNER JOIN DYNAMICS.dbo.SY01500 on INTERID = DB_NAME()
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
     INNER JOIN IMPP0161 ON PV_MI_rif000 = hist_p
-    WHERE hist_p = '" . $rif . "'
-    AND IMP_nc_hist_numfac = '" . $doc . "'");
+    AND IMP_nc_hist_numfac = '" . $doc . "'
+    OR IMP_nc_hist_numntd = '" . $doc . "'");
 
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {
@@ -367,10 +368,12 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                 END AS 'col-20',
 				IIF(IMP_nc_open_numntc='',STR(ABS(IMP_nc_open_ivaret),9,2),STR(IMP_nc_open_ivaret,9,2)) AS 'col-21'
             FROM IMPP2001
-            WHERE open_p = '" . $rif . "'
+            WHERE IMP_nc_open_numntd != ''
+            AND open_p = '" . $rif . "'
+            AND IMP_nc_open_numfac = '" . $doc . "'
             AND IMP_nc_open_numfac = '" . $doc . "'
             OR IMP_nc_open_facafe = '" . $doc . "'
-            AND IMP_nc_open_numntd = ''
+            OR IMP_nc_open_numntd = '" . $doc . "'
             UNION
             SELECT IMP_nc_hist_numope AS 'col-1',
                 CONVERT(VARCHAR, IMP_nc_hist_fecdoc, 103) AS 'col-2',
@@ -403,10 +406,11 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                 END AS 'col-20',
                 IIF(IMP_nc_hist_numntc='',STR(ABS(IMP_nc_hist_ivaret),9,2),STR(IMP_nc_hist_ivaret,9,2)) AS 'col-21'
             FROM IMPP2201
-            WHERE hist_p = '" . $rif . "'
+            WHERE IMP_nc_hist_numntd != ''
+            AND  hist_p = '" . $rif . "'
             AND IMP_nc_hist_numfac = '" . $doc . "'
             OR IMP_nc_hist_facafe = '" . $doc . "'
-            AND IMP_nc_hist_numntd = ''");
+            OR IMP_nc_hist_numntd = '" . $doc . "'");
 
         $stmt = sqlsrv_query($conn, $sql);
         if ($stmt === false) {

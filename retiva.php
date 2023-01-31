@@ -257,6 +257,7 @@
             WHERE open_p = '" . $rif . "'
             AND IMP_nc_open_numfac = '" . $doc . "'
             OR IMP_nc_open_facafe = '" . $doc . "'
+            AND IMP_nc_open_numntd = ''
             UNION
             SELECT IMP_nc_hist_numope AS 'col-1',
                 CONVERT(VARCHAR, IMP_nc_hist_fecdoc, 103) AS 'col-2',
@@ -291,7 +292,8 @@
             FROM IMPP2201
             WHERE hist_p = '" . $rif . "'
             AND IMP_nc_hist_numfac = '" . $doc . "'
-            OR IMP_nc_hist_facafe = '" . $doc . "'");
+            OR IMP_nc_hist_facafe = '" . $doc . "'
+            AND IMP_nc_hist_numntd = ''");
 
         $stmt = sqlsrv_query($conn, $sql);
         if ($stmt === false) {

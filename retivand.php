@@ -1,129 +1,13 @@
-<?php ob_start();
-header('Content-Type: text/html; charset=UTF-8');
-require_once "./conexion.php";
-
-$hoy = date("d/m/Y");
-$doc = $_POST["doc"];
-$tipo = $_POST["tipo"];
-$rif = $_POST["rif"];
-$EMPRESA = $_POST["EMPRESA"];
-$logoRet = "./images/" . $EMPRESA . "-logo-ret.png";
-$logoRet64 = "data:image/png;base64," . base64_encode(file_get_contents($logoRet));
-$FirmaySello = "./images/" . $EMPRESA . "-FirmaySello.png";
-$FSello64 = "data:image/png;base64," . base64_encode(file_get_contents($FirmaySello));
-$anulado = "./images/anulado.png";
-$anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado));
-?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/retenciones.css" rel="stylesheet" />
     <title>Documento de IVA</title>
 </head>
-
-<style>
-    @page {
-        margin-left: 0.2cm;
-        margin-right: 0.1cm;
-        margin-top: 0.2cm;
-        margin-bottom: 0.1cm;
-    }
-
-    body {
-        font-family: Verdana, Arial, Helvetica, sans-serif;
-        font-size: 20px;
-        color: #000000;
-        background-color: #ffffff;
-        margin: 0px;
-        padding: 0px;
-    }
-
-    .paginaVertical {
-        width: 230mm;
-        height: 279.4mm;
-        margin: 2cm
-    }
-
-    .paginaHorizontal {
-        width: 230mm;
-        height: 189mm;
-        margin: 1cm
-    }
-
-    .anulado {
-        position: absolute;
-        top: 400px;
-        left: 350px;
-    }
-
-    p {
-        text-indent: 10px;
-        font-family: verdana;
-        font-size: 10pt;
-        margin-bottom: 10px;
-    }
-
-    h4 {
-        color: #000000;
-        font-family: verdana;
-        font-size: 14pt;
-        margin-bottom: 1px;
-    }
-
-    h5 {
-        color: #000000;
-        font-family: Verdana;
-        font-size: 10pt;
-        text-decoration: underline;
-        margin-bottom: 10px;
-    }
-
-    table {
-        font-family: verdana;
-        font-size: 8pt;
-    }
-
-    div {
-        color: #000000;
-        font-family: verdana;
-        font-size: 8pt;
-        font-weight: bold;
-    }
-
-    .cabecera {
-        height: 40px;
-        font-weight: normal;
-    }
-
-    .cabecera2 {
-        height: 20px;
-        font-weight: normal;
-    }
-
-    th {
-        background-color: #EAEAEA;
-    }
-
-    .tbfont {
-        font-size: 9px;
-    }
-
-    .tbfont2 {
-        font-size: 6px;
-    }
-
-    .interno {
-        font-weight: normal;
-    }
-
-    .unica {
-        border-left: solid 1px;
-        border-bottom: solid 1px;
-        border-right: solid 1px;
-        border-color: gray;
-    }
-</style>
 
 <body>
     <?php
@@ -173,6 +57,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     INNER JOIN IMPP0161 ON PV_MI_rif000 = open_p
     WHERE open_p = '" . $rif . "'
     AND IMP_nc_open_numfac = '" . $doc . "'
+    OR IMP_nc_open_numntd = '" . $doc . "'
     UNION
     SELECT TOP 1
         IMP_nc_hist_nreten as '0',
@@ -207,7 +92,8 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
     INNER JOIN IMPP0161 ON PV_MI_rif000 = hist_p
     WHERE hist_p = '" . $rif . "'
-    AND IMP_nc_hist_numfac = '" . $doc . "'");
+    AND IMP_nc_hist_numfac = '" . $doc . "'
+    OR IMP_nc_hist_numntd = '" . $doc . "'");
 
     $stmt = sqlsrv_query($conn, $sql);
     if ($stmt === false) {
@@ -238,10 +124,13 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
         <table border='0' style="width:100%; height:60px;">
             <tr>
                 <td width='200'>
-                    <img src="<?php echo $logoRet64 ?>" width="205" height="72" border="0" alt="">
+                    <img src="<?php echo $LOGORET ?>" width="205" height="72" border="0" alt="">
                 </td>
                 <td valign='top' align='center'>
                     <h4>COMPROBANTE DE RETENCIÓN DE IVA</h4>
+                </td>
+                <td valign='top' align='right' width='100'>
+                    <a href="#" onclick="javascript:window.print()"><img src="./images/print.png" width="25" height="25"></a>
                 </td>
             </tr>
         </table>
@@ -303,7 +192,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
             <tr>
                 <td style="width:500px;"><b>Dirección Fiscal:</b></td>
                 <td style="width:100px;">&nbsp;</td>
-                <td style="width:500px;"><b>&nbsp;</b></td>
+                <td style="width:500px;"><b>Dirección Fiscal:</b></td>
             </tr>
             <tr>
                 <td style="width:500px; font-weight: normal;"><?php echo utf8_encode($dir1) ?></td>
@@ -367,10 +256,11 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                 END AS 'col-20',
 				IIF(IMP_nc_open_numntc='',STR(ABS(IMP_nc_open_ivaret),9,2),STR(IMP_nc_open_ivaret,9,2)) AS 'col-21'
             FROM IMPP2001
-            WHERE open_p = '" . $rif . "'
+            WHERE IMP_nc_open_numntd != ''
+            AND open_p = '" . $rif . "'
             AND IMP_nc_open_numfac = '" . $doc . "'
             OR IMP_nc_open_facafe = '" . $doc . "'
-            AND IMP_nc_open_numntd = ''
+            OR IMP_nc_open_numntd = '" . $doc . "'
             UNION
             SELECT IMP_nc_hist_numope AS 'col-1',
                 CONVERT(VARCHAR, IMP_nc_hist_fecdoc, 103) AS 'col-2',
@@ -403,10 +293,11 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                 END AS 'col-20',
                 IIF(IMP_nc_hist_numntc='',STR(ABS(IMP_nc_hist_ivaret),9,2),STR(IMP_nc_hist_ivaret,9,2)) AS 'col-21'
             FROM IMPP2201
-            WHERE hist_p = '" . $rif . "'
+            WHERE IMP_nc_hist_numntd != ''
+            AND  hist_p = '" . $rif . "'
             AND IMP_nc_hist_numfac = '" . $doc . "'
             OR IMP_nc_hist_facafe = '" . $doc . "'
-            AND IMP_nc_hist_numntd = ''");
+            OR IMP_nc_hist_numntd = '" . $doc . "'");
 
         $stmt = sqlsrv_query($conn, $sql);
         if ($stmt === false) {
@@ -451,8 +342,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
         $totimp = 0;
         $totivaret = 0;
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-            $tableIva .=
-                "
+            $tableIva .= "
             <tbody>
             <tr class='interno'>
                 <td width='5%' align='center'>" . $row['col-2'] . "</td> 
@@ -483,17 +373,17 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
             $totimp += $row['col-13'];
             $totivaret += $row['col-21'];
         }
-        $tableIva .=
-            "
+        $tableIva .= "
         </tbody>
-        </table>
-        <table class='tbfont2' border='0' style='border-collapse: collapse' align='center' width='100%'>
-            <tr height='25'>
-                <td width='94%' align='right'>Totales Impuesto Retenido:</td>
-                <td class='unica' align='right'>" . number_format($totivaret, 2, ',', '.') . "</td>
-            </tr>
-        </table>
-        ";
+        <tfoot>
+            <table class='tbfont2' border='0' style='border-collapse: collapse' align='center' width='100%'>
+                <tr>
+                    <td width='94%' align='right'>Totales Impuesto Retenido:</td>
+                    <td class='unica' align='right'>" . number_format($totivaret, 2, ',', '.') . "</td>
+                </tr>
+            </table>
+        </tfoot>
+        </table>";
         echo $tableIva;
         ?>
         <table border='0' style='border-collapse: collapse' align=center width='100%'>
@@ -506,7 +396,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
             </tr>
             <tr>
                 <td width='20%'></td>
-                <td width='20%' align='center'><img src='<?php echo $FSello64 ?>' width='200px' height='100px'></td>
+                <td width='20%' align='center'><img src='<?php echo $FIRMA ?>' width='200px' height='100px'></td>
                 <td width='20%'></td>
                 <td width='20%'></td>
                 <td width='20%'></td>
@@ -524,28 +414,10 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     if ($totivaret == 0) {
         echo
         '<div class="anulado">
-            <img src="' . $anulado64 . '" height="35px" alt="">
+            <img src="./images/Anulado.png" height="35px" alt="">
         </div>';
     }
     ?>
 </body>
 
 </html>
-<?php
-include_once "./vendor/autoload.php";
-
-use Dompdf\Dompdf;
-use Dompdf\Options;
-
-$dompdf = new Dompdf();
-$dompdf->setPaper('Letter', 'landscape');
-$options = $dompdf->getOptions();
-$dompdf->setOptions($options);
-$dompdf->loadhtml(ob_get_clean());
-$dompdf->render();
-header("Content-type: application/pdf");
-header("Content-Disposition: inline; filename=documento.pdf");
-$pdf = $dompdf->output();
-$filename = "RETIVA";
-$dompdf->stream($rif . '_' . $filename . '_' . $doc);
-?>
