@@ -71,6 +71,9 @@ function pdf(id) {
         case "ISLR":
             reqUrl = "./retislrpdf.php";
             break;
+        case "ISLR-ND":
+            reqUrl = "./retislrndpdf.php";
+            break;
         case "ARCV":
             reqUrl = "./retarcvpdf.php";
             break;
@@ -123,6 +126,9 @@ function html(id) {
             break;
         case "ISLR":
             reqUrl = "./retislr.php";
+            break;
+        case "ISLR-ND":
+            reqUrl = "./retislrnd.php";
             break;
         case "ARCV":
             reqUrl = "./retarcv.php";
