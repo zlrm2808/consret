@@ -205,7 +205,7 @@
 
         <?php
         $sql = ("SELECT CONVERT(VARCHAR, IMP_nc_open3_fecdoc, 103) AS 'COL-1',
-                        IMP_nc_open3_numdoc AS 'COL-2',
+                        IMP_nc_open3_numfaf AS 'COL-2',
                         IMP_nc_open3_ncontro AS 'COL-3',
                         IMP_nc_open3_detimp AS 'COL-4',
                         IIF(PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
@@ -221,7 +221,7 @@
                 AND open3_p = '" . $rif . "'
                 UNION
                 SELECT CONVERT(VARCHAR, IMP_nc_hist3_fecdoc, 103) AS 'COL-1',
-                        IMP_nc_hist3_numdoc AS 'COL-2',
+                        IMP_nc_hist3_numfaf AS 'COL-2',
                         IMP_nc_hist3_ncontro AS 'COL-3',
                         IMP_nc_hist3_detimp AS 'COL-4',
                         IIF(PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
@@ -237,7 +237,7 @@
                 AND hist3_p = '" . $rif . "'
                 UNION
                 SELECT CONVERT(VARCHAR, IMP_nc_open3_fecdocd, 103) AS 'COL-1', 
-                        IMP_nc_open3_numdocd AS 'COL-2', 
+                        IMP_nc_open3_numfafd AS 'COL-2', 
                         IMP_nc_open3_ncontrod AS 'COL-3', 
                         IMP_nc_open3_detimpd AS 'COL-4',
                         IIF(PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
@@ -265,10 +265,10 @@
             "<table class='tbfont' border='1' style='border-collapse: collapse' align='center' width='100%'>
             <tr>
                 <td align='center' bgcolor='#EAEAEA'><b>Fecha de la Factura</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Número de Factura</b></td>
-                <td align='center' bgcolor='#EAEAEA'><b>Número de Control</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Número de ND</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Número de NC</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Número de Control</b></td>
+                <td align='center' bgcolor='#EAEAEA'><b>Factura Afectada</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Monto Pagado o Abonado en Cuenta</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>Base Imponible de Retención</b></td>
                 <td align='center' bgcolor='#EAEAEA'><b>% ISLR Ret.</b></td>
@@ -283,10 +283,10 @@
             $tableIva .= "
             <tr class='interno'>
                 <td width='8%' align='center'>" . $row['COL-1'] . "</td>
-                <td width='8%' align='center'>" . $row['COL-2'] . "</td>
-                <td width='8%' align='center'>" . $row['COL-3'] . "</td>
                 <td width='8%' align='center'>" . $row['COL-9'] . "</td>
                 <td width='8%' align='center'>" . $row['COL-10'] . "</td>
+                <td width='8%' align='center'>" . $row['COL-3'] . "</td>
+                <td width='8%' align='center'>" . $row['COL-2'] . "</td>
                 <td width='12%' align='right'>" . number_format($row['COL-5'], 2, ',', '.') . "</td>
                 <td width='12%' align='right'>" . number_format($row['COL-6'], 2, ',', '.') . "</td>
                 <td width='12%' align='right'>" . number_format($row['COL-7'], 2, ',', '.') . "</td>

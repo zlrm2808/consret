@@ -335,13 +335,14 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                             WHEN IMP_gene_tiptra = 3 THEN '03-Anulacion'
                             ELSE '04-Ajuste'
                         END AS 'COL-7',
-						IMP_gene_numfaf AS 'COL-8',
+						IMP_nc_open3_numfaf AS 'COL-8',
 						IMP_gene_montabon AS 'COL-9',
 						IMP_gene_basimp AS 'COL-10',
 						IMP_gene_porimp AS 'COL-11',
 						IMP_gene_monimp AS 'COL-12',
 						IMP_gene_detimp AS 'COL-13'
                 FROM IMPP4000
+                LEFT JOIN IMPP3000 ON IMP_nc_open3_numdoc = IMP_gene_numdoc
                 WHERE IMP_gene_idprov = '" . $rif . "'
                 AND IMP_gene_detimp LIKE '%MUN%' 
                 AND IMP_gene_numdoc = '" . $doc . "'
@@ -358,13 +359,14 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                             WHEN IMP_gene_tiptrah = 3 THEN '03-Anulacion'
                             ELSE '04-Ajuste'
                         END AS 'COL-7',
-                        IMP_gene_numfafh AS 'COL-8',
+                        IMP_nc_hist3_numfaf AS 'COL-8',
                         IMP_gene_montabonh AS 'COL-9',
                         IMP_gene_basimph AS 'COL-10',
                         IMP_gene_porimph AS 'COL-11',
                         IMP_gene_monimph AS 'COL-12',
                         IMP_gene_detimph AS 'COL-13'
                 FROM IMPP4100
+                LEFT JOIN IMPP3200 ON IMP_nc_hist3_numdoc = IMP_gene_numdoch
                 WHERE IMP_gene_idprovh = '" . $rif . "'
                 AND IMP_gene_detimph LIKE '%MUN%' 
                 AND IMP_gene_numdoch = '" . $doc . "'
@@ -380,13 +382,14 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                         WHEN IMP_gene_tiptra = 2 THEN '02-Complemento' 
                         WHEN IMP_gene_tiptra = 3 THEN '03-Anulacion' 
                         ELSE '04-Ajuste' END AS 'COL-7', 
-                    IMP_gene_numfaf AS 'COL-8', 
+                    IMP_nc_open3_numfaf AS 'COL-8', 
                     IMP_gene_montabon AS 'COL-9', 
                     IMP_gene_basimp AS 'COL-10', 
                     IMP_gene_porimp AS 'COL-11', 
                     IMP_gene_monimp AS 'COL-12', 
-                    IMP_gene_detimp AS 'COL-13' 
+                    IMP_gene_detimp AS 'COL-13'
                 FROM IMPP4300
+                LEFT JOIN IMPP3000 ON IMP_nc_open3_numdoc = IMP_gene_numdoc
                 WHERE IMP_gene_idprov = '" . $rif . "'
                 AND IMP_gene_detimp LIKE '%MUN%' 
                 AND IMP_gene_numfaf = '" . $doc . "'");
@@ -421,6 +424,13 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
         //Totales
         $totret = 0;
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+            if($row['COL-5'] != '                     '){
+                $row['COL-3'] = '';
+            }
+            else
+            {
+                $row['COL-8'] = '';
+            }
             $tableIva .= "
             <tr class='interno'>
                 <td width='8%'align='center'>" . $row['COL-2'] . "</td>

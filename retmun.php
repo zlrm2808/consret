@@ -241,14 +241,15 @@
                             IMP_gene_ncontr AS 'COL-3',
                             IMP_gene_numntd AS 'COL-4',
                             IMP_gene_numntc AS 'COL-5',
-                            IMP_gene_numfaf AS 'COL-6',
+                            IMP_nc_open3_numfaf AS 'COL-6',
                             IMP_gene_acteco AS 'COL-7',
                             IMP_gene_basimp AS 'COL-8',
                             IMP_gene_porimp AS 'COL-9',
                             IMP_gene_monimp AS 'COL-10'
                     FROM IMPP4000
+                    LEFT JOIN IMPP3000 ON IMP_nc_open3_numdoc = IMP_gene_numdoc
                     WHERE IMP_gene_idprov = '" . $rif . "'
-                    AND IMP_gene_detimp LIKE '%MUN%'
+                    AND IMP_gene_detimp LIKE '%MUN%' 
                     AND IMP_gene_numdoc = '" . $doc . "'
                     UNION
                     SELECT CONVERT(VARCHAR, IMP_gene_fecdoch, 103) AS 'COL-1',
@@ -256,12 +257,13 @@
                             IMP_gene_ncontrh AS 'COL-3',
                             IMP_gene_numntdh AS 'COL-4',
                             IMP_gene_numntch AS 'COL-5',
-                            IMP_gene_numfafh AS 'COL-6',
+                            IMP_nc_hist3_numfaf AS 'COL-6',
                             IMP_gene_actecoh AS 'COL-7',
                             IMP_gene_basimph AS 'COL-8',
                             IMP_gene_porimph AS 'COL-9',
                             IMP_gene_monimph AS 'COL-10'
                     FROM IMPP4100
+                    LEFT JOIN IMPP3200 ON IMP_nc_hist3_numdoc = IMP_gene_numdoch
                     WHERE IMP_gene_idprovh = '" . $rif . "'
                     AND IMP_gene_detimph LIKE '%MUN%'
                     AND IMP_gene_numdoch = '" . $doc . "'
@@ -271,12 +273,13 @@
                             IMP_gene_ncontr AS 'COL-3',
                             IMP_gene_numntd AS 'COL-4',
                             IMP_gene_numntc AS 'COL-5',
-                            IMP_gene_numfaf AS 'COL-6',
+                            IMP_nc_open3_numfaf AS 'COL-6',
                             IMP_gene_acteco AS 'COL-7',
                             IMP_gene_basimp AS 'COL-8',
                             IMP_gene_porimp AS 'COL-9',
                             IMP_gene_monimp AS 'COL-10'
                     FROM IMPP4300
+                    LEFT JOIN IMPP3000 ON IMP_nc_open3_numdoc = IMP_gene_numdoc
                     WHERE IMP_gene_idprov = '" . $rif . "'
                     AND IMP_gene_detimp LIKE '%MUN%' 
                     AND IMP_gene_numfaf = '" . $doc . "'");
@@ -311,6 +314,13 @@
                         $totret = 0;
                         $tableIva = '';
                         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                            if($row['COL-4'] != '                     '){
+                                $row['COL-2'] = '';
+                            }
+                            else
+                            {
+                                $row['COL-6'] = '';
+                            }
                             $tableIva .= '
                         <tr>
                             <td width="8%" style="font-weight: normal;">' . $row['COL-1'] . '</td>
