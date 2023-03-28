@@ -315,14 +315,14 @@ if ($stmt === false) {
                         IMP_nc_open3_detimp AS 'COL-4',
                         IIF(PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
                         IMP_nc_open3_basimp AS 'COL-6',
-                        IMP_nc_open3_porimp AS 'COL-7',
-                        IMP_nc_open3_monimp AS 'COL-8', 
+                        ABS(IMP_nc_open3_porimp) AS 'COL-7',
+                        IIF(IMP_nc_open3_numnc = '',ABS(IMP_nc_open3_monimp),IMP_nc_open3_monimp) AS 'COL-8',  
                         IMP_nc_open3_numnd AS 'COL-9',
                         IMP_nc_open3_numnc AS 'COL-10'
                 FROM IMPP3000
                 LEFT JOIN PM20000 ON PM20000.DOCNUMBR = IMP_nc_open3_numdoc
                 LEFT JOIN PM30200 ON PM30200.DOCNUMBR = IMP_nc_open3_numdoc
-				WHERE IMP_nc_open3_numdoc= '" . $doc . "'
+				WHERE IMP_nc_open3_numdoc= '" . $doc ."'
                 AND open3_p = '" . $rif . "'
                 UNION
                 SELECT CONVERT(VARCHAR, IMP_nc_hist3_fecdoc, 103) AS 'COL-1',
@@ -331,14 +331,14 @@ if ($stmt === false) {
                         IMP_nc_hist3_detimp AS 'COL-4',
                         IIF(PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
                         IMP_nc_hist3_basimp AS 'COL-6',
-                        IMP_nc_hist3_porimp AS 'COL-7',
-                        IMP_nc_hist3_monimp AS 'COL-8', 
+                        ABS(IMP_nc_hist3_porimp) AS 'COL-7',
+                        IIF(IMP_nc_hist3_numnc = '',ABS(IMP_nc_hist3_monimp),IMP_nc_hist3_monimp) AS 'COL-8', 
                         IMP_nc_hist3_numnd AS 'COL-9',
                         IMP_nc_hist3_numnc AS 'COL-10'
                 FROM IMPP3200
                 LEFT JOIN PM20000 ON PM20000.DOCNUMBR = IMP_nc_hist3_numdoc
                 LEFT JOIN PM30200 ON PM30200.DOCNUMBR = IMP_nc_hist3_numdoc
-                WHERE IMP_nc_hist3_numdoc= '" . $doc . "'
+                WHERE IMP_nc_hist3_numdoc= '" . $doc ."'
                 AND hist3_p = '" . $rif . "'
                 UNION
                 SELECT CONVERT(VARCHAR, IMP_nc_open3_fecdocd, 103) AS 'COL-1', 
@@ -347,14 +347,14 @@ if ($stmt === false) {
                         IMP_nc_open3_detimpd AS 'COL-4',
                         IIF(PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
                         IMP_nc_open3_basimpd AS 'COL-6', 
-                        IMP_nc_open3_porimpd AS 'COL-7', 
-                        IMP_nc_open3_monimpd AS 'COL-8', 
+                        ABS(IMP_nc_open3_porimpd) AS 'COL-7', 
+                        IIF(IMP_nc_open3_numncd = '',ABS(IMP_nc_open3_monimpd),IMP_nc_open3_monimpd) AS 'COL-8',  
                         IMP_nc_open3_numndd AS 'COL-9', 
                         IMP_nc_open3_numncd AS 'COL-10' 
                 FROM IMPP3100
                 LEFT JOIN PM20000 ON PM20000.DOCNUMBR = IMP_nc_open3_numdocd
                 LEFT JOIN PM30200 ON PM30200.DOCNUMBR = IMP_nc_open3_numdocd
-                WHERE IMP_nc_open3_numfafd = '" . $doc . "'
+                WHERE IMP_nc_open3_numfafd = '" . $doc ."'
                 AND open3_pd = '" . $rif . "'");
 
         $stmt = sqlsrv_query($conn, $sql);

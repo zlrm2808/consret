@@ -368,12 +368,8 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                 END AS 'col-20',
 				IIF(IMP_nc_open_numntc='',STR(ABS(IMP_nc_open_ivaret),9,2),STR(IMP_nc_open_ivaret,9,2)) AS 'col-21'
             FROM IMPP2001
-            WHERE IMP_nc_open_numntd != ''
+            WHERE IMP_nc_open_numntd = '" . $doc . "'
             AND open_p = '" . $rif . "'
-            AND IMP_nc_open_numfac = '" . $doc . "'
-            AND IMP_nc_open_numfac = '" . $doc . "'
-            OR IMP_nc_open_facafe = '" . $doc . "'
-            OR IMP_nc_open_numntd = '" . $doc . "'
             UNION
             SELECT IMP_nc_hist_numope AS 'col-1',
                 CONVERT(VARCHAR, IMP_nc_hist_fecdoc, 103) AS 'col-2',
@@ -406,11 +402,8 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                 END AS 'col-20',
                 IIF(IMP_nc_hist_numntc='',STR(ABS(IMP_nc_hist_ivaret),9,2),STR(IMP_nc_hist_ivaret,9,2)) AS 'col-21'
             FROM IMPP2201
-            WHERE IMP_nc_hist_numntd != ''
-            AND  hist_p = '" . $rif . "'
-            AND IMP_nc_hist_numfac = '" . $doc . "'
-            OR IMP_nc_hist_facafe = '" . $doc . "'
-            OR IMP_nc_hist_numntd = '" . $doc . "'");
+            WHERE IMP_nc_hist_numntd = '" . $doc . "'
+            AND  hist_p = '" . $rif . "'");
 
         $stmt = sqlsrv_query($conn, $sql);
         if ($stmt === false) {
