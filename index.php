@@ -5,10 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./css/styles.css">
     <title>Comprobantes de Retención Online - VOG</title>
 </head>
 <?php
+
+$filename = 'config.html';
+if(file_exists($filename)){
+    unlink('config.html');
+    unlink('config_done.php');
+}
+
 $file = @fopen('config.ini', "r");
 if ($file) {
     while (!feof($file)) {
@@ -39,10 +47,10 @@ $LOGOEMP = "./images/".$EMPRESA."-logo-emp.png";
 
         </div>
         <div class="descripcion">
-            <p>VOG Comprobantes de Retención Online es una Aplicación WEB que le permite la
-                Impresión electrónica de sus comprobantes de retención de impuesto (IVA, ISLR,
-                Adicionales), evitando el traslado físico para retirarlos y agilizando los tiempos
-                de entrega</p>
+            <p>VOG Comprobantes de Retención Online es una Aplicación WEB que le permite la 
+                impresión y/o descarga electrónica de sus comprobantes de retención 
+                de impuesto (IVA-ISLR-Municipales), de forma efectiva y en los lapsos de tiempo 
+                adecuados para que sus obligaciones tributarias no se vean afectadas.</p>
         </div>
         <div class="derecho">
 

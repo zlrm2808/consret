@@ -18,6 +18,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/icons/favicon.ico" type="image/x-icon">
     <title>Documento de ISLR</title>
 </head>
 
@@ -313,7 +314,7 @@ if ($stmt === false) {
                         IMP_nc_open3_numfac AS 'COL-2',
                         IMP_nc_open3_ncontro AS 'COL-3',
                         IMP_nc_open3_detimp AS 'COL-4',
-                        IIF(PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
+                        IIF(PM20000.DOCAMNT IS NULL OR PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
                         IMP_nc_open3_basimp AS 'COL-6',
                         ABS(IMP_nc_open3_porimp) AS 'COL-7',
                         IIF(IMP_nc_open3_numnc = '',ABS(IMP_nc_open3_monimp),IMP_nc_open3_monimp) AS 'COL-8',  
@@ -329,7 +330,7 @@ if ($stmt === false) {
                         IMP_nc_hist3_numfac AS 'COL-2',
                         IMP_nc_hist3_ncontro AS 'COL-3',
                         IMP_nc_hist3_detimp AS 'COL-4',
-                        IIF(PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
+                        IIF(PM20000.DOCAMNT IS NULL OR PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
                         IMP_nc_hist3_basimp AS 'COL-6',
                         ABS(IMP_nc_hist3_porimp) AS 'COL-7',
                         IIF(IMP_nc_hist3_numnc = '',ABS(IMP_nc_hist3_monimp),IMP_nc_hist3_monimp) AS 'COL-8', 
@@ -345,7 +346,7 @@ if ($stmt === false) {
                         IMP_nc_open3_numfacd AS 'COL-2', 
                         IMP_nc_open3_ncontrod AS 'COL-3', 
                         IMP_nc_open3_detimpd AS 'COL-4',
-                        IIF(PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
+                        IIF(PM20000.DOCAMNT IS NULL OR PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
                         IMP_nc_open3_basimpd AS 'COL-6', 
                         ABS(IMP_nc_open3_porimpd) AS 'COL-7', 
                         IIF(IMP_nc_open3_numncd = '',ABS(IMP_nc_open3_monimpd),IMP_nc_open3_monimpd) AS 'COL-8',  

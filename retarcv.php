@@ -8,6 +8,7 @@
     <meta name="Author" content="">
     <meta name="Keywords" content="">
     <meta name="Description" content="">
+    <link rel="shortcut icon" href="./images/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./css/retenciones.css">
     <title>Documento de ACRV</title>
 </head>

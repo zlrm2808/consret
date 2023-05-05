@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./css/retenciones.css">
     <title>Documento de ISLR</title>
 </head>
@@ -18,8 +19,7 @@
     $EMPRESA = $_POST["EMPRESA"];
     $LOGORET = './images/' . $EMPRESA . '-logo-ret.png';
     $FIRMA  = './images/' . $EMPRESA . '-FirmaySello.png';
-
-
+    
     include_once("conexion.php");
 
     // Con esta Consulta saco el encabezado de las retenciones
@@ -204,53 +204,8 @@
         <br /><br />
 
         <?php
-        $sql = ("SELECT CONVERT(VARCHAR, IMP_nc_open3_fecdoc, 103) AS 'COL-1',
-                        IMP_nc_open3_numfac AS 'COL-2',
-                        IMP_nc_open3_ncontro AS 'COL-3',
-                        IMP_nc_open3_detimp AS 'COL-4',
-                        IIF(PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
-                        IMP_nc_open3_basimp AS 'COL-6',
-                        ABS(IMP_nc_open3_porimp) AS 'COL-7',
-                        IIF(IMP_nc_open3_numnc = '',ABS(IMP_nc_open3_monimp),IMP_nc_open3_monimp) AS 'COL-8',  
-                        IMP_nc_open3_numnd AS 'COL-9',
-                        IMP_nc_open3_numnc AS 'COL-10'
-                FROM IMPP3000
-                LEFT JOIN PM20000 ON PM20000.DOCNUMBR = IMP_nc_open3_numdoc
-                LEFT JOIN PM30200 ON PM30200.DOCNUMBR = IMP_nc_open3_numdoc
-				WHERE IMP_nc_open3_numdoc= '" . $doc ."'
-                AND open3_p = '" . $rif . "'
-                UNION
-                SELECT CONVERT(VARCHAR, IMP_nc_hist3_fecdoc, 103) AS 'COL-1',
-                        IMP_nc_hist3_numfac AS 'COL-2',
-                        IMP_nc_hist3_ncontro AS 'COL-3',
-                        IMP_nc_hist3_detimp AS 'COL-4',
-                        IIF(PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
-                        IMP_nc_hist3_basimp AS 'COL-6',
-                        ABS(IMP_nc_hist3_porimp) AS 'COL-7',
-                        IIF(IMP_nc_hist3_numnc = '',ABS(IMP_nc_hist3_monimp),IMP_nc_hist3_monimp) AS 'COL-8', 
-                        IMP_nc_hist3_numnd AS 'COL-9',
-                        IMP_nc_hist3_numnc AS 'COL-10'
-                FROM IMPP3200
-                LEFT JOIN PM20000 ON PM20000.DOCNUMBR = IMP_nc_hist3_numdoc
-                LEFT JOIN PM30200 ON PM30200.DOCNUMBR = IMP_nc_hist3_numdoc
-                WHERE IMP_nc_hist3_numdoc= '" . $doc ."'
-                AND hist3_p = '" . $rif . "'
-                UNION
-                SELECT CONVERT(VARCHAR, IMP_nc_open3_fecdocd, 103) AS 'COL-1', 
-                        IMP_nc_open3_numfacd AS 'COL-2', 
-                        IMP_nc_open3_ncontrod AS 'COL-3', 
-                        IMP_nc_open3_detimpd AS 'COL-4',
-                        IIF(PM20000.DOCAMNT = 0,PM30200.DOCAMNT,PM20000.DOCAMNT) AS 'COL-5',
-                        IMP_nc_open3_basimpd AS 'COL-6', 
-                        ABS(IMP_nc_open3_porimpd) AS 'COL-7', 
-                        IIF(IMP_nc_open3_numncd = '',ABS(IMP_nc_open3_monimpd),IMP_nc_open3_monimpd) AS 'COL-8',  
-                        IMP_nc_open3_numndd AS 'COL-9', 
-                        IMP_nc_open3_numncd AS 'COL-10' 
-                FROM IMPP3100
-                LEFT JOIN PM20000 ON PM20000.DOCNUMBR = IMP_nc_open3_numdocd
-                LEFT JOIN PM30200 ON PM30200.DOCNUMBR = IMP_nc_open3_numdocd
-                WHERE IMP_nc_open3_numfafd = '" . $doc ."'
-                AND open3_pd = '" . $rif . "'");
+        
+        include_once('cons_islr.php');
 
         $stmt = sqlsrv_query($conn, $sql);
         if ($stmt === false) {

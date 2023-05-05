@@ -1,4 +1,5 @@
 <head>
+    <link rel="shortcut icon" href="./images/icons/favicon.ico" type="image/x-icon">
     <script>
         function esperar(espera) {
             string = "pausa_alerta(" + espera + ");";

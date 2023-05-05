@@ -23,6 +23,7 @@ class ComposerStaticInitf00ebf5a8c745ad03064a981c725b02b
         'D' => 
         array (
             'Dompdf\\' => 7,
+            'Defuse\\Crypto\\' => 14,
         ),
     );
 
@@ -46,6 +47,10 @@ class ComposerStaticInitf00ebf5a8c745ad03064a981c725b02b
         'Dompdf\\' => 
         array (
             0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
+        ),
+        'Defuse\\Crypto\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/defuse/php-encryption/src',
         ),
     );
 

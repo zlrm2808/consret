@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./css/retenciones.css">
     <title>Documento de MUN</title>
 </head>
@@ -59,7 +60,6 @@
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
 	INNER JOIN IMPP0161 on PV_MI_rif000 = IMP_gene_idprov
     WHERE IMP_gene_idprov =  '" . $rif . "'
-    AND IMP_gene_detimp LIKE '%MUN%'
     AND IMP_gene_numdoc = '" . $doc . "'
     UNION
     SELECT TOP 1
@@ -98,7 +98,6 @@
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
 	INNER JOIN IMPP0161 on PV_MI_rif000 = IMP_gene_idprovh
     WHERE IMP_gene_idprovh =  '" . $rif . "'
-    AND IMP_gene_detimph LIKE '%MUN%'
     AND IMP_gene_numdoch = '" . $doc . "'");
     
     $stmt = sqlsrv_query($conn, $sql);
@@ -249,7 +248,6 @@
                     FROM IMPP4000
                     LEFT JOIN IMPP3000 ON IMP_nc_open3_numdoc = IMP_gene_numdoc
                     WHERE IMP_gene_idprov = '" . $rif . "'
-                    AND IMP_gene_detimp LIKE '%MUN%' 
                     AND IMP_gene_numdoc = '" . $doc . "'
                     UNION
                     SELECT CONVERT(VARCHAR, IMP_gene_fecdoch, 103) AS 'COL-1',
@@ -265,7 +263,6 @@
                     FROM IMPP4100
                     LEFT JOIN IMPP3200 ON IMP_nc_hist3_numdoc = IMP_gene_numdoch
                     WHERE IMP_gene_idprovh = '" . $rif . "'
-                    AND IMP_gene_detimph LIKE '%MUN%'
                     AND IMP_gene_numdoch = '" . $doc . "'
                     UNION
                     SELECT CONVERT(VARCHAR, IMP_gene_fecdoc, 103) AS 'COL-1',
@@ -281,7 +278,6 @@
                     FROM IMPP4300
                     LEFT JOIN IMPP3000 ON IMP_nc_open3_numdoc = IMP_gene_numdoc
                     WHERE IMP_gene_idprov = '" . $rif . "'
-                    AND IMP_gene_detimp LIKE '%MUN%' 
                     AND IMP_gene_numfaf = '" . $doc . "'");
 
             $stmt = sqlsrv_query($conn, $sql);

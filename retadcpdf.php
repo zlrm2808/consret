@@ -19,6 +19,7 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/icons/favicon.ico" type="image/x-icon">
     <title>Documento de ADC</title>
 </head>
 
@@ -189,7 +190,6 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
 	INNER JOIN IMPP0161 on PV_MI_idprov = IMP_gene_idprov
     WHERE IMP_gene_idprov =  '" . $rif . "'
-    AND IMP_gene_detimp LIKE '%MUN%'
     AND IMP_gene_numdoc = '" . $doc . "'
     UNION
     SELECT TOP 1
@@ -225,7 +225,6 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
     INNER JOIN IMPC0001 on CO_MI_idcomp = DB_NAME()
 	INNER JOIN IMPP0161 on PV_MI_idprov = IMP_gene_idprovh
     WHERE IMP_gene_idprovh =  '" . $rif . "'
-    AND IMP_gene_detimph LIKE '%MUN%'
     AND IMP_gene_numdoch = '" . $doc . "'");
 
     $stmt = sqlsrv_query($conn, $sql);
@@ -344,7 +343,6 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                 FROM IMPP4000
                 LEFT JOIN IMPP3000 ON IMP_nc_open3_numdoc = IMP_gene_numdoc
                 WHERE IMP_gene_idprov = '" . $rif . "'
-                AND IMP_gene_detimp LIKE '%MUN%' 
                 AND IMP_gene_numdoc = '" . $doc . "'
                 UNION
                 SELECT IMP_gene_noperah AS 'COL-1',
@@ -368,7 +366,6 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                 FROM IMPP4100
                 LEFT JOIN IMPP3200 ON IMP_nc_hist3_numdoc = IMP_gene_numdoch
                 WHERE IMP_gene_idprovh = '" . $rif . "'
-                AND IMP_gene_detimph LIKE '%MUN%' 
                 AND IMP_gene_numdoch = '" . $doc . "'
                 UNION
                 SELECT IMP_gene_nopera AS 'COL-1', 
@@ -391,7 +388,6 @@ $anulado64 = "data:image/png;base64," . base64_encode(file_get_contents($anulado
                 FROM IMPP4300
                 LEFT JOIN IMPP3000 ON IMP_nc_open3_numdoc = IMP_gene_numdoc
                 WHERE IMP_gene_idprov = '" . $rif . "'
-                AND IMP_gene_detimp LIKE '%MUN%' 
                 AND IMP_gene_numfaf = '" . $doc . "'");
 
         $stmt = sqlsrv_query($conn, $sql);

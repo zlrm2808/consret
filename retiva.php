@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/icons/favicon.ico" type="image/x-icon">
     <link href="./css/retenciones.css" rel="stylesheet" />
     <title>Documento de IVA</title>
 </head>
@@ -384,25 +385,15 @@
         ?>
         <table border='0' style='border-collapse: collapse' align=center width='100%'>
             <tr>
-                <td width='20%'></td>
-                <td width='20%'></td>
-                <td width='20%'></td>
-                <td width='20%'></td>
-                <td width='20%'></td>
+                <td align='center'>
+                    <img src='<?php echo $FIRMA ?>' width='200px' height='100px'>
+                </td>
             </tr>
             <tr>
-                <td width='20%'></td>
-                <td width='20%' align='center'><img src='<?php echo $FIRMA ?>' width='200px' height='100px'></td>
-                <td width='20%'></td>
-                <td width='20%'></td>
-                <td width='20%'></td>
+                <td align='center'>_______________________________________________________</td>
             </tr>
             <tr>
-                <td width='20%'></td>
-                <td width='20%' align='center'>______________________________________<br />Firma y sello del agente de retención <br /></td>
-                <td width='20%'></td>
-                <td width='20%' align='center'>______________________________________<br />Nombre, firma y sello del proveedor <br />Fecha de Descarga:<?php echo ' ' . $hoy ?></td>
-                <td width='20%'></td>
+                <td align='center'><?php echo utf8_encode($rzsoc) ?><br />Fecha de Descarga:<?php echo ' ' . $hoy ?></td>
             </tr>
         </table>
     </div>
